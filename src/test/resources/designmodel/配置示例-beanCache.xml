@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="GBK"?>
+<cacheModule>
+	<!-- 提醒：spring bean 内部调用（inner method）会绕过AOP代理，从而绕过缓存 -->
+	<!-- 解决方案示例： -->
+	<!-- 1. ASerivce selfAopProxy = (ASerivce) AopContext.currentProxy(); -->
+	<!-- 2. selfAopProxy.innerMethod();// 替换this. -->
+
+	<!-- 缓存Bean配置 -->
+	<cacheBeans>
+		<cacheBean>
+			<beanName>promotionReadService</beanName>
+			<cacheMethods>
+				<methodConfig>
+					<methodName>getPromotionByCode</methodName>
+					<parameterTypes>								<!-- 方法参数，如果有重载方法时，必须要指定，可选 -->
+						<java-class>java.lang.String</java-class>
+					</parameterTypes>
+					<expiredTime></expiredTime>						<!-- 失效时间，单位：秒。 可以是相对时间，也可以是绝对时间(大于当前时间戳是绝对时间过期)。不传或0都是不过期，可选 -->
+				</methodConfig>
+				<methodConfig>
+					...
+				</methodConfig>
+			</cacheMethods>
+		</cacheBean>
+		<cacheBean>...</cacheBean>
+	</cacheBeans>
+	<!-- 缓存清理Bean配置 -->
+	<cacheCleanBeans>
+		<cacheCleanBean>
+			<beanName>promotionReadService</beanName>
+			<methods>
+				<cacheCleanMethod>
+					<methodName>cleanCacheById</methodName>
+					<parameterTypes>								<!-- 方法参数，如果有重载方法时，必须要指定，可选 -->
+						<java-class>java.lang.Long</java-class>
+					</parameterTypes>
+					<cleanMethods>
+						<methodConfig>
+							<methodName>getPromotionById</methodName>
+							<beanName />							<!-- 不用配置，会继承上面的beanName -->
+							<parameterTypes />						<!-- 不用配置，会继承，目前只支持参数必须和上面的一致的方法 -->
+						</methodConfig>
+					</cleanMethods>
+				</cacheCleanMethod>
+				<cacheCleanMethod>
+					...
+				</cacheCleanMethod>
+			</methods>
+		</cacheCleanBean>
+		<cacheCleanBean>...</cacheCleanBean>
+	</cacheCleanBeans>
+</cacheModule>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName">
+
+<!-- 	<bean id="tairManager" class="com.taobao.tair.impl.DefaultTairManager" -->
+<!-- 		init-method="init"> -->
+<!-- 		<property name="configServerList"> -->
+<!-- 			<list> -->
+<!-- 				<value>tair2.config-vip.taobao.net:5198</value> -->
+<!-- 				<value>tair2.config-vip.taobao.net:5198</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="groupName"> -->
+<!-- 			<value>group_1</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+	<bean id="tairManager" class="com.taobao.tair.impl.mc.MultiClusterTairManager"
+		init-method="init">
+		<property name="configID">
+			<value>ldbcommon-daily</value>
+		</property>
+		<property name="dynamicConfig">
+			<value type="java.lang.Boolean">true</value>
+		</property>
+	</bean>
+
+</beans>
