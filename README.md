@@ -1,15 +1,14 @@
-# taobao-pamirs-proxycache
-http://code.taobao.org/p/taobao-pamirs-proxycache/src/
-http://my.oschina.net/u/1164681/blog/502391?fromerr=dwfBkNQW
+**[taobao-pamirs-proxycache][1]**
 
-taobao-pamirs-proxycache
-    目前稳定版本: 
-    <dependency>
-      <groupId>com.taobao.pamirs.proxycache</groupId>
-      <artifactId>taobao-pamirs-proxycache</artifactId>
-      <version>2.0.3</version>
-    </dependency> 
-此文档内部包括：
+**目前稳定版本:** 
+```
+<dependency>
+    <groupId>com.taobao.pamirs.proxycache</groupId>
+    <artifactId>taobao-pamirs-proxycache</artifactId>
+    <version>2.0.3</version>
+</dependency>
+```
+**此文档内部包括：**
 1、设计目标 
 2、概念解释 
 3、TairStore 和 MapStore 的区别 
@@ -17,17 +16,18 @@ taobao-pamirs-proxycache
 5、一个典型的应用范例 
 6、使用过程中的注意事项 
 7、版本升级说明 
-1、Proxycache 的设计目标
+**1、Proxycache 的设计目标**
 1、taobao-pamirs-proxycache 的目的是产生一种和业务代码完全隔离的缓存工具.开发只需要编写业务代码.缓存的使用完全通过配置文件进行. 
 2、缓存可以动态的增加和去除.
 3、缓存功能和存储机制分离. 可以选择不同的数据存储方式来获得数据.
 4、可以通过JMX控制台查看缓存状态,命中率,读取/写入平均耗时,修改缓存数据.
-5、可以设定缓存自动更新,格式为标准 quartz 格式 （请参照： http://dogstar.javaeye.com/blog/116130） 
+5、可以设定缓存自动更新,格式为标准 quartz 格式 （请参照： http://dogstar.iteye.com/blog/116130） 
 6、提供一种动态线程缓存,可以对一个流程内的数据自动缓存. 
-2、概念解释
-缓存配置文件
+**2、概念解释**
+**缓存配置文件**
 在2.1.0版本后，对Spring bean配置和缓存配置CacheModule彻底分开，并且可支持多种缓存配置的load，真正做到缓存配置和存储分离。
-Spring Bean
+**Spring Bean**
+```
 Spring bean 定义的缓存启动. 包括 cacheManage , store
 <bean id="cacheManager" class="com.taobao.pamirs.cache.load.impl.LocalConfigCacheManager" init-method="init"
 	depends-on="tairManager">
@@ -42,7 +42,9 @@ Spring bean 定义的缓存启动. 包括 cacheManage , store
 <bean class="com.taobao.pamirs.cache.framework.aop.handle.CacheManagerHandle">
 	<property name="cacheManager" ref="cacheManager" />
 </bean>
-CacheModule
+```
+**CacheModule**
+```
 <cacheModule>
 	<!-- 缓存Bean配置 -->
 	<cacheBeans>
@@ -79,7 +81,8 @@ CacheModule
 		</cacheCleanBean>
 	</cacheCleanBeans>
 </cacheModule>
-缓存执行原理
+```
+**缓存执行原理**
 1.cacheManage 被Spring装载. 
 2.通过指定的Load方式加载指定的cacheModule 配置列表. 
 3.合并多个cacheModule配置,增加autofill默认配置、配置validate功能,最终合并成cacheConfig. 
@@ -89,7 +92,8 @@ CacheModule
 7.后续再有同样的调用,根据参数返回 CacheValue, 实现缓存功能. 
 8.Cache底层实现多种存储方式,各有优点,适合不同业务场景. 
 
-3.TairStore 和 MapStore 的区别
+**3.TairStore 和 MapStore 的区别**
+```
 TairStore
 /**
  * TairStore 采用淘宝 Tair 的统一缓存存储方案.
@@ -123,9 +127,10 @@ MapStore
  * 例如基础型数据.
  * </pre>
 */
-4、动态线程缓存ThreadCache
+```
+**4、动态线程缓存ThreadCache**
 动态线程缓存：一种区别与 分布式缓存 和 本地缓存 的另一种线程缓存。
-一、使用场景
+**一、使用场景**
 在流程中（单线程），涉及到对多个method重复调用，并且结果相同（流程中不会DML结果） 即使单个接口性能很高，也会导致整个流程性能降低。
 （如：
 交易流程需要调用商品接口100次以上，虽然每次调用只需要3ms（已走tair），但总的RT也需要300ms了
@@ -135,7 +140,7 @@ MapStore
 对重复调用的method提前调用，然后把结果传递给每一个调用的地方
 单纯采用threadlocal保存结果缓存，然后每个方法内部修改逻辑，可以优先取缓存
 ）
-二、目标
+**二、目标**
 对原有代码基本无侵入性
 和spring无缝结合
 支持method粒度
@@ -143,8 +148,9 @@ MapStore
 lazy load策略加载缓存
 命中率打印
 JMX动态开关
-三、使用方法
+**三、使用方法**
 注入spring bean：
+```
 	<bean class="com.taobao.pamirs.cache.store.threadcache.ThreadCacheHandle">
 		<property name="beansMap">
 		<!-- the void method not support， will ignore cache -->
@@ -166,9 +172,11 @@ JMX动态开关
 			ThreadContext.remove();	
 		}
 	}
-5、一个典型的应用范例
-服务平台商品中心数据缓存配置
-base-cache.xml
+```
+**5、一个典型的应用范例**
+**服务平台商品中心数据缓存配置**
+**base-cache.xml**
+```
 <?xml version="1.0" encoding="GBK"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-autowire="byName">
@@ -206,7 +214,9 @@ base-cache.xml
 		<property name="cacheManager" ref="cacheManager" />
 	</bean>
 </beans>
-cache-config-article.xml
+```
+**cache-config-article.xml**
+```
 <?xml version="1.0" encoding="GBK"?>
 <!-- ===================================================================== -->
 <!-- 商品加载缓存管理配置 -->
@@ -306,7 +316,9 @@ cache-config-article.xml
 		</cacheCleanBean>
 	</cacheCleanBeans>
 </cacheModule>
-jmx-mbean.xml
+```
+**jmx-mbean.xml**
+```
 <?xml version="1.0" encoding="GBK"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans default-autowire="byName">
@@ -327,7 +339,9 @@ jmx-mbean.xml
 	<bean class="com.taobao.pamirs.cache.extend.jmx.mbean.ConfigurableMBeanInfoAssembler" />
 
 </beans>
-log4j.xml
+```
+**log4j.xml**
+```
 	<appender name="pamirsCache" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="file" value="${goodscenter.loggingRoot}/pamirs_cache.log" />
 		<param name="append" value="false" />
@@ -341,9 +355,11 @@ log4j.xml
 		<level value="warn" />
 		<appender-ref ref="pamirsCache" />
 	</logger>
-6、使用过程中的注意事项
-缓存支持的method参数限定
+```
+**6、使用过程中的注意事项**
+**缓存支持的method参数限定**
 本缓存框架目前支持的method参数为了能够区分每次请求的key的唯一性，所以参数类型有约束。 当前支持的ParameterSupportType有如下18种：
+```
 	/**
 	 * 当前支持的参数类型
 	 * 
@@ -365,16 +381,17 @@ log4j.xml
 
 		return false;
 	}
-配置示例
+```
+**配置示例**
 完整的配置示例，请见src/test/resources/ designmodel 目录下：
 配置示例-springCache.xml 
 配置示例-beanCache.xml 
-6、版本升级说明
-2012-08-31：升级为1.2.3
+**6、版本升级说明**
+**2012-08-31：升级为1.2.3**
 修改内容：支持多个基本类型的请求参数组合一个key，进行缓存操作。当请求参数为空时，默认为null。（tbyunshu） 
-2012-11-22：升级为2.0
+**2012-11-22：升级为2.0**
 （注意：本次升级修改比较大，在结构设计、配置上有大的重构，配置不向后兼容）（xiaocheng）
-修改内容
+**修改内容**
 AOP\CacheManager\CacheProxy\Store\Load\Extend 各自功能域更加清晰，解耦，易扩展.
 支持Tair的原生ExpireTime.
 MapStore采用高性能的ConcurrentLRU算法，并且使用SoftReference来避免OOM.
@@ -382,6 +399,8 @@ MapStore采用高性能的ConcurrentLRU算法，并且使用SoftReference来避�
 配置源可扩展化（local、zk等）.
 配置简易化（约定大于配置）、增加启动校验功能.
 自带缓存命中日志，采用异步log打印。并且日志与xray集合，提供缓存命中率报表、监控等.
-目前不支持的有
+**目前不支持的有**
 Loader继承CacheManager，1:1关系，所以CacheManager不支持多种Loader. 
 一个Loader只能支持可支持多个Resource文件，但只能用一种storeType. 
+
+  [1]: http://code.taobao.org/p/taobao-pamirs-proxycache/wiki/index/
