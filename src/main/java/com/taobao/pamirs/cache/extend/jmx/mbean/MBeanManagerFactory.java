@@ -17,7 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.core.JdkVersion;
 
 /**
- * Mbean¹¤³§Àà
+ * Mbeanå·¥å‚ç±»
  * 
  * @author xuanyu
  * @author xiaocheng 2012-11-8
@@ -27,8 +27,8 @@ public class MBeanManagerFactory {
 	private static final Log log = LogFactory.getLog(MBeanManagerFactory.class);
 
 	/**
-	 * »ñÈ¡ËùÓĞµÄMBeanServer£¬ÒòÎªJDKºÍJBOSSÊ¹ÓÃ²»Í¬µÄMBeanServer ºÜÆæ¹ÖµÄÊÇ
-	 * ÈÕ³£»·¾³¶¼ÊÇ×¢²áµ½JDKµÄMBeanServer£¬¶øÔ¤·¢ºÍÏßÉÏÊÇJBOSSµÄ
+	 * è·å–æ‰€æœ‰çš„MBeanServerï¼Œå› ä¸ºJDKå’ŒJBOSSä½¿ç”¨ä¸åŒçš„MBeanServer å¾ˆå¥‡æ€ªçš„æ˜¯
+	 * æ—¥å¸¸ç¯å¢ƒéƒ½æ˜¯æ³¨å†Œåˆ°JDKçš„MBeanServerï¼Œè€Œé¢„å‘å’Œçº¿ä¸Šæ˜¯JBOSSçš„
 	 * 
 	 * @return
 	 * @throws MBeanRegistrationException
@@ -36,20 +36,20 @@ public class MBeanManagerFactory {
 	public static ArrayList<MBeanServer> getMbeanServer()
 			throws MBeanRegistrationException {
 		if (!JdkVersion.isAtLeastJava15())
-			throw new MBeanRegistrationException(null, "ĞèÒªJDK1.5ÒÔÉÏ");
+			throw new MBeanRegistrationException(null, "éœ€è¦JDK1.5ä»¥ä¸Š");
 
 		//
 		ArrayList<MBeanServer> mBeanServerAll = MBeanServerFactory
 				.findMBeanServer(null);
 		if (mBeanServerAll != null && !mBeanServerAll.isEmpty()) {
-			log.info("´Ó MBeanServerFactory ÖĞ»ñÈ¡ mbeanServer");
+			log.info("ä» MBeanServerFactory ä¸­è·å– mbeanServer");
 			return mBeanServerAll;
 		}
 
 		mBeanServerAll = new ArrayList<MBeanServer>();
 		MBeanServer mbeanServer = ManagementFactory.getPlatformMBeanServer();
 		if (mbeanServer == null) {
-			String errMsg = "ÎŞ·¨»ñµÃ  mbeanServer factory="
+			String errMsg = "æ— æ³•è·å¾—  mbeanServer factory="
 					+ MBeanServerFactory.class;
 			log.error(errMsg);
 			throw new MBeanRegistrationException(null, errMsg);
