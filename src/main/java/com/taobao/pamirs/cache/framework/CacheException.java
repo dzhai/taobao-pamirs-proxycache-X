@@ -1,7 +1,7 @@
 package com.taobao.pamirs.cache.framework;
 
 /**
- * »º´æÒì³£
+ * ç¼“å­˜å¼‚å¸¸
  * 
  * @author xiaocheng 2012-11-1
  */

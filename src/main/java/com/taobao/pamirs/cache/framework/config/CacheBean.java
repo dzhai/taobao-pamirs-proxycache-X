@@ -6,7 +6,7 @@ import java.util.List;
 import com.taobao.pamirs.cache.load.verify.Verfication;
 
 /**
- * »º´æbeanÅäÖÃ
+ * ç¼“å­˜beané…ç½®
  * 
  * @author xiaocheng 2012-11-2
  */
@@ -15,13 +15,13 @@ public class CacheBean implements Serializable {
 	//
 	private static final long serialVersionUID = 4973185401294689002L;
 
-	@Verfication(name = "CacheBeanÃû³Æ", notEmpty = true)
+	@Verfication(name = "CacheBeanåç§°", notEmpty = true)
 	private String beanName;
 
 	/**
-	 * »º´æµÄ·½·¨ÁĞ±í
+	 * ç¼“å­˜çš„æ–¹æ³•åˆ—è¡¨
 	 */
-	@Verfication(name = "»º´æµÄ·½·¨ÁĞ±í", notEmptyList = true)
+	@Verfication(name = "ç¼“å­˜çš„æ–¹æ³•åˆ—è¡¨", notEmptyList = true)
 	private List<MethodConfig> cacheMethods;
 
 	public String getBeanName() {

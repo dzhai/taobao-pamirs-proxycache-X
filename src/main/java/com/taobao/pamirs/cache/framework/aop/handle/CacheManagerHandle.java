@@ -12,7 +12,7 @@ import com.taobao.pamirs.cache.framework.aop.advisor.CacheManagerAdvisor;
 import com.taobao.pamirs.cache.util.ConfigUtil;
 
 /**
- * »º´æ¹ÜÀí´¦ÀíÀà
+ * ç¼“å­˜ç®¡ç†å¤„ç†ç±»
  * 
  * @author xuannan
  */

@@ -9,19 +9,19 @@ import com.taobao.pamirs.cache.framework.ICache;
 import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMap;
 
 /**
- * MapStore Ê¹ÓÃ±¾µØ ConcurrentLRUCacheMap ×÷Îª CacheManage µÄ»º´æ´æ´¢·½°¸.
+ * MapStore ä½¿ç”¨æœ¬åœ° ConcurrentLRUCacheMap ä½œä¸º CacheManage çš„ç¼“å­˜å­˜å‚¨æ–¹æ¡ˆ.
  * <p>
  * 
  * <pre>
- * Í¨¹ý Key-Value µÄÐÎÊ½½«¶ÔÏó´æÈë ±¾µØÄÚ´æÖÐ.
+ * é€šè¿‡ Key-Value çš„å½¢å¼å°†å¯¹è±¡å­˜å…¥ æœ¬åœ°å†…å­˜ä¸­.
  * 
- * ¿ÉÒÔ²ÉÓÃ PUT , PUT_EXPIRETIME , GET , REMOVE ÕâÈýÖÖ Key ²Ù×÷. 
- * ¿ÉÒÔ²ÉÓÃ CLEAR , CLEAN ÕâÖÖ·¶Î§Çå³ý²Ù×÷.
+ * å¯ä»¥é‡‡ç”¨ PUT , PUT_EXPIRETIME , GET , REMOVE è¿™ä¸‰ç§ Key æ“ä½œ. 
+ * å¯ä»¥é‡‡ç”¨ CLEAR , CLEAN è¿™ç§èŒƒå›´æ¸…é™¤æ“ä½œ.
  * 
- * Ê¹ÓÃ¸Ã Store . Êý¾ÝÁ¿½ÏÐ¡. 0 ~ 1G ·ÃÎÊºÄÊ±¼«µÍ. 
- * ÊÊÓÃÓÚÊý¾ÝÁ¿Ð¡µ«±ä»¯½Ï¶àµÄ³¡ºÏ.
+ * ä½¿ç”¨è¯¥ Store . æ•°æ®é‡è¾ƒå°. 0 ~ 1G è®¿é—®è€—æ—¶æžä½Ž. 
+ * é€‚ç”¨äºŽæ•°æ®é‡å°ä½†å˜åŒ–è¾ƒå¤šçš„åœºåˆ.
  * 
- * ÀýÈç»ù´¡ÐÍÊý¾Ý.
+ * ä¾‹å¦‚åŸºç¡€åž‹æ•°æ®.
  * </pre>
  * 
  * @author xuanyu

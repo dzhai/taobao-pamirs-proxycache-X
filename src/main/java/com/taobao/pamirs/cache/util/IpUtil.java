@@ -4,7 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * 获取本机IP
+ * 鑾峰彇鏈満IP
  * 
  * @author xiaocheng 2012-11-21
  */

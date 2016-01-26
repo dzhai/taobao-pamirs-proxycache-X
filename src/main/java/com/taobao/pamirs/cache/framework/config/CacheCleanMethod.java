@@ -5,7 +5,7 @@ import java.util.List;
 import com.taobao.pamirs.cache.load.verify.Verfication;
 
 /**
- * »º´æÇåÀíµÄ·½·¨£¬ÄÚ²¿°üº¬¹ØÁªµÄclean methods
+ * ç¼“å­˜æ¸…ç†çš„æ–¹æ³•ï¼Œå†…éƒ¨åŒ…å«å…³è”çš„clean methods
  * 
  * @author xiaocheng 2012-11-12
  */
@@ -15,9 +15,9 @@ public class CacheCleanMethod extends MethodConfig {
 	private static final long serialVersionUID = 2983763433924222529L;
 
 	/**
-	 * ĞèÒª¹ØÁªremove»º´æµÄ·½·¨ÁĞ±í
+	 * éœ€è¦å…³è”removeç¼“å­˜çš„æ–¹æ³•åˆ—è¡¨
 	 */
-	@Verfication(name = "ĞèÒª¹ØÁªremove»º´æµÄ·½·¨ÁĞ±í", notEmptyList = true)
+	@Verfication(name = "éœ€è¦å…³è”removeç¼“å­˜çš„æ–¹æ³•åˆ—è¡¨", notEmptyList = true)
 	private List<MethodConfig> cleanMethods;
 
 	public List<MethodConfig> getCleanMethods() {

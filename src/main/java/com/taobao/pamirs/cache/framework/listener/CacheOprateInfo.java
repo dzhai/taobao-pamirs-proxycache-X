@@ -6,7 +6,7 @@ import com.taobao.pamirs.cache.framework.CacheException;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
 
 /**
- * »º´æ²Ù×÷µÄÏà¹ØĞÅÏ¢
+ * ç¼“å­˜æ“ä½œçš„ç›¸å…³ä¿¡æ¯
  * 
  * @author xiaocheng 2012-10-31
  */
@@ -19,10 +19,10 @@ public class CacheOprateInfo extends MethodConfig implements Serializable {
 
 	private Serializable key;
 	private long methodTime;
-	/** ÊÇ·ñÃüÖĞ£¨for GET£© */
+	/** æ˜¯å¦å‘½ä¸­ï¼ˆfor GETï¼‰ */
 	private boolean isHitting;
 	private CacheException cacheException;
-	/** µ÷ÓÃÀ´Ô´£ºip */
+	/** è°ƒç”¨æ¥æºï¼šip */
 	private String ip;
 
 	public CacheOprateInfo(Serializable key, long methodTime,
@@ -50,7 +50,7 @@ public class CacheOprateInfo extends MethodConfig implements Serializable {
 	}
 
 	/**
-	 * »º´æ²Ù×÷ÊÇ·ñ³É¹¦
+	 * ç¼“å­˜æ“ä½œæ˜¯å¦æˆåŠŸ
 	 * 
 	 * @return
 	 */

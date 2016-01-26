@@ -24,7 +24,7 @@ import com.taobao.pamirs.cache.extend.jmx.annotation.JmxMethod;
 import com.taobao.pamirs.cache.util.AopProxyUtil;
 
 /**
- * Ö»ĞèÒªÅäÖÃÕâ¸öbeanÓë×¢½â£¬¾Í¿ÉÒÔÊ¹ÓÃmbeanÁË Ä¿Ç°²»Ö§³Ö·½·¨ÖĞ²ÎÊıÊÇ½Ó¿ÚµÄMbean×¢Èë
+ * åªéœ€è¦é…ç½®è¿™ä¸ªbeanä¸æ³¨è§£ï¼Œå°±å¯ä»¥ä½¿ç”¨mbeanäº† ç›®å‰ä¸æ”¯æŒæ–¹æ³•ä¸­å‚æ•°æ˜¯æ¥å£çš„Mbeanæ³¨å…¥
  * 
  * @author wuxiang
  * @author xiaocheng 2012-11-8
@@ -40,8 +40,8 @@ public class ConfigurableMBeanInfoAssembler extends
 		for (String beanClass : beans) {
 			Object obj;
 			try {
-				obj = this.applicationContext.getBean(beanClass); // ³éÏóµÄÀà²»ÄÜÊµÏÖ»¯
-				// È¡µÃ±»´úÀíµÄÔ­Ê¼¶ÔÏó
+				obj = this.applicationContext.getBean(beanClass); // æŠ½è±¡çš„ç±»ä¸èƒ½å®ç°åŒ–
+				// å–å¾—è¢«ä»£ç†çš„åŸå§‹å¯¹è±¡
 				Object target = AopProxyUtil.getPrimitiveProxyTarget(obj);
 				if (target.getClass().isAnnotationPresent(JmxClass.class))
 					injectMbean(obj, beanClass);
@@ -77,7 +77,7 @@ public class ConfigurableMBeanInfoAssembler extends
 	}
 
 	/**
-	 * È¥³ıÎ´×¢½âµÄ·½·¨
+	 * å»é™¤æœªæ³¨è§£çš„æ–¹æ³•
 	 */
 	public ModelMBeanOperationInfo[] getOperationInfo(Object managedBean,
 			String beanKey) {
@@ -99,7 +99,7 @@ public class ConfigurableMBeanInfoAssembler extends
 			if (method.getDeclaringClass().equals(Object.class))
 				continue;
 
-			// È¡µÃ±»´úÀíµÄÔ­Ê¼¶ÔÏóµÄ·½·¨£¬²ÅÄÜ»ñµÃAnnotation
+			// å–å¾—è¢«ä»£ç†çš„åŸå§‹å¯¹è±¡çš„æ–¹æ³•ï¼Œæ‰èƒ½è·å¾—Annotation
 			Method targetMethod = method;
 			if (target != null && target != managedBean) {
 				try {

@@ -15,7 +15,7 @@ import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 
 /**
- * ¶¯Ì¬MBean
+ * åŠ¨æ€MBean
  * 
  * @author xuanyu
  * @author xiaocheng 2012-11-8
@@ -27,7 +27,7 @@ public abstract class AbstractDynamicMBean implements DynamicMBean {
 			throws AttributeNotFoundException, MBeanException,
 			ReflectionException {
 		if (attrName == null) {
-			throw new AttributeNotFoundException("ÊôĞÔÃû³Æ²»ÄÜÎª¿Õ");
+			throw new AttributeNotFoundException("å±æ€§åç§°ä¸èƒ½ä¸ºç©º");
 		}
 		try {
 			return PropertyUtils.getNestedProperty(this, attrName);
@@ -40,7 +40,7 @@ public abstract class AbstractDynamicMBean implements DynamicMBean {
 			throws AttributeNotFoundException, InvalidAttributeValueException,
 			MBeanException, ReflectionException {
 		if (attribute == null) {
-			throw new AttributeNotFoundException("ÊôĞÔÃû³ÆĞÅÏ¢²»ÄÜÎª¿Õ");
+			throw new AttributeNotFoundException("å±æ€§åç§°ä¿¡æ¯ä¸èƒ½ä¸ºç©º");
 		}
 		try {
 			PropertyUtils.setNestedProperty(this, attribute.getName(),
@@ -53,7 +53,7 @@ public abstract class AbstractDynamicMBean implements DynamicMBean {
 
 	public AttributeList getAttributes(String[] stringArray) {
 		if (stringArray == null) {
-			throw new RuntimeException("ÊôĞÔÃû³ÆĞÅÏ¢²»ÄÜÎª¿Õ");
+			throw new RuntimeException("å±æ€§åç§°ä¿¡æ¯ä¸èƒ½ä¸ºç©º");
 		}
 		AttributeList resultList = new AttributeList();
 
@@ -93,8 +93,8 @@ public abstract class AbstractDynamicMBean implements DynamicMBean {
 	public Object invoke(String operationName, Object[] parameterArray,
 			String[] signature) throws MBeanException, ReflectionException {
 		if (operationName == null) {
-			throw new MBeanException(new IllegalArgumentException("·½·¨²»ÄÜÎª¿Õ"),
-					"·½·¨²»ÄÜÎª¿Õ");
+			throw new MBeanException(new IllegalArgumentException("æ–¹æ³•ä¸èƒ½ä¸ºç©º"),
+					"æ–¹æ³•ä¸èƒ½ä¸ºç©º");
 		}
 		try {
 			return MethodUtils

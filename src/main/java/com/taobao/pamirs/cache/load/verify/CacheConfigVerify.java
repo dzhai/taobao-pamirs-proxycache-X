@@ -17,16 +17,16 @@ import com.taobao.pamirs.cache.load.LoadConfigException;
 import com.taobao.pamirs.cache.util.CacheCodeUtil;
 
 /**
- * »º´æÅäÖÃºÏ·¨ĞÔĞ£Ñé
+ * ç¼“å­˜é…ç½®åˆæ³•æ€§æ ¡éªŒ
  * 
  * <pre>
- * 	  »º´æĞ£ÑéÄÚÈİ£º
- * 		1£º»º´æ¹Ø¼üÅäÖÃ¾²Ì¬Ğ£Ñé, @see {@link Verfication}
- * 		2£º»º´æ·½·¨ÊÇ·ñ´æÔÚÖØ¸´ÅäÖÃĞ£Ñé
- * 		3£º»º´æÇåÀí·½·¨ÊÇ·ñ´æÔÚÖØ¸´ÅäÖÃĞ£Ñé
- * 		4£º»º´æÇåÀí·½·¨µÄ¹ØÁª·½·¨ÊÇ·ñ´æÔÚÖØ¸´ÅäÖÃĞ£Ñé
- * 		5£º»º´æ·½·¨ÅäÖÃÔÚSpringÖĞµÄĞèÒª´æÔÚ£¬²¢ÇÒºÏ·¨
- * 		6£º»º´æÇåÀí·½·¨ÔÚSpringÖĞĞèÒª´æÔÚ£¬²¢ÇÒºÏ·¨
+ * 	  ç¼“å­˜æ ¡éªŒå†…å®¹ï¼š
+ * 		1ï¼šç¼“å­˜å…³é”®é…ç½®é™æ€æ ¡éªŒ, @see {@link Verfication}
+ * 		2ï¼šç¼“å­˜æ–¹æ³•æ˜¯å¦å­˜åœ¨é‡å¤é…ç½®æ ¡éªŒ
+ * 		3ï¼šç¼“å­˜æ¸…ç†æ–¹æ³•æ˜¯å¦å­˜åœ¨é‡å¤é…ç½®æ ¡éªŒ
+ * 		4ï¼šç¼“å­˜æ¸…ç†æ–¹æ³•çš„å…³è”æ–¹æ³•æ˜¯å¦å­˜åœ¨é‡å¤é…ç½®æ ¡éªŒ
+ * 		5ï¼šç¼“å­˜æ–¹æ³•é…ç½®åœ¨Springä¸­çš„éœ€è¦å­˜åœ¨ï¼Œå¹¶ä¸”åˆæ³•
+ * 		6ï¼šç¼“å­˜æ¸…ç†æ–¹æ³•åœ¨Springä¸­éœ€è¦å­˜åœ¨ï¼Œå¹¶ä¸”åˆæ³•
  * </pre>
  * 
  * @author poxiao.gj
@@ -35,7 +35,7 @@ import com.taobao.pamirs.cache.util.CacheCodeUtil;
 public class CacheConfigVerify {
 
 	/**
-	 * Ğ£Ñé»º´æÅäÖÃ
+	 * æ ¡éªŒç¼“å­˜é…ç½®
 	 * 
 	 * @param applicationContext
 	 * @param cacheConfig
@@ -47,9 +47,9 @@ public class CacheConfigVerify {
 		Assert.notNull(cacheConfig);
 		Assert.isTrue(!CollectionUtils.isEmpty(cacheConfig.getCacheBeans())
 				|| !CollectionUtils.isEmpty(cacheConfig.getCacheBeans()),
-				"ÅäÖÃÖĞ»º´æºÍÇåÀí»º´æ²»ÄÜÍ¬Ê±Îª¿Õ£¡");
+				"é…ç½®ä¸­ç¼“å­˜å’Œæ¸…ç†ç¼“å­˜ä¸èƒ½åŒæ—¶ä¸ºç©ºï¼");
 
-		// 1. ¾²Ì¬Ğ£Ñé
+		// 1. é™æ€æ ¡éªŒ
 		try {
 			StaticCheck.check(cacheConfig);
 
@@ -84,7 +84,7 @@ public class CacheConfigVerify {
 			throw new LoadConfigException(e.getMessage());
 		}
 
-		// 2. ¶¯Ì¬SpringĞ£Ñé
+		// 2. åŠ¨æ€Springæ ¡éªŒ
 		if (cacheConfig.getCacheBeans() != null) {
 			for (CacheBean cacheBean : cacheConfig.getCacheBeans()) {
 				for (MethodConfig methodConfig : cacheBean.getCacheMethods()) {
@@ -113,12 +113,12 @@ public class CacheConfigVerify {
 			}
 		}
 
-		// 3. ÅäÖÃÖØ¸´Ğ£Ñé
+		// 3. é…ç½®é‡å¤æ ¡éªŒ
 		checkRepeatMethod(cacheConfig);
 	}
 
 	/**
-	 * Ğ£ÑéÅäÖÃµÄmethodÊÇ·ñ´æÔÚ
+	 * æ ¡éªŒé…ç½®çš„methodæ˜¯å¦å­˜åœ¨
 	 * 
 	 * @param applicationContext
 	 * @param beanName
@@ -131,10 +131,10 @@ public class CacheConfigVerify {
 		Assert.notNull(applicationContext);
 		Assert.notNull(beanName);
 		Assert.notNull(methodName);
-		Assert.notNull(parameterTypes);// autoFillÊ±£¬²ÎÊı¶¼»áÌî³ä£¬null»á±»Ìî³äÎª¿ÕList
+		Assert.notNull(parameterTypes);// autoFillæ—¶ï¼Œå‚æ•°éƒ½ä¼šå¡«å……ï¼Œnullä¼šè¢«å¡«å……ä¸ºç©ºList
 
 		Object bean = applicationContext.getBean(beanName);
-		Assert.notNull(bean, "ÕÒ²»µ½Bean:" + beanName);
+		Assert.notNull(bean, "æ‰¾ä¸åˆ°Bean:" + beanName);
 
 		Method[] methods = bean.getClass().getMethods();
 
@@ -142,7 +142,7 @@ public class CacheConfigVerify {
 
 		for (Method m : methods) {
 			if (m.getName().equals(methodName)) {
-				// ²ÎÊıÀàĞÍÒ²ÒªÒ»ÖÂ
+				// å‚æ•°ç±»å‹ä¹Ÿè¦ä¸€è‡´
 				Class<?>[] toCompareParams = m.getParameterTypes();
 
 				if (toCompareParams.length != parameterTypes.size())
@@ -165,13 +165,13 @@ public class CacheConfigVerify {
 		}
 
 		if (!isOk) {
-			throw new LoadConfigException("ÕÒ²»µ½ÅäÖÃµÄ·½·¨,Bean=" + beanName
+			throw new LoadConfigException("æ‰¾ä¸åˆ°é…ç½®çš„æ–¹æ³•,Bean=" + beanName
 					+ ",method=" + methodName + ",params=" + parameterTypes.toString());
 		}
 	}
 
 	private static void checkRepeatMethod(CacheConfig cacheConfig) {
-		// 3.1 »º´æ·½·¨ÊÇ·ñ´æÔÚÖØ¸´ÅäÖÃĞ£Ñé
+		// 3.1 ç¼“å­˜æ–¹æ³•æ˜¯å¦å­˜åœ¨é‡å¤é…ç½®æ ¡éªŒ
 		List<String> keys = new ArrayList<String>();
 		if (cacheConfig.getCacheBeans() != null) {
 			for (CacheBean cacheBean : cacheConfig.getCacheBeans()) {
@@ -181,7 +181,7 @@ public class CacheConfigVerify {
 							cacheBean.getBeanName(), methodConfig);
 
 					if (keys.contains(cacheAdapterKey))
-						throw new LoadConfigException("»º´æÅäÖÃÖĞ·½·¨ÖØ¸´ÁË,Bean:"
+						throw new LoadConfigException("ç¼“å­˜é…ç½®ä¸­æ–¹æ³•é‡å¤äº†,Bean:"
 								+ cacheBean.getBeanName() + ",method="
 								+ methodConfig.getMethodName());
 
@@ -190,7 +190,7 @@ public class CacheConfigVerify {
 			}
 		}
 
-		// 3.2 »º´æÇåÀí·½·¨ÊÇ·ñ´æÔÚÖØ¸´ÅäÖÃĞ£Ñé
+		// 3.2 ç¼“å­˜æ¸…ç†æ–¹æ³•æ˜¯å¦å­˜åœ¨é‡å¤é…ç½®æ ¡éªŒ
 		keys.clear();
 		if (cacheConfig.getCacheCleanBeans() != null) {
 			for (CacheCleanBean cleanBean : cacheConfig.getCacheCleanBeans()) {
@@ -200,7 +200,7 @@ public class CacheConfigVerify {
 							cleanBean.getBeanName(), method);
 
 					if (keys.contains(cacheAdapterKey))
-						throw new LoadConfigException("»º´æÇåÀíÅäÖÃÖĞ·½·¨ÖØ¸´ÁË,Bean:"
+						throw new LoadConfigException("ç¼“å­˜æ¸…ç†é…ç½®ä¸­æ–¹æ³•é‡å¤äº†,Bean:"
 								+ cleanBean.getBeanName() + ",method="
 								+ method.getMethodName());
 
@@ -209,7 +209,7 @@ public class CacheConfigVerify {
 			}
 		}
 
-		// 3.3 »º´æÇåÀí·½·¨µÄ¹ØÁª·½·¨ÊÇ·ñ´æÔÚÖØ¸´ÅäÖÃĞ£Ñé
+		// 3.3 ç¼“å­˜æ¸…ç†æ–¹æ³•çš„å…³è”æ–¹æ³•æ˜¯å¦å­˜åœ¨é‡å¤é…ç½®æ ¡éªŒ
 		keys.clear();
 		if (cacheConfig.getCacheCleanBeans() != null) {
 			for (CacheCleanBean cleanBean : cacheConfig.getCacheCleanBeans()) {
@@ -222,7 +222,7 @@ public class CacheConfigVerify {
 
 						if (keys.contains(cacheAdapterKey))
 							throw new LoadConfigException(
-									"»º´æÇåÀí¹ØÁª·½·¨ÅäÖÃÖĞ·½·¨ÖØ¸´ÁË,Bean:"
+									"ç¼“å­˜æ¸…ç†å…³è”æ–¹æ³•é…ç½®ä¸­æ–¹æ³•é‡å¤äº†,Bean:"
 											+ cleanBean.getBeanName()
 											+ ",method="
 											+ method.getMethodName()

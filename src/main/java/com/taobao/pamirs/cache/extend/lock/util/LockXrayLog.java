@@ -8,7 +8,7 @@ import com.taobao.tair.Result;
 import com.taobao.tair.ResultCode;
 
 /**
- * 分布式锁xray打印
+ * 鍒嗗竷寮忛攣xray鎵撳嵃
  * 
  * @author xiaocheng Sep 29, 2015
  */

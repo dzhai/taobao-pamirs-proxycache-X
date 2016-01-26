@@ -6,7 +6,7 @@ package com.taobao.pamirs.cache.framework;
 import java.io.Serializable;
 
 /**
- * »º´æÖ§³Ö½Ó¿Ú
+ * ç¼“å­˜æ”¯æŒæ¥å£
  * 
  * @author xuanyu
  * @author xiaocheng 2012-10-30
@@ -14,7 +14,7 @@ import java.io.Serializable;
 public interface ICache<K extends Serializable, V extends Serializable> {
 
 	/**
-	 * »ñÈ¡Êı¾İ
+	 * è·å–æ•°æ®
 	 * 
 	 * @param key
 	 * @return
@@ -22,7 +22,7 @@ public interface ICache<K extends Serializable, V extends Serializable> {
 	public V get(K key);
 
 	/**
-	 * ÉèÖÃÊı¾İ£¬Èç¹ûÊı¾İÒÑ¾­´æÔÚ£¬Ôò¸²¸Ç£¬Èç¹û²»´æÔÚ£¬ÔòĞÂÔö
+	 * è®¾ç½®æ•°æ®ï¼Œå¦‚æœæ•°æ®å·²ç»å­˜åœ¨ï¼Œåˆ™è¦†ç›–ï¼Œå¦‚æœä¸å­˜åœ¨ï¼Œåˆ™æ–°å¢
 	 * 
 	 * @param key
 	 * @param value
@@ -30,34 +30,34 @@ public interface ICache<K extends Serializable, V extends Serializable> {
 	public void put(K key, V value);
 
 	/**
-	 * ÉèÖÃÊı¾İ£¬Èç¹ûÊı¾İÒÑ¾­´æÔÚ£¬Ôò¸²¸Ç£¬Èç¹û²»´æÔÚ£¬ÔòĞÂÔö
+	 * è®¾ç½®æ•°æ®ï¼Œå¦‚æœæ•°æ®å·²ç»å­˜åœ¨ï¼Œåˆ™è¦†ç›–ï¼Œå¦‚æœä¸å­˜åœ¨ï¼Œåˆ™æ–°å¢
 	 * 
 	 * @param key
 	 * @param value
 	 * @param expireTime
-	 *            Êı¾İµÄÓĞĞ§Ê±¼ä£¨¾ø¶ÔÊ±¼ä£©£¬µ¥Î»ºÁÃë
+	 *            æ•°æ®çš„æœ‰æ•ˆæ—¶é—´ï¼ˆç»å¯¹æ—¶é—´ï¼‰ï¼Œå•ä½æ¯«ç§’
 	 */
 	public void put(K key, V value, int expireTime);
 
 	/**
-	 * É¾³ıkey¶ÔÓ¦µÄÊı¾İ
+	 * åˆ é™¤keyå¯¹åº”çš„æ•°æ®
 	 * 
 	 * @param key
 	 */
 	public void remove(K key);
 	
 	/**
-	 * Çå³ıËùÓĞµÄÊı¾İ¡¾Õë¶ÔLocalMap¡¿
+	 * æ¸…é™¤æ‰€æœ‰çš„æ•°æ®ã€é’ˆå¯¹LocalMapã€‘
 	 */
 	public void clear();
 	
 	/**
-	 * Ê§Ğ§Ö®Ç°´æ´¢»º´æ¡¾Õë¶ÔTair¡¿
+	 * å¤±æ•ˆä¹‹å‰å­˜å‚¨ç¼“å­˜ã€é’ˆå¯¹Tairã€‘
 	 */
 	public void invalidBefore();
 
 	/**
-	 * »ñÈ¡»º´æÊı¾İÁ¿
+	 * è·å–ç¼“å­˜æ•°æ®é‡
 	 * 
 	 * @return
 	 */

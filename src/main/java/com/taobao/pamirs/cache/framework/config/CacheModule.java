@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * »º´æ¼ÓÔØÄ£¿é--¸øloadÓÃ
+ * ç¼“å­˜åŠ è½½æ¨¡å—--ç»™loadç”¨
  * 
  * @author poxiao.gj
  * @author xiaocheng 2012-11-19
@@ -18,12 +18,12 @@ public class CacheModule implements Serializable {
 	private static final long serialVersionUID = 1194734355755304229L;
 
 	/**
-	 * »º´æbeanÅäÖÃ
+	 * ç¼“å­˜beané…ç½®
 	 */
 	private List<CacheBean> cacheBeans;
 
 	/**
-	 * ÇåÀí»º´æbeanÅäÖÃ
+	 * æ¸…ç†ç¼“å­˜beané…ç½®
 	 */
 	private List<CacheCleanBean> cacheCleanBeans;
 

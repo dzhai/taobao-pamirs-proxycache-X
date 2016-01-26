@@ -37,14 +37,14 @@ public class TimeRoundAdvice implements Advice, MethodInterceptor {
 			result = invocation.proceed();
 		} finally {
 
-			if (timeHandle.isOpenPrint()) {// ¿ª¹Ø
-				// ´òÓ¡¸ñÊ½
+			if (timeHandle.isOpenPrint()) {// å¼€å…³
+				// æ‰“å°æ ¼å¼
 				StringBuilder sb = new StringBuilder();
 				sb.append("[").append(methodName).append("]");
 
 				if (timeHandle.isPrintParams()
 						&& invocation.getArguments() != null
-						&& invocation.getArguments().length != 0) {// ´òÓ¡²ÎÊı
+						&& invocation.getArguments().length != 0) {// æ‰“å°å‚æ•°
 					sb.append("(");
 					sb.append(ToStringBuilder.reflectionToString(
 							invocation.getArguments(),
@@ -52,7 +52,7 @@ public class TimeRoundAdvice implements Advice, MethodInterceptor {
 					sb.append(")");
 				}
 
-				sb.append(":Ïû·Ñ ")
+				sb.append(":æ¶ˆè´¹ ")
 						.append(System.currentTimeMillis() - startTime)
 						.append(" ms");
 

@@ -11,7 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * 异步日志主类
+ * 寮傛鏃ュ織涓荤被
  * 
  * @author xiaocheng 2012-11-9
  */
@@ -20,17 +20,17 @@ public class AsynWriter<T> implements IWriter<T> {
 	private static final Log log = LogFactory.getLog(AsynWriter.class);
 
 	/**
-	 * 日志队列
+	 * 鏃ュ織闃熷垪
 	 */
 	private BlockingQueue<T> logQueue;
 
 	/**
-	 * 写线程池
+	 * 鍐欑嚎绋嬫睜
 	 */
 	private ExecutorService asynWriterService;
 
 	/**
-	 * 配置
+	 * 閰嶇疆
 	 */
 	private LogConfig config;
 

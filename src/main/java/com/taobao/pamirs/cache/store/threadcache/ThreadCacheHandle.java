@@ -29,7 +29,7 @@ import com.taobao.pamirs.cache.util.ParameterSupportTypeUtil;
 import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMap;
 
 /**
- * Ïß³Ì»º´æ
+ * çº¿ç¨‹ç¼“å­˜
  * 
  * @author xiaocheng 2012-9-3
  */
@@ -42,20 +42,20 @@ public class ThreadCacheHandle extends AbstractAutoProxyCreator implements
 	/**  */
 	private static final long serialVersionUID = 1L;
 
-	/** ´úÀí¿ª¹Ø£¬Ä¬ÈÏbean×¢²á¼´¿ªÆô */
+	/** ä»£ç†å¼€å…³ï¼Œé»˜è®¤beanæ³¨å†Œå³å¼€å¯ */
 	private boolean openThreadCache = true;
 
-	/** ÃüÖĞÈÕÖ¾¿ª¹Ø */
+	/** å‘½ä¸­æ—¥å¿—å¼€å…³ */
 	private boolean printHitLog = false;
 
-	/** ´òÓ¡ÏêÏ¸ÈÕÖ¾£¬ÃüÖĞ·½·¨·µ»Ø½á¹û¶ÔÏóµÈ */
+	/** æ‰“å°è¯¦ç»†æ—¥å¿—ï¼Œå‘½ä¸­æ–¹æ³•è¿”å›ç»“æœå¯¹è±¡ç­‰ */
 	private boolean printLogDetail = false;
 	
-	/** ¼ÇÂ¼·½·¨ÃüÖĞ´ÎÊı */
+	/** è®°å½•æ–¹æ³•å‘½ä¸­æ¬¡æ•° */
 	private ConcurrentLRUCacheMap<String, AtomicLong> logDetailInfo;
 
 	/**
-	 * °×Ãûµ¥--×¢½âµÄÁíÒ»ÖÖÑ¡Ôñ·½Ê½
+	 * ç™½åå•--æ³¨è§£çš„å¦ä¸€ç§é€‰æ‹©æ–¹å¼
 	 */
 	private Map<String, List<String>> beansMap;
 
@@ -71,7 +71,7 @@ public class ThreadCacheHandle extends AbstractAutoProxyCreator implements
 		if (this.beansMap != null && this.beansMap.keySet().contains(beanName)) {
 
 			if (log.isWarnEnabled()) {
-				log.warn("±¾µØÏß³Ìcache´úÀí£º" + beanClass + ":" + beanName);
+				log.warn("æœ¬åœ°çº¿ç¨‹cacheä»£ç†ï¼š" + beanClass + ":" + beanName);
 			}
 
 			if (targetBeanIsFinal(beanClass)) {// must implements a interface
@@ -203,19 +203,19 @@ class ThreadMethodRoundAdvice implements Advice, MethodInterceptor {
 		try {
 			key = getCacheKey(methodName, invocation);
 		} catch (IllegalArgumentException e) {
-			log.warn("ÓĞ²»Ö§³ÖµÄ²ÎÊıÀàĞÍ£¬ÎŞ·¨Éú³É»º´ækey£¬½«»á·ÅÆú»º´æ£¡" + beanName + ":"
+			log.warn("æœ‰ä¸æ”¯æŒçš„å‚æ•°ç±»å‹ï¼Œæ— æ³•ç”Ÿæˆç¼“å­˜keyï¼Œå°†ä¼šæ”¾å¼ƒç¼“å­˜ï¼" + beanName + ":"
 					+ methodName);
 			return invocation.proceed();
 		}
 
 		Object value = ThreadContext.get(key);
-		// 1. cache ÓĞÖµ£¬Ö±½Ó·µ»Ø
+		// 1. cache æœ‰å€¼ï¼Œç›´æ¥è¿”å›
 		if (value != null) {
 			doPrintLog(key, value);
 			return value;
 		}
 
-		// 2. Ã»ÓĞ»º´æ£¬×ßÔ­ÓĞÂß¼­£¬Íê³Éºó×¢Èëcache
+		// 2. æ²¡æœ‰ç¼“å­˜ï¼Œèµ°åŸæœ‰é€»è¾‘ï¼Œå®Œæˆåæ³¨å…¥cache
 		value = invocation.proceed();
 		ThreadContext.put(key, value);
 
@@ -223,7 +223,7 @@ class ThreadMethodRoundAdvice implements Advice, MethodInterceptor {
 	}
 
 	/**
-	 * Éú³É»º´ækey²ßÂÔ
+	 * ç”Ÿæˆç¼“å­˜keyç­–ç•¥
 	 * 
 	 * @param methodName
 	 * @param invocation
@@ -258,12 +258,12 @@ class ThreadMethodRoundAdvice implements Advice, MethodInterceptor {
 
 	private void doPrintLog(String key, Object value) {
 		if (handle.isPrintHitLog()) {
-			StringBuilder logInfo = new StringBuilder("Ïß³Ì»º´æÃüÖĞ!");
+			StringBuilder logInfo = new StringBuilder("çº¿ç¨‹ç¼“å­˜å‘½ä¸­!");
 			logInfo.append("key=").append(key);
 
 			// for debug
 			if (handle.isPrintLogDetail()) {
-				logInfo.append("£¬value=").append(value);
+				logInfo.append("ï¼Œvalue=").append(value);
 				
 				ConcurrentLRUCacheMap<String, AtomicLong> logDetailInfo = handle.getLogDetailInfo();
 				AtomicLong atomicLong = logDetailInfo.get(key);

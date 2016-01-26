@@ -7,7 +7,7 @@ import com.taobao.pamirs.cache.CacheManager;
 import com.taobao.pamirs.cache.framework.aop.advice.CacheManagerRoundAdvice;
 
 /**
- * ¹Û²ìÕß
+ * è§‚å¯Ÿè€…
  * 
  * @author xuannan
  * @author xiaocheng 2012-10-30

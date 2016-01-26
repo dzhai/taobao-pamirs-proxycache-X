@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import com.taobao.pamirs.cache.framework.CacheProxy;
 
 /**
- * »º´æÇåÀíTimerÈÎÎñ
+ * ç¼“å­˜æ¸…ç†Timerä»»åŠ¡
  * 
  * @author xiaocheng 2012-11-8
  */
@@ -22,7 +22,7 @@ public class CleanCacheTimerManager {
 	private Timer timer;
 
 	public CleanCacheTimerManager() {
-		timer = new Timer("CleanCacheTimerManager", false);// ÊØ»¤½ø³Ì
+		timer = new Timer("CleanCacheTimerManager", false);// å®ˆæŠ¤è¿›ç¨‹
 	}
 
 	public void createCleanCacheTask(
@@ -37,15 +37,15 @@ public class CleanCacheTimerManager {
 
 			@Override
 			public void cleaned(CleanCacheTask task) {
-				// 1. È·±£·ÏÆú×ÔÉí
+				// 1. ç¡®ä¿åºŸå¼ƒè‡ªèº«
 				task.cancel();
 
-				// 2. ´´½¨Ò»¸öĞÂµÄ£¨ÒòÎªÒªÖ§³Ö×Ô¶¨ÒåµÄµ÷¶È±í´ïÊ½CronExpression£©
+				// 2. åˆ›å»ºä¸€ä¸ªæ–°çš„ï¼ˆå› ä¸ºè¦æ”¯æŒè‡ªå®šä¹‰çš„è°ƒåº¦è¡¨è¾¾å¼CronExpressionï¼‰
 				try {
 					CleanCacheTimerManager.this.createCleanCacheTask(cache,
 							aCronTabExpress);
 				} catch (Exception e) {
-					log.fatal("ÑÏÖØ´íÎó£¬¶¨Ê±Æ÷´¦ÀíÊ§°Ü£º" + e.getMessage(), e);
+					log.fatal("ä¸¥é‡é”™è¯¯ï¼Œå®šæ—¶å™¨å¤„ç†å¤±è´¥ï¼š" + e.getMessage(), e);
 				}
 
 			}
@@ -55,7 +55,7 @@ public class CleanCacheTimerManager {
 	}
 
 	/**
-	 * ÇåÀíÍê³ÉºóÍ¨Öª
+	 * æ¸…ç†å®Œæˆåé€šçŸ¥
 	 * 
 	 * @author xiaocheng 2012-11-8
 	 */
@@ -64,7 +64,7 @@ public class CleanCacheTimerManager {
 	}
 
 	/**
-	 * ÇåÀíTask
+	 * æ¸…ç†Task
 	 * 
 	 * @author xiaocheng 2012-11-8
 	 */
@@ -72,7 +72,7 @@ public class CleanCacheTimerManager {
 
 		private CacheProxy<Serializable, Serializable> cache;
 
-		/** ÇåÀíºóÍ¨Öª */
+		/** æ¸…ç†åé€šçŸ¥ */
 		private CleanNotice notice;
 
 		public CleanCacheTask(CacheProxy<Serializable, Serializable> cache,
@@ -86,7 +86,7 @@ public class CleanCacheTimerManager {
 			try {
 				cache.clear();
 			} catch (Exception e) {
-				log.error("ÇåÀíMapÊ§°Ü", e);
+				log.error("æ¸…ç†Mapå¤±è´¥", e);
 			} finally {
 				notice.cleaned(this);
 			}

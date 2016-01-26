@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 是否需要暴露成JmxMethod
+ * 鏄惁闇�瑕佹毚闇叉垚JmxMethod
  * 
  * @author xiaocheng 2012-11-8
  */

@@ -16,7 +16,7 @@ import com.taobao.tair.ResultCode;
 import com.taobao.tair.TairManager;
 
 /**
- * TairÊµÏÖµÄ·Ö²¼Ê½±¯¹ÛËøËø
+ * Tairå®ç°çš„åˆ†å¸ƒå¼æ‚²è§‚é”é”
  * 
  * @author xiaocheng Aug 17, 2015
  */
@@ -24,7 +24,7 @@ import com.taobao.tair.TairManager;
 public class TairOptimisticLock implements OptimisticLock {
 
 	private static final Logger log = getLogger(OptimisticLock.class);
-	private static final int es = 3;// Ä¬ÈÏËø¹ıÆÚÊ±¼ä£¬µ¥Î»£ºÃë
+	private static final int es = 3;// é»˜è®¤é”è¿‡æœŸæ—¶é—´ï¼Œå•ä½ï¼šç§’
 
 	private TairManager tairManager;
 	private Integer namespace;
@@ -44,17 +44,17 @@ public class TairOptimisticLock implements OptimisticLock {
 
 		try {
 			r = tairManager.get(namespace, key);
-			if (isTairTimeout(r.getRc()))// ³¬Ê±×Ô¶¯ÖØÊÔÒ»´Î
+			if (isTairTimeout(r.getRc()))// è¶…æ—¶è‡ªåŠ¨é‡è¯•ä¸€æ¬¡
 				r = tairManager.get(namespace, key);
 
-			// TairÃ»ÓĞÊı¾İÊ±£¬´´½¨
+			// Tairæ²¡æœ‰æ•°æ®æ—¶ï¼Œåˆ›å»º
 			if (ResultCode.DATANOTEXSITS.equals(r.getRc())) {
 				put = tairManager.put(namespace, key, VALUE, 2, es);
-				if (isTairTimeout(put))// ³¬Ê±×Ô¶¯ÖØÊÔÒ»´Î
+				if (isTairTimeout(put))// è¶…æ—¶è‡ªåŠ¨é‡è¯•ä¸€æ¬¡
 					put = tairManager.put(namespace, key, VALUE, 2, es);
 
 				if (ResultCode.SUCCESS.equals(put))
-					lockVersion = 1;// ÕâÀï³õÊ¼°æ±¾Ò»¶¨ÊÇ1
+					lockVersion = 1;// è¿™é‡Œåˆå§‹ç‰ˆæœ¬ä¸€å®šæ˜¯1
 			} else if (ResultCode.SUCCESS.equals(r.getRc())
 					&& r.getValue() != null) {
 				lockVersion = r.getValue().getVersion();
@@ -68,18 +68,18 @@ public class TairOptimisticLock implements OptimisticLock {
 		long end = System.currentTimeMillis();
 		write(LOCK, end - start, success, objType, objId, es, r, put);
 
-		// ·µ»Ø
+		// è¿”å›
 		if (success)
 			return lockVersion;
 		else
-			throw new LockException("»ñÈ¡²¢·¢ËøÊ§°Ü: type=" + objType + ",id=" + objId);
+			throw new LockException("è·å–å¹¶å‘é”å¤±è´¥: type=" + objType + ",id=" + objId);
 	}
 
 	@Override
 	public void freeLock(long objType, String objId, int lockVersion)
 			throws LockException {
 		if (lockVersion == 0)
-			throw new LockException("Tair²¢·¢Ëø°æ±¾ºÅ²»ÄÜÎª0£¬»áµ¼ÖÂËùÓĞ¶¼³É¹¦!");
+			throw new LockException("Tairå¹¶å‘é”ç‰ˆæœ¬å·ä¸èƒ½ä¸º0ï¼Œä¼šå¯¼è‡´æ‰€æœ‰éƒ½æˆåŠŸ!");
 
 		long start = System.currentTimeMillis();
 		String key = combineKey(objType, objId, region);
@@ -88,7 +88,7 @@ public class TairOptimisticLock implements OptimisticLock {
 		try {
 			put = tairManager.put(namespace, key, VALUE, lockVersion, es);
 
-			if (isTairTimeout(put))// ³¬Ê±×Ô¶¯ÖØÊÔÒ»´Î
+			if (isTairTimeout(put))// è¶…æ—¶è‡ªåŠ¨é‡è¯•ä¸€æ¬¡
 				put = tairManager.put(namespace, key, VALUE, lockVersion, es);
 
 		} catch (Throwable e) {
@@ -101,7 +101,7 @@ public class TairOptimisticLock implements OptimisticLock {
 		write(UNLOCK, end - start, success, objType, objId, es, null, put);
 
 		if (!success)
-			throw new LockException("²¢·¢Ëø°æ±¾ºÅÊ§Ğ§: type=" + objType + ",id="
+			throw new LockException("å¹¶å‘é”ç‰ˆæœ¬å·å¤±æ•ˆ: type=" + objType + ",id="
 					+ objId + ",v=" + lockVersion);
 	}
 

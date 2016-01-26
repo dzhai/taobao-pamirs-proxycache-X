@@ -10,14 +10,14 @@ import org.springframework.aop.framework.AopProxy;
 import org.springframework.aop.support.AopUtils;
 
 /**
- * ´úÀíÏà¹Ø¸¨ÖúÀà
+ * ä»£ç†ç›¸å…³è¾…åŠ©ç±»
  * 
  * @author xiaocheng 2012-11-22
  */
 public class AopProxyUtil {
 
 	/**
-	 * È¡µÃ±»´úÀíµÄÔ­Ê¼¶ÔÏó
+	 * å–å¾—è¢«ä»£ç†çš„åŸå§‹å¯¹è±¡
 	 * 
 	 * @param proxy
 	 * @return

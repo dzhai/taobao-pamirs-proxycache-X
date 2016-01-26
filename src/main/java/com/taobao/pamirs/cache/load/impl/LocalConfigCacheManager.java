@@ -13,7 +13,7 @@ import com.taobao.pamirs.cache.load.LoadConfigException;
 import com.taobao.pamirs.cache.util.ConfigUtil;
 
 /**
- * 本地加载缓存配置服务
+ * 鏈湴鍔犺浇缂撳瓨閰嶇疆鏈嶅姟
  * 
  * @author poxiao.gj
  * @date 2012-11-13
@@ -28,14 +28,14 @@ public class LocalConfigCacheManager extends AbstractCacheConfigService {
 	}
 
 	/**
-	 * 加载加载缓存配置
+	 * 鍔犺浇鍔犺浇缂撳瓨閰嶇疆
 	 * 
 	 * @return
 	 */
 	public CacheConfig loadConfig() {
 		List<CacheModule> cacheModules = getCacheModules();
 		if (cacheModules.size() <= 0) {
-			throw new LoadConfigException("非法的缓存配置，CacheModule列表为空");
+			throw new LoadConfigException("闈炴硶鐨勭紦瀛橀厤缃紝CacheModule鍒楄〃涓虹┖");
 		}
 
 		CacheConfig cacheConfig = new CacheConfig();
@@ -53,14 +53,14 @@ public class LocalConfigCacheManager extends AbstractCacheConfigService {
 	}
 
 	/**
-	 * 从文件中获取配置文件信息
+	 * 浠庢枃浠朵腑鑾峰彇閰嶇疆鏂囦欢淇℃伅
 	 * 
 	 * @return
 	 * @throws Exception
 	 */
 	private List<CacheModule> getCacheModules() {
 		if (configFilePaths == null || configFilePaths.size() <= 0) {
-			throw new IllegalArgumentException("非法配置文件路径的参数，配置文件列表不能为空");
+			throw new IllegalArgumentException("闈炴硶閰嶇疆鏂囦欢璺緞鐨勫弬鏁帮紝閰嶇疆鏂囦欢鍒楄〃涓嶈兘涓虹┖");
 		}
 
 		InputStream input = null;

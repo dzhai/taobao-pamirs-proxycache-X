@@ -3,29 +3,29 @@ package com.taobao.pamirs.cache.util.asynlog;
 import org.apache.commons.logging.Log;
 
 /**
- * Òì²½ÈÕÖ¾ÅäÖÃĞÅÏ¢
+ * å¼‚æ­¥æ—¥å¿—é…ç½®ä¿¡æ¯
  * 
  * @author xiaocheng 2012-11-9
  */
 public class LogConfig {
 
 	/**
-	 * Òì²½ÈÕÖ¾Ïß³Ì³Ø´óĞ¡
+	 * å¼‚æ­¥æ—¥å¿—çº¿ç¨‹æ± å¤§å°
 	 */
 	private int asynWriterThreadSize = 3;
 
 	/**
-	 * ÈÕÖ¾ÁĞ±íµÄ×î´ó¼ÇÂ¼Êı
+	 * æ—¥å¿—åˆ—è¡¨çš„æœ€å¤§è®°å½•æ•°
 	 */
 	private int recordsMaxSize = 5000;
 
 	/**
-	 * ÈÕÖ¾Ë¢ĞÂÊ±¼ä¼ä¸ô(µ¥Î»:Ãë)
+	 * æ—¥å¿—åˆ·æ–°æ—¶é—´é—´éš”(å•ä½:ç§’)
 	 */
 	private int flushInterval = 2;
 
 	/**
-	 * ÈÕÖ¾LOG
+	 * æ—¥å¿—LOG
 	 */
 	private Log log;
 

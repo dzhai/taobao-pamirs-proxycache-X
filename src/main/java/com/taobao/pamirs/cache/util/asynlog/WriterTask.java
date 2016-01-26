@@ -9,7 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * ÈÕÖ¾Ğ´ÈÎÎñ
+ * æ—¥å¿—å†™ä»»åŠ¡
  * 
  * @author xiaocheng 2012-11-9
  */
@@ -18,17 +18,17 @@ public class WriterTask<T> implements Runnable {
 	private static final Log log = LogFactory.getLog(AsynWriter.class);
 
 	/**
-	 * ÈÕÖ¾¶ÓÁĞ
+	 * æ—¥å¿—é˜Ÿåˆ—
 	 */
 	private BlockingQueue<T> logQueue;
 
 	/**
-	 * ÅäÖÃ¶ÔÏó
+	 * é…ç½®å¯¹è±¡
 	 */
 	private LogConfig config;
 
 	/**
-	 * ¿ª¹Ø
+	 * å¼€å…³
 	 */
 	private volatile boolean activeFlag = true;
 
@@ -42,12 +42,12 @@ public class WriterTask<T> implements Runnable {
 		try {
 			while (activeFlag) {
 
-				// ¼ÇÂ¼Âú
+				// è®°å½•æ»¡
 				if (records.size() >= config.getRecordsMaxSize()) {
 					flush();
 				}
 
-				// ¶¨Ê±
+				// å®šæ—¶
 				if (records.size() > 0
 						&& System.currentTimeMillis() >= (timestamp + config
 								.getFlushInterval() * 1000L)) {
@@ -59,7 +59,7 @@ public class WriterTask<T> implements Runnable {
 					records.add(r);
 			}
 		} catch (Exception e) {
-			log.error("¡¾ÑÏÖØ¡¿ÈÕÖ¾ÈÎÎñÊ§°Ü!", e);
+			log.error("ã€ä¸¥é‡ã€‘æ—¥å¿—ä»»åŠ¡å¤±è´¥!", e);
 		}
 
 	}

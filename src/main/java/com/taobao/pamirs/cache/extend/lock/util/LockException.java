@@ -1,7 +1,7 @@
 package com.taobao.pamirs.cache.extend.lock.util;
 
 /**
- * ²¢·¢¿ØÖÆËøÒì³£
+ * å¹¶å‘æ§åˆ¶é”å¼‚å¸¸
  * 
  * @author xiaocheng Sep 29, 2015
  */

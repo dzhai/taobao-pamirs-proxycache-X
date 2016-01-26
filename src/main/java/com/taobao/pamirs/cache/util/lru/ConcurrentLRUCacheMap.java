@@ -6,14 +6,14 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Ïß³Ì°²È«¡¢¸ßĞÔÄÜµÄLRUCacheMap <br>
+ * çº¿ç¨‹å®‰å…¨ã€é«˜æ€§èƒ½çš„LRUCacheMap <br>
  * 
  * <pre>
- * 1. ²ÉÓÃ·ÖÇø²ßÂÔ(segment)ÌáÉı²¢·¢ĞÔÄÜ¡£ -- by Doug Lea ´óÊ¦
- * 2. Îª»º´æ×¨ÃÅÉè¼ÆµÄSoftReference°ü×°£¬±ÜÃâCacheÒıÆğJVMµÄOOM
+ * 1. é‡‡ç”¨åˆ†åŒºç­–ç•¥(segment)æå‡å¹¶å‘æ€§èƒ½ã€‚ -- by Doug Lea å¤§å¸ˆ
+ * 2. ä¸ºç¼“å­˜ä¸“é—¨è®¾è®¡çš„SoftReferenceåŒ…è£…ï¼Œé¿å…Cacheå¼•èµ·JVMçš„OOM
  * </pre>
  * 
- * ×¢£ºkey is not null; value is not null!
+ * æ³¨ï¼škey is not null; value is not null!
  * 
  * @author xiaocheng 2012-11-16
  */
@@ -21,16 +21,16 @@ public class ConcurrentLRUCacheMap<K, V> implements Serializable {
 	//
 	private static final long serialVersionUID = -6742744299745956041L;
 
-	/** Ä¬ÈÏ´óĞ¡ */
+	/** é»˜è®¤å¤§å° */
 	public static final int DEFAULT_INITIAL_CAPACITY = 1 << 10;
 
-	/** Ä¬ÈÏµÄ·ÖÇøÊıÁ¿ */
+	/** é»˜è®¤çš„åˆ†åŒºæ•°é‡ */
 	public static final int DEFAULT_CONCURRENCY_LEVEL = 1 << 4;
 
-	/** ×î´óÈİÁ¿ */
+	/** æœ€å¤§å®¹é‡ */
 	static final int MAXIMUM_CAPACITY = 1 << 30;
 
-	/** Ö§³Ö×î´óµÄÇĞÆ¬·ÖÇø */
+	/** æ”¯æŒæœ€å¤§çš„åˆ‡ç‰‡åˆ†åŒº */
 	static final int MAX_SEGMENTS = 1 << 16; // slightly conservative
 
 	/**
@@ -47,7 +47,7 @@ public class ConcurrentLRUCacheMap<K, V> implements Serializable {
 	private LRUMapLocked<K, SoftReference<V>, V>[] segments;
 
 	/**
-	 * Ä¬ÈÏ¹¹ÔìÆ÷£º1024/16
+	 * é»˜è®¤æ„é€ å™¨ï¼š1024/16
 	 */
 	public ConcurrentLRUCacheMap() {
 		this(DEFAULT_INITIAL_CAPACITY, DEFAULT_CONCURRENCY_LEVEL);
@@ -58,13 +58,13 @@ public class ConcurrentLRUCacheMap<K, V> implements Serializable {
 	}
 
 	/**
-	 * ÍÆ¼ö¹¹Ôìº¯Êı <br>
-	 * Èç¹ûkey hashÅöÇÉÈÈµãµ½²¿·ÖsegmentÖĞ£¬»áÓĞLRUµÄÕû¸ösizeÎ´ÂúÊ±£¬Ò²¿ÉÄÜ±»remove
+	 * æ¨èæ„é€ å‡½æ•° <br>
+	 * å¦‚æœkey hashç¢°å·§çƒ­ç‚¹åˆ°éƒ¨åˆ†segmentä¸­ï¼Œä¼šæœ‰LRUçš„æ•´ä¸ªsizeæœªæ»¡æ—¶ï¼Œä¹Ÿå¯èƒ½è¢«remove
 	 * 
 	 * @param size
-	 *            ±ØĞëÄÜ±»segmentSizeÕû³ı
+	 *            å¿…é¡»èƒ½è¢«segmentSizeæ•´é™¤
 	 * @param segmentSize
-	 *            ±ØĞë2µÄ±¶Êı
+	 *            å¿…é¡»2çš„å€æ•°
 	 */
 	@SuppressWarnings("unchecked")
 	public ConcurrentLRUCacheMap(int size, int segmentSize) {
@@ -76,7 +76,7 @@ public class ConcurrentLRUCacheMap<K, V> implements Serializable {
 
 		// Find power-of-two sizes best matching arguments
 		int sshift = 0;
-		int ssize = 1;// ·ÖÇø´óĞ¡£º2µÄ±¶Êı
+		int ssize = 1;// åˆ†åŒºå¤§å°ï¼š2çš„å€æ•°
 		while (ssize < segmentSize) {
 			++sshift;
 			ssize <<= 1;
@@ -97,7 +97,7 @@ public class ConcurrentLRUCacheMap<K, V> implements Serializable {
 					"size must divide exactly for segmentSize!");
 		if (c * ssize < size)
 			++c;
-		int cap = 1;// Æ½Ì¯µ½Ã¿¸ö·ÖÇøMapµÄsize
+		int cap = 1;// å¹³æ‘Šåˆ°æ¯ä¸ªåˆ†åŒºMapçš„size
 		while (cap < c)
 			cap <<= 1;
 
@@ -170,7 +170,7 @@ public class ConcurrentLRUCacheMap<K, V> implements Serializable {
 	}
 
 	/**
-	 * ²¿·ÖÏß³Ì°²È«µÄLRUMap£¬²ÉÓÃLock·½Ê½£¬µ«ĞÔÄÜÃ»ÓĞConcurrentLRUMap¸ß
+	 * éƒ¨åˆ†çº¿ç¨‹å®‰å…¨çš„LRUMapï¼Œé‡‡ç”¨Lockæ–¹å¼ï¼Œä½†æ€§èƒ½æ²¡æœ‰ConcurrentLRUMapé«˜
 	 * 
 	 * @author xiaocheng 2012-11-16
 	 */
@@ -191,7 +191,7 @@ public class ConcurrentLRUCacheMap<K, V> implements Serializable {
 		}
 
 		/**
-		 * Ïß³Ì°²È«£¬´úÌæput
+		 * çº¿ç¨‹å®‰å…¨ï¼Œä»£æ›¿put
 		 * 
 		 * @param key
 		 * @param entry
@@ -208,7 +208,7 @@ public class ConcurrentLRUCacheMap<K, V> implements Serializable {
 		}
 
 		/**
-		 * Ïß³Ì°²È«£¬´úÌæget
+		 * çº¿ç¨‹å®‰å…¨ï¼Œä»£æ›¿get
 		 * 
 		 * @param key
 		 * @return
@@ -233,7 +233,7 @@ public class ConcurrentLRUCacheMap<K, V> implements Serializable {
 		}
 
 		/**
-		 * Ïß³Ì°²È«£¬´úÌæremove
+		 * çº¿ç¨‹å®‰å…¨ï¼Œä»£æ›¿remove
 		 */
 		@Override
 		public TT remove(Object key) {
@@ -246,7 +246,7 @@ public class ConcurrentLRUCacheMap<K, V> implements Serializable {
 		}
 
 		/**
-		 * Ïß³Ì°²È«£¬´úÌæclear
+		 * çº¿ç¨‹å®‰å…¨ï¼Œä»£æ›¿clear
 		 */
 		@Override
 		public void clear() {

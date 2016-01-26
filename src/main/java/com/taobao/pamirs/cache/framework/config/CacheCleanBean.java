@@ -6,7 +6,7 @@ import java.util.List;
 import com.taobao.pamirs.cache.load.verify.Verfication;
 
 /**
- * 缓存清理bean配置
+ * 缂撳瓨娓呯悊bean閰嶇疆
  * 
  * @author xiaocheng 2012-11-2
  */
@@ -15,13 +15,13 @@ public class CacheCleanBean implements Serializable {
 	//
 	private static final long serialVersionUID = -4582877908557906265L;
 
-	@Verfication(name = "CacheCleanBean名称", notEmpty = true)
+	@Verfication(name = "CacheCleanBean鍚嶇О", notEmpty = true)
 	private String beanName;
 
 	/**
-	 * 需要清理的原生方法列表
+	 * 闇�瑕佹竻鐞嗙殑鍘熺敓鏂规硶鍒楄〃
 	 */
-	@Verfication(name = "需要清理的原生方法列表", notEmptyList = true)
+	@Verfication(name = "闇�瑕佹竻鐞嗙殑鍘熺敓鏂规硶鍒楄〃", notEmptyList = true)
 	private List<CacheCleanMethod> methods;
 
 	public String getBeanName() {

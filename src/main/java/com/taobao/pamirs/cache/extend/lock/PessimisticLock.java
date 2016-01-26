@@ -1,7 +1,7 @@
 package com.taobao.pamirs.cache.extend.lock;
 
 /**
- * ·Ö²¼Ê½±¯¹ÛËø£¨²»Ö§³Ö¡®ÖØÈë¡¯£©
+ * åˆ†å¸ƒå¼æ‚²è§‚é”ï¼ˆä¸æ”¯æŒâ€˜é‡å…¥â€™ï¼‰
  * 
  * <pre>
  * boolean lockSuccess = pessimisticLock.lock(1L, &quot;abc&quot;);
@@ -18,10 +18,10 @@ package com.taobao.pamirs.cache.extend.lock;
  */
 public interface PessimisticLock {
 
-	public static final int DEFAULT_EXPIRE_SECONDS = 3;// Ä¬ÈÏËø¹ıÆÚÊ±¼ä£¬µ¥Î»£ºÃë
+	public static final int DEFAULT_EXPIRE_SECONDS = 3;// é»˜è®¤é”è¿‡æœŸæ—¶é—´ï¼Œå•ä½ï¼šç§’
 
 	/**
-	 * ³¢ÊÔ»ñÈ¡·Ö²¼Ê½Ëø£¨²ÉÓÃÄ¬ÈÏËø¹ıÆÚÊ±¼ä£©
+	 * å°è¯•è·å–åˆ†å¸ƒå¼é”ï¼ˆé‡‡ç”¨é»˜è®¤é”è¿‡æœŸæ—¶é—´ï¼‰
 	 * 
 	 * @param objType
 	 * @param objId
@@ -29,21 +29,21 @@ public interface PessimisticLock {
 	boolean lock(long objType, String objId);
 
 	/**
-	 * ³¢ÊÔ»ñÈ¡·Ö²¼Ê½Ëø
+	 * å°è¯•è·å–åˆ†å¸ƒå¼é”
 	 * 
 	 * @param objType
 	 * @param objId
 	 * @param expireSeconds
-	 *            Ö¸¶¨Ëø¹ıÆÚÊ±¼ä
+	 *            æŒ‡å®šé”è¿‡æœŸæ—¶é—´
 	 */
 	boolean lock(long objType, String objId, int expireSeconds);
 
 	/**
-	 * ÊÍ·ÅËø
+	 * é‡Šæ”¾é”
 	 * 
 	 * @param objType
 	 * @param objId
-	 * @return µ±ÊÍ·ÅÊ§°Ü°ü×°Òì³££¬·µ»Øfalse£¬¿ÉÒÔÖØÊÔ»òµÈ´ıËø³¬Ê±
+	 * @return å½“é‡Šæ”¾å¤±è´¥åŒ…è£…å¼‚å¸¸ï¼Œè¿”å›falseï¼Œå¯ä»¥é‡è¯•æˆ–ç­‰å¾…é”è¶…æ—¶
 	 */
 	boolean unlock(long objType, String objId);
 

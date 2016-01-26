@@ -3,8 +3,8 @@ package com.taobao.pamirs.cache.util.lru;
 import java.util.LinkedHashMap;
 
 /**
- * ÊµÏÖLRUËã·¨µÄMap <br>
- * Ïß³Ì²»°²È«
+ * å®ç°LRUç®—æ³•çš„Map <br>
+ * çº¿ç¨‹ä¸å®‰å…¨
  * 
  * @author xiaocheng 2012-11-15
  */

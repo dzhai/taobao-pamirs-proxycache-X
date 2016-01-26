@@ -16,19 +16,19 @@ import com.taobao.tair.ResultCode;
 import com.taobao.tair.TairManager;
 
 /**
- * TairStore ²ÉÓÃÌÔ±¦ Tair µÄÍ³Ò»»º´æ´æ´¢·½°¸.
+ * TairStore é‡‡ç”¨æ·˜å® Tair çš„ç»Ÿä¸€ç¼“å­˜å­˜å‚¨æ–¹æ¡ˆ.
  * <p>
  * 
  * <pre>
- * Í¨¹ı Key-Value µÄĞÎÊ½½«ĞòÁĞ»¯ºóµÄ¶ÔÏó´æÈë Tair ·şÎñÆ÷ÖĞ.
+ * é€šè¿‡ Key-Value çš„å½¢å¼å°†åºåˆ—åŒ–åçš„å¯¹è±¡å­˜å…¥ Tair æœåŠ¡å™¨ä¸­.
  * 
- * Ö»ÄÜ²ÉÓÃ PUT , PUT_EXPIRETIME , GET , REMOVE ÕâËÄÖÖ Key ²Ù×÷. 
- * ²»ÄÜÊ¹ÓÃ CLEAR , CLEAN ÕâÖÖ·¶Î§Çå³ı²Ù×÷.
+ * åªèƒ½é‡‡ç”¨ PUT , PUT_EXPIRETIME , GET , REMOVE è¿™å››ç§ Key æ“ä½œ. 
+ * ä¸èƒ½ä½¿ç”¨ CLEAR , CLEAN è¿™ç§èŒƒå›´æ¸…é™¤æ“ä½œ.
  * 
- * Ê¹ÓÃ¸Ã Store . Êı¾İÁ¿¿ÉÒÔ±È½Ï´ó. 5G ~ 10G 
- * ÊÊÓÃÓÚÊı¾İÁ¿´óµ«±ä»¯½ÏÉÙµÄ³¡ºÏ.
+ * ä½¿ç”¨è¯¥ Store . æ•°æ®é‡å¯ä»¥æ¯”è¾ƒå¤§. 5G ~ 10G 
+ * é€‚ç”¨äºæ•°æ®é‡å¤§ä½†å˜åŒ–è¾ƒå°‘çš„åœºåˆ.
  * 
- * ÀıÈç£ºÉÌÆ·Êı¾İ¡¢¶©µ¥Êı¾İ.
+ * ä¾‹å¦‚ï¼šå•†å“æ•°æ®ã€è®¢å•æ•°æ®.
  * </pre>
  * 
  * @author xuanyu
@@ -41,7 +41,7 @@ public class TairStore<K extends Serializable, V extends Serializable>
 
 	private int namespace;
 
-	private Date invalidBeforeDate = null;// Ê§Ğ§´ËÊ±¼äÖ®Ç°µÄ»º´æÊı¾İ
+	private Date invalidBeforeDate = null;// å¤±æ•ˆæ­¤æ—¶é—´ä¹‹å‰çš„ç¼“å­˜æ•°æ®
 
 	public TairStore(TairManager tairManager, int namespace) {
 		this.tairManager = tairManager;
@@ -53,8 +53,8 @@ public class TairStore<K extends Serializable, V extends Serializable>
 	public V get(K key) {
 		Result<DataEntry> result = tairManager.get(namespace, key);
 		if (result.isSuccess()) {
-			DataEntry tairData = result.getValue();// µÚÒ»¸ögetValue·µ»ØDataEntry¶ÔÏó
-			if (tairData == null)// £¨MC-Client²»Í¬£¬expireTimeµ½ÆÚÖ±½Ó·µ»ØnullÁË£©
+			DataEntry tairData = result.getValue();// ç¬¬ä¸€ä¸ªgetValueè¿”å›DataEntryå¯¹è±¡
+			if (tairData == null)// ï¼ˆMC-Clientä¸åŒï¼ŒexpireTimeåˆ°æœŸç›´æ¥è¿”å›nulläº†ï¼‰
 				return null;
 
 			try {
@@ -69,32 +69,32 @@ public class TairStore<K extends Serializable, V extends Serializable>
 			} catch (ParseException e) {
 				this.remove(key);
 				throw new CacheException(1024,
-						"TairStore-ParseException(Tair×îºóĞŞ¸ÄÊ±¼ä¸ñÊ½´íÎó)");
+						"TairStore-ParseException(Tairæœ€åä¿®æ”¹æ—¶é—´æ ¼å¼é”™è¯¯)");
 			}
 
 			try {
-				return (V) tairData.getValue();// µÚ¶ş¸ögetValue·µ»ØÕæÕıµÄvalue
+				return (V) tairData.getValue();// ç¬¬äºŒä¸ªgetValueè¿”å›çœŸæ­£çš„value
 			} catch (ClassCastException e) {
-				// ×ª»»³ö´í£¬Ö÷ÒªÓÃÓÚ¼æÈİÀÏµÄ°ü×°
+				// è½¬æ¢å‡ºé”™ï¼Œä¸»è¦ç”¨äºå…¼å®¹è€çš„åŒ…è£…
 				this.remove(key);
 				throw new CacheException(1024,
-						"TairStore-ClassCastException(»º´æ¶ÔÏó²»¼æÈİĞÔ´íÎó)");
+						"TairStore-ClassCastException(ç¼“å­˜å¯¹è±¡ä¸å…¼å®¹æ€§é”™è¯¯)");
 			}
 		}
 
-		// Ê§°Ü
+		// å¤±è´¥
 		throw new CacheException(result.getRc().getCode(), result.getRc()
 				.getMessage());
 	}
 
 	@Override
 	public void put(K key, V value) {
-		// putÇ°ĞèÒªremove
+		// putå‰éœ€è¦remove
 		remove(key);
 
 		ResultCode rc = tairManager.put(namespace, key, value);
 
-		// Ê§°Ü
+		// å¤±è´¥
 		if (!rc.isSuccess()) {
 			throw new CacheException(rc.getCode(), rc.getMessage());
 		}
@@ -102,12 +102,12 @@ public class TairStore<K extends Serializable, V extends Serializable>
 
 	@Override
 	public void put(K key, V value, int expireTime) {
-		// putÇ°ĞèÒªremove
+		// putå‰éœ€è¦remove
 		remove(key);
 
 		ResultCode rc = tairManager.put(namespace, key, value, 0, expireTime);
 
-		// Ê§°Ü
+		// å¤±è´¥
 		if (!rc.isSuccess()) {
 			throw new CacheException(rc.getCode(), rc.getMessage());
 		}
@@ -116,11 +116,11 @@ public class TairStore<K extends Serializable, V extends Serializable>
 	@Override
 	public void remove(K key) {
 		// TODO xiaocheng
-		// ÕâÀï²ÉÓÃÊ§Ğ§ ÊÇÒòÎª ÊÕ·ÑÏßÏµÍ³½« »áÓĞÔÚ²»Í¬µÄ¼¯ÈºÖĞ£¨ÈİÔÖ£©
+		// è¿™é‡Œé‡‡ç”¨å¤±æ•ˆ æ˜¯å› ä¸º æ”¶è´¹çº¿ç³»ç»Ÿå°† ä¼šæœ‰åœ¨ä¸åŒçš„é›†ç¾¤ä¸­ï¼ˆå®¹ç¾ï¼‰
 
 		ResultCode rc = tairManager.invalid(namespace, key);
 
-		// Ê§°Ü
+		// å¤±è´¥
 		if (!rc.isSuccess()) {
 			throw new CacheException(rc.getCode(), rc.getMessage());
 		}

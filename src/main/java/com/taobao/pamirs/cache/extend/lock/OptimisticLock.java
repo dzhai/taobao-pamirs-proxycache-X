@@ -3,7 +3,7 @@ package com.taobao.pamirs.cache.extend.lock;
 import com.taobao.pamirs.cache.extend.lock.util.LockException;
 
 /**
- * ·Ö²¼Ê½ÀÖ¹ÛËø
+ * åˆ†å¸ƒå¼ä¹è§‚é”
  * 
  * <pre>
  * try {
@@ -11,7 +11,7 @@ import com.taobao.pamirs.cache.extend.lock.util.LockException;
  * 	// do something
  * 	optimisticLock.freeLock(1L, &quot;abc&quot;, lockVersion);
  * } catch (LockException e) {
- * 	// ËøÊ§°Ü´¦Àí
+ * 	// é”å¤±è´¥å¤„ç†
  * }
  * </pre>
  * 
@@ -20,17 +20,17 @@ import com.taobao.pamirs.cache.extend.lock.util.LockException;
 public interface OptimisticLock {
 
 	/**
-	 * »ñÈ¡·Ö²¼Ê½Ëø°æ±¾
+	 * è·å–åˆ†å¸ƒå¼é”ç‰ˆæœ¬
 	 * 
 	 * @param objType
 	 * @param objId
-	 * @return µ±Ç°Ëø°æ±¾ºÅ
+	 * @return å½“å‰é”ç‰ˆæœ¬å·
 	 * @throws LockException
 	 */
 	int getLockVersion(long objType, String objId) throws LockException;
 
 	/**
-	 * ÊÍ·Å×ÊÔ´ÊµÀıËø£¬Èç¹ûversionÒÑ¾­±ä»¯£¬ÊÍ·ÅÊ§°ÜÅ×Òì³£
+	 * é‡Šæ”¾èµ„æºå®ä¾‹é”ï¼Œå¦‚æœversionå·²ç»å˜åŒ–ï¼Œé‡Šæ”¾å¤±è´¥æŠ›å¼‚å¸¸
 	 * 
 	 * @param objType
 	 * @param objId

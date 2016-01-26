@@ -1,14 +1,14 @@
 package com.taobao.pamirs.cache.util.asynlog;
 
 /**
- * Òì²½Log½Ó¿Ú
+ * å¼‚æ­¥Logæ¥å£
  * 
  * @author xiaocheng 2012-11-9
  */
 public interface IWriter<T> {
 
 	/**
-	 * µ¥¸öĞ´
+	 * å•ä¸ªå†™
 	 * 
 	 * @param content
 	 */

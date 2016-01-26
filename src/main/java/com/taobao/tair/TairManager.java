@@ -9,7 +9,7 @@ import java.util.Map;
 
 
 /**
- * Tair的接口，支持持久化存储和非持久化（即cache）存储
+ * Tair鐨勬帴鍙ｏ紝鏀寔鎸佷箙鍖栧瓨鍌ㄥ拰闈炴寔涔呭寲锛堝嵆cache锛夊瓨鍌�
  *
  * @author ruohai
  *
@@ -17,32 +17,32 @@ import java.util.Map;
 public interface TairManager {
 
 	/**
-	 * 获取数据
+	 * 鑾峰彇鏁版嵁
 	 *
 	 * @param namespace
-	 *            数据所在的namespace
+	 *            鏁版嵁鎵�湪鐨刵amespace
 	 * @param key
-	 *            要获取的数据的key
+	 *            瑕佽幏鍙栫殑鏁版嵁鐨刱ey
 	 * @return
 	 */
 	Result<DataEntry> get(int namespace, Serializable key);
 
 	/**
-	 * 批量获取数据
+	 * 鎵归噺鑾峰彇鏁版嵁
 	 *
 	 * @param namespace
-	 *            数据所在的namespace
+	 *            鏁版嵁鎵�湪鐨刵amespace
 	 * @param keys
-	 *            要获取的数据的key列表
-	 * @return 如果成功，返回的数据对象为一个Map<Key, Value>
+	 *            瑕佽幏鍙栫殑鏁版嵁鐨刱ey鍒楄〃
+	 * @return 濡傛灉鎴愬姛锛岃繑鍥炵殑鏁版嵁瀵硅薄涓轰竴涓狹ap<Key, Value>
 	 */
 	Result<List<DataEntry>> mget(int namespace, List<? extends Object> keys);
 
 	/**
-	 * 设置数据，如果数据已经存在，则覆盖，如果不存在，则新增 如果是新增，则有效时间为0，即不失效 如果是更新，则不检查版本，强制更新
+	 * 璁剧疆鏁版嵁锛屽鏋滄暟鎹凡缁忓瓨鍦紝鍒欒鐩栵紝濡傛灉涓嶅瓨鍦紝鍒欐柊澧�濡傛灉鏄柊澧烇紝鍒欐湁鏁堟椂闂翠负0锛屽嵆涓嶅け鏁�濡傛灉鏄洿鏂帮紝鍒欎笉妫�煡鐗堟湰锛屽己鍒舵洿鏂�
 	 *
 	 * @param namespace
-	 *            数据所在的namespace
+	 *            鏁版嵁鎵�湪鐨刵amespace
 	 * @param key
 	 * @param value
 	 * @return
@@ -50,276 +50,276 @@ public interface TairManager {
 	ResultCode put(int namespace, Serializable key, Serializable value);
 
 	/**
-	 * 设置数据，如果数据已经存在，则覆盖，如果不存在，则新增
+	 * 璁剧疆鏁版嵁锛屽鏋滄暟鎹凡缁忓瓨鍦紝鍒欒鐩栵紝濡傛灉涓嶅瓨鍦紝鍒欐柊澧�
 	 *
 	 * @param namespace
-	 *            数据所在的namespace
+	 *            鏁版嵁鎵�湪鐨刵amespace
 	 * @param key
-	 *            数据的key
+	 *            鏁版嵁鐨刱ey
 	 * @param value
-	 *            数据的value
+	 *            鏁版嵁鐨剉alue
 	 * @param version
-	 *            数据的版本，如果和系统中数据的版本不一致，则更新失败
+	 *            鏁版嵁鐨勭増鏈紝濡傛灉鍜岀郴缁熶腑鏁版嵁鐨勭増鏈笉涓�嚧锛屽垯鏇存柊澶辫触
 	 * @return
 	 */
 	ResultCode put(int namespace, Serializable key, Serializable value,
 			int version);
 
 	/**
-	 * 设置数据，如果数据已经存在，则覆盖，如果不存在，则新增
+	 * 璁剧疆鏁版嵁锛屽鏋滄暟鎹凡缁忓瓨鍦紝鍒欒鐩栵紝濡傛灉涓嶅瓨鍦紝鍒欐柊澧�
 	 *
 	 * @param namespace
-	 *            数据所在的namespace
+	 *            鏁版嵁鎵�湪鐨刵amespace
 	 * @param key
-	 *            数据的key
+	 *            鏁版嵁鐨刱ey
 	 * @param value
-	 *            数据的value
+	 *            鏁版嵁鐨剉alue
 	 * @param version
-	 *            数据的版本，如果和系统中数据的版本不一致，则更新失败
+	 *            鏁版嵁鐨勭増鏈紝濡傛灉鍜岀郴缁熶腑鏁版嵁鐨勭増鏈笉涓�嚧锛屽垯鏇存柊澶辫触
 	 * @param expireTime
-	 *            数据的有效时间，单位为秒
+	 *            鏁版嵁鐨勬湁鏁堟椂闂达紝鍗曚綅涓虹
 	 * @return
 	 */
 	ResultCode put(int namespace, Serializable key, Serializable value,
 			int version, int expireTime);
 
 	/**
-	 * 删除key对应的数据
+	 * 鍒犻櫎key瀵瑰簲鐨勬暟鎹�
 	 *
 	 * @param namespace
-	 *            数据所在的namespace
+	 *            鏁版嵁鎵�湪鐨刵amespace
 	 * @param key
-	 *            数据的key
+	 *            鏁版嵁鐨刱ey
 	 * @return
 	 */
 	ResultCode delete(int namespace, Serializable key);
 
 	/**
-	 * 失效数据，该方法将失效由失效服务器配置的多个实例中当前group下的数据
+	 * 澶辨晥鏁版嵁锛岃鏂规硶灏嗗け鏁堢敱澶辨晥鏈嶅姟鍣ㄩ厤缃殑澶氫釜瀹炰緥涓綋鍓峠roup涓嬬殑鏁版嵁
 	 *
 	 * @param namespace
-	 *            数据所在的namespace
+	 *            鏁版嵁鎵�湪鐨刵amespace
 	 * @param key
-	 *            要失效的key
-	 * @deprecated 请直接使用delete接口
+	 *            瑕佸け鏁堢殑key
+	 * @deprecated 璇风洿鎺ヤ娇鐢╠elete鎺ュ彛
 	 * @return
 	 */
 	ResultCode invalid(int namespace, Serializable key);
 
 	/**
-	 * 批量失效数据，该方法将失效由失效服务器配置的多个实例中当前group下的数据
+	 * 鎵归噺澶辨晥鏁版嵁锛岃鏂规硶灏嗗け鏁堢敱澶辨晥鏈嶅姟鍣ㄩ厤缃殑澶氫釜瀹炰緥涓綋鍓峠roup涓嬬殑鏁版嵁
 	 *
 	 * @param namespace
-	 *            数据所在的namespace
+	 *            鏁版嵁鎵�湪鐨刵amespace
 	 * @param keys
-	 *            要失效的key列表
-	 * @deprecated 请使用mdelete接口
+	 *            瑕佸け鏁堢殑key鍒楄〃
+	 * @deprecated 璇蜂娇鐢╩delete鎺ュ彛
 	 * @return
 	 */
 	ResultCode minvalid(int namespace, List<? extends Object> keys);
 
 	/**
-	 * 批量删除，如果全部删除成功，返回成功，否则返回失败
+	 * 鎵归噺鍒犻櫎锛屽鏋滃叏閮ㄥ垹闄ゆ垚鍔燂紝杩斿洖鎴愬姛锛屽惁鍒欒繑鍥炲け璐�
 	 *
 	 * @param namespace
-	 *            数据所在的namespace
+	 *            鏁版嵁鎵�湪鐨刵amespace
 	 * @param keys
-	 *            要删除数据的key列表
+	 *            瑕佸垹闄ゆ暟鎹殑key鍒楄〃
 	 * @return
 	 */
 	ResultCode mdelete(int namespace, List<? extends Object> keys);
 
 	/**
-	 * 将key对应的数据加上value，如果key对应的数据不存在，则新增，并将值设置为defaultValue
-	 * 如果key对应的数据不是int型，则返回失败
+	 * 灏唊ey瀵瑰簲鐨勬暟鎹姞涓妚alue锛屽鏋渒ey瀵瑰簲鐨勬暟鎹笉瀛樺湪锛屽垯鏂板锛屽苟灏嗗�璁剧疆涓篸efaultValue
+	 * 濡傛灉key瀵瑰簲鐨勬暟鎹笉鏄痠nt鍨嬶紝鍒欒繑鍥炲け璐�
 	 *
 	 * @param namespace
-	 *            数据所在的namspace
+	 *            鏁版嵁鎵�湪鐨刵amspace
 	 * @param key
-	 *            数据的key
+	 *            鏁版嵁鐨刱ey
 	 * @param value
-	 *            要加的值
+	 *            瑕佸姞鐨勫�
 	 * @param defaultValue
-	 *            不存在时的默认值
-	 * @return 更新后的值
+	 *            涓嶅瓨鍦ㄦ椂鐨勯粯璁ゅ�
+	 * @return 鏇存柊鍚庣殑鍊�
 	 */
 	Result<Integer> incr(int namespace, Serializable key, int value,
 			int defaultValue, int expireTime);
 
 	/**
-	 * 将key对应的数据减去value，如果key对应的数据不存在，则新增，并将值设置为defaultValue
-	 * 如果key对应的数据不是int型，则返回失败
+	 * 灏唊ey瀵瑰簲鐨勬暟鎹噺鍘籿alue锛屽鏋渒ey瀵瑰簲鐨勬暟鎹笉瀛樺湪锛屽垯鏂板锛屽苟灏嗗�璁剧疆涓篸efaultValue
+	 * 濡傛灉key瀵瑰簲鐨勬暟鎹笉鏄痠nt鍨嬶紝鍒欒繑鍥炲け璐�
 	 *
 	 * @param namespace
-	 *            数据所在的namspace
+	 *            鏁版嵁鎵�湪鐨刵amspace
 	 * @param key
-	 *            数据的key
+	 *            鏁版嵁鐨刱ey
 	 * @param value
-	 *            要减去的值
+	 *            瑕佸噺鍘荤殑鍊�
 	 * @param defaultValue
-	 *            不存在时的默认值
-	 * @return 更新后的值
+	 *            涓嶅瓨鍦ㄦ椂鐨勯粯璁ゅ�
+	 * @return 鏇存柊鍚庣殑鍊�
 	 */
 	Result<Integer> decr(int namespace, Serializable key, int value,
 			int defaultValue, int expireTime);
 
 	/**
-	 * 将key对应的计数设置成count，忽略key原来是否存在以及是否是计数类型。
-	 * 因为Tair中计数的数据有特别标志，所以不能直接使用put设置计数值。
+	 * 灏唊ey瀵瑰簲鐨勮鏁拌缃垚count锛屽拷鐣ey鍘熸潵鏄惁瀛樺湪浠ュ強鏄惁鏄鏁扮被鍨嬨�
+	 * 鍥犱负Tair涓鏁扮殑鏁版嵁鏈夌壒鍒爣蹇楋紝鎵�互涓嶈兘鐩存帴浣跨敤put璁剧疆璁℃暟鍊笺�
 	 *
 	 * @param namespace
-	 *            数据所在的namspace
+	 *            鏁版嵁鎵�湪鐨刵amspace
 	 * @param key
-	 *            数据的key
+	 *            鏁版嵁鐨刱ey
 	 * @param count
-	 *            要设置的值
+	 *            瑕佽缃殑鍊�
 	 */
 	ResultCode setCount(int namespace, Serializable key, int count);
 
 	/**
-	 * 将key对应的计数设置成count，忽略key原来是否存在以及是否是计数类型。
-	 * 因为Tair中计数的数据有特别标志，所以不能直接使用put设置计数值。
+	 * 灏唊ey瀵瑰簲鐨勮鏁拌缃垚count锛屽拷鐣ey鍘熸潵鏄惁瀛樺湪浠ュ強鏄惁鏄鏁扮被鍨嬨�
+	 * 鍥犱负Tair涓鏁扮殑鏁版嵁鏈夌壒鍒爣蹇楋紝鎵�互涓嶈兘鐩存帴浣跨敤put璁剧疆璁℃暟鍊笺�
 	 *
 	 * @param namespace
-	 *            数据所在的namspace
+	 *            鏁版嵁鎵�湪鐨刵amspace
 	 * @param key
-	 *            数据的key
+	 *            鏁版嵁鐨刱ey
 	 * @param count
-	 *            要设置的值
+	 *            瑕佽缃殑鍊�
 	 * @param version
-	 *            版本，不关心并发，传入0
+	 *            鐗堟湰锛屼笉鍏冲績骞跺彂锛屼紶鍏�
 	 * @param expireTime
-	 *            过期时间，不使用传入0
+	 *            杩囨湡鏃堕棿锛屼笉浣跨敤浼犲叆0
 	 */
 	ResultCode setCount(int namespace, Serializable key, int count, int version, int expireTime);
 
 	/**
-	 * 增加集合数据类型，如果原集合数据不存在，则执行insert操作
-	 * @param namespace 数据所在的namespace
-	 * @param key 数据的key
-	 * @param items 要增加的value，当前值接受基本类型，详情参见Json.checkType
-	 * @param maxCount 集合允许的最大条目数量，超过这个数量，系统将直接删除相应数量的最早放入的条目
-	 * @param version 版本号，如果非0，当传入的版本号和系统中的版本号不同时，返回版本错误
-	 * @param expireTime 超时时间
-	 * @return 返回代码
+	 * 澧炲姞闆嗗悎鏁版嵁绫诲瀷锛屽鏋滃師闆嗗悎鏁版嵁涓嶅瓨鍦紝鍒欐墽琛宨nsert鎿嶄綔
+	 * @param namespace 鏁版嵁鎵�湪鐨刵amespace
+	 * @param key 鏁版嵁鐨刱ey
+	 * @param items 瑕佸鍔犵殑value锛屽綋鍓嶅�鎺ュ彈鍩烘湰绫诲瀷锛岃鎯呭弬瑙丣son.checkType
+	 * @param maxCount 闆嗗悎鍏佽鐨勬渶澶ф潯鐩暟閲忥紝瓒呰繃杩欎釜鏁伴噺锛岀郴缁熷皢鐩存帴鍒犻櫎鐩稿簲鏁伴噺鐨勬渶鏃╂斁鍏ョ殑鏉＄洰
+	 * @param version 鐗堟湰鍙凤紝濡傛灉闈�锛屽綋浼犲叆鐨勭増鏈彿鍜岀郴缁熶腑鐨勭増鏈彿涓嶅悓鏃讹紝杩斿洖鐗堟湰閿欒
+	 * @param expireTime 瓒呮椂鏃堕棿
+	 * @return 杩斿洖浠ｇ爜
 	 */
 	ResultCode addItems(int namespace, Serializable key,
 			List<? extends Object> items, int maxCount, int version,
 			int expireTime);
 
 	/**
-	 * 获取集合数据
-	 * @param namespace 数据所在的namespace
-	 * @param key 数据的key
-	 * @param offset 要获取的数据的偏移量
-	 * @param count 要获取的数据的条数
-	 * @return 如果数据不存在，返回DATANOTEXIST，否则成功返回相应的条数，失败返回相应的错误代码
+	 * 鑾峰彇闆嗗悎鏁版嵁
+	 * @param namespace 鏁版嵁鎵�湪鐨刵amespace
+	 * @param key 鏁版嵁鐨刱ey
+	 * @param offset 瑕佽幏鍙栫殑鏁版嵁鐨勫亸绉婚噺
+	 * @param count 瑕佽幏鍙栫殑鏁版嵁鐨勬潯鏁�
+	 * @return 濡傛灉鏁版嵁涓嶅瓨鍦紝杩斿洖DATANOTEXIST锛屽惁鍒欐垚鍔熻繑鍥炵浉搴旂殑鏉℃暟锛屽け璐ヨ繑鍥炵浉搴旂殑閿欒浠ｇ爜
 	 */
 	Result<DataEntry> getItems(int namespace, Serializable key,
 			int offset, int count);
 
 	/**
-	 * 删除集合中的数据
-	 * @param namespace 数据所在的namespace
-	 * @param key 数据的key
-	 * @param offset 要删除的数据的偏移量
-	 * @param count 要删除的数据的条数
-	 * @return 删除是否成功
+	 * 鍒犻櫎闆嗗悎涓殑鏁版嵁
+	 * @param namespace 鏁版嵁鎵�湪鐨刵amespace
+	 * @param key 鏁版嵁鐨刱ey
+	 * @param offset 瑕佸垹闄ょ殑鏁版嵁鐨勫亸绉婚噺
+	 * @param count 瑕佸垹闄ょ殑鏁版嵁鐨勬潯鏁�
+	 * @return 鍒犻櫎鏄惁鎴愬姛
 	 */
 	ResultCode removeItems(int namespace, Serializable key, int offset,
 			int count);
 
 	/**
-	 * 删除并返回集合中的数据
-	 * @param namespace 数据所在的namespace
-	 * @param key 数据的key
-	 * @param offset 要删除的数据的偏移量
-	 * @param count 要删除的数据的条数
-	 * @return 如果删除成功，返回本次删除成功删除的数据
+	 * 鍒犻櫎骞惰繑鍥為泦鍚堜腑鐨勬暟鎹�
+	 * @param namespace 鏁版嵁鎵�湪鐨刵amespace
+	 * @param key 鏁版嵁鐨刱ey
+	 * @param offset 瑕佸垹闄ょ殑鏁版嵁鐨勫亸绉婚噺
+	 * @param count 瑕佸垹闄ょ殑鏁版嵁鐨勬潯鏁�
+	 * @return 濡傛灉鍒犻櫎鎴愬姛锛岃繑鍥炴湰娆″垹闄ゆ垚鍔熷垹闄ょ殑鏁版嵁
 	 */
 	Result<DataEntry> getAndRemove(int namespace,
 			Serializable key, int offset, int count);
 
 	/**
-	 * 获取key对应的集合中的条目数量
-	 * @param namespace  数据所在的namespace
-	 * @param key  数据的key
-	 * @return 如果数据不存在，返回不存在；否则成功返回集合的条目数量，失败返回相应的错误代码
+	 * 鑾峰彇key瀵瑰簲鐨勯泦鍚堜腑鐨勬潯鐩暟閲�
+	 * @param namespace  鏁版嵁鎵�湪鐨刵amespace
+	 * @param key  鏁版嵁鐨刱ey
+	 * @return 濡傛灉鏁版嵁涓嶅瓨鍦紝杩斿洖涓嶅瓨鍦紱鍚﹀垯鎴愬姛杩斿洖闆嗗悎鐨勬潯鐩暟閲忥紝澶辫触杩斿洖鐩稿簲鐨勯敊璇唬鐮�
 	 */
 	Result<Integer> getItemCount(int namespace, Serializable key);
 
 
 	/**
-	 * 锁住一个key，不再允许更新, 允许读和删除。
-	 * @param namespace  数据所在的namespace
-	 * @param key  数据的key
-	 * @return 如果数据不存在，返回不存在；如果数据存在但已经被lock，返回lock已经存在的错误码；
-	 *         否则成功。
+	 * 閿佷綇涓�釜key锛屼笉鍐嶅厑璁告洿鏂� 鍏佽璇诲拰鍒犻櫎銆�
+	 * @param namespace  鏁版嵁鎵�湪鐨刵amespace
+	 * @param key  鏁版嵁鐨刱ey
+	 * @return 濡傛灉鏁版嵁涓嶅瓨鍦紝杩斿洖涓嶅瓨鍦紱濡傛灉鏁版嵁瀛樺湪浣嗗凡缁忚lock锛岃繑鍥瀕ock宸茬粡瀛樺湪鐨勯敊璇爜锛�
+	 *         鍚﹀垯鎴愬姛銆�
 	 */
 	ResultCode lock(int namespace, Serializable key);
 
 
 	/**
-	 * 解锁一个key。
-	 * @param namespace  数据所在的namespace
-	 * @param key  数据的key
-	 * @return 如果数据不存在，返回不存在；如果数据存在但未被lock，返回lock不存在的错误码；
-	 *         否则成功。
+	 * 瑙ｉ攣涓�釜key銆�
+	 * @param namespace  鏁版嵁鎵�湪鐨刵amespace
+	 * @param key  鏁版嵁鐨刱ey
+	 * @return 濡傛灉鏁版嵁涓嶅瓨鍦紝杩斿洖涓嶅瓨鍦紱濡傛灉鏁版嵁瀛樺湪浣嗘湭琚玪ock锛岃繑鍥瀕ock涓嶅瓨鍦ㄧ殑閿欒鐮侊紱
+	 *         鍚﹀垯鎴愬姛銆�
 	 */
 	ResultCode unlock(int namespace, Serializable key);
 
 	/**
-	 * 批量锁key。
-	 * @param namespace  数据所在的namespace
-	 * @param keys  数据的key
-	 * @return Result.getRc()是返回的ResultCode, 如果都成功, 返回成功；
-	 *         如果返回PARTSUCC, 则Result.getValue()为成功的key.
+	 * 鎵归噺閿乲ey銆�
+	 * @param namespace  鏁版嵁鎵�湪鐨刵amespace
+	 * @param keys  鏁版嵁鐨刱ey
+	 * @return Result.getRc()鏄繑鍥炵殑ResultCode, 濡傛灉閮芥垚鍔� 杩斿洖鎴愬姛锛�
+	 *         濡傛灉杩斿洖PARTSUCC, 鍒橰esult.getValue()涓烘垚鍔熺殑key.
 	 */
 	Result<List<Object>> mlock(int namespace, List<? extends Object> keys);
 
 	/**
-	 * 批量锁key。
-	 * @param namespace  数据所在的namespace
-	 * @param keys  数据的key
-	 * @param failKeysMap 传入保存失败的key
-	 * @return Result.getRc()是返回的ResultCode, 如果都成功, 返回成功；
-	 *         如果返回PARTSUCC, 则Result.getValue()为成功的key,并且如果传入failKeysMap不为null，
-	 *         failKeysMap为失败的key以及对应的错误码。
+	 * 鎵归噺閿乲ey銆�
+	 * @param namespace  鏁版嵁鎵�湪鐨刵amespace
+	 * @param keys  鏁版嵁鐨刱ey
+	 * @param failKeysMap 浼犲叆淇濆瓨澶辫触鐨刱ey
+	 * @return Result.getRc()鏄繑鍥炵殑ResultCode, 濡傛灉閮芥垚鍔� 杩斿洖鎴愬姛锛�
+	 *         濡傛灉杩斿洖PARTSUCC, 鍒橰esult.getValue()涓烘垚鍔熺殑key,骞朵笖濡傛灉浼犲叆failKeysMap涓嶄负null锛�
+	 *         failKeysMap涓哄け璐ョ殑key浠ュ強瀵瑰簲鐨勯敊璇爜銆�
 	 */
 	Result<List<Object>> mlock(int namespace, List<? extends Object> keys, Map<Object, ResultCode> failKeysMap);
 
 	/**
-	 * 批量解锁key。
-	 * @param namespace  数据所在的namespace
-	 * @param keys  数据的key
-	 * @return Result.getRc()是返回的ResultCode, 如果都成功, 返回成功；
-	 *         如果返回PARTSUCC, 则Result.getValue()为成功的key.
+	 * 鎵归噺瑙ｉ攣key銆�
+	 * @param namespace  鏁版嵁鎵�湪鐨刵amespace
+	 * @param keys  鏁版嵁鐨刱ey
+	 * @return Result.getRc()鏄繑鍥炵殑ResultCode, 濡傛灉閮芥垚鍔� 杩斿洖鎴愬姛锛�
+	 *         濡傛灉杩斿洖PARTSUCC, 鍒橰esult.getValue()涓烘垚鍔熺殑key.
 	 */
 	Result<List<Object>> munlock(int namespace, List<? extends Object> keys);
 
 	/**
-	 * 批量解锁key。
-	 * @param namespace  数据所在的namespace
-	 * @param keys  数据的key
-	 * @param failKeysMap 传入保存失败的key
-	 * @return Result.getRc()是返回的ResultCode, 如果都成功, 返回成功；
-	 *         如果返回PARTSUCC, 则Result.getValue()为成功的key,并且如果传入failKeysMap不为null，
-	 *         failKeysMap为失败的key以及对应的错误码。
+	 * 鎵归噺瑙ｉ攣key銆�
+	 * @param namespace  鏁版嵁鎵�湪鐨刵amespace
+	 * @param keys  鏁版嵁鐨刱ey
+	 * @param failKeysMap 浼犲叆淇濆瓨澶辫触鐨刱ey
+	 * @return Result.getRc()鏄繑鍥炵殑ResultCode, 濡傛灉閮芥垚鍔� 杩斿洖鎴愬姛锛�
+	 *         濡傛灉杩斿洖PARTSUCC, 鍒橰esult.getValue()涓烘垚鍔熺殑key,骞朵笖濡傛灉浼犲叆failKeysMap涓嶄负null锛�
+	 *         failKeysMap涓哄け璐ョ殑key浠ュ強瀵瑰簲鐨勯敊璇爜銆�
 	 */
 	Result<List<Object>> munlock(int namespace, List<? extends Object> keys, Map<Object, ResultCode> failKeysMap);
 
 	/**
-	 * 得到统计信息
-	 * @param qtype 统计类型
-	 * @param groupName 统计的group name
-	 * @param serverId 统计的服务器
-	 * @return 统计的 结果:统计项和统计值对
+	 * 寰楀埌缁熻淇℃伅
+	 * @param qtype 缁熻绫诲瀷
+	 * @param groupName 缁熻鐨刧roup name
+	 * @param serverId 缁熻鐨勬湇鍔″櫒
+	 * @return 缁熻鐨�缁撴灉:缁熻椤瑰拰缁熻鍊煎
 	 */
 	Map<String,String> getStat(int qtype, String groupName, long serverId);
 
 
 	/**
-	 * 获取客户端的版本
+	 * 鑾峰彇瀹㈡埛绔殑鐗堟湰
 	 */
 	String getVersion();
 }

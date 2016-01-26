@@ -22,7 +22,7 @@ import com.taobao.pamirs.cache.util.CacheCodeUtil;
 import com.taobao.pamirs.cache.util.ConfigUtil;
 
 /**
- * Í¨Öª´¦ÀíÀà
+ * é€šçŸ¥å¤„ç†ç±»
  * 
  * @author xuannan
  * @author xiaocheng 2012-10-30
@@ -62,7 +62,7 @@ public class CacheManagerRoundAdvice implements MethodInterceptor, Advice {
 					beanName, methodName, parameterTypes);
 
 		} catch (Exception e) {
-			log.error("CacheManager:ÇĞÃæ½âÎöÅäÖÃ³ö´í:" + beanName + "#"
+			log.error("CacheManager:åˆ‡é¢è§£æé…ç½®å‡ºé”™:" + beanName + "#"
 					+ invocation.getMethod().getName(), e);
 			return invocation.proceed();
 		}
@@ -73,7 +73,7 @@ public class CacheManagerRoundAdvice implements MethodInterceptor, Advice {
 					.getMethod("getCustomIp").invoke(invocation.getThis());
 		} catch (NoSuchMethodException e) {
 			if (log.isDebugEnabled())
-				log.debug("½Ó¿ÚÃ»ÓĞÊµÏÖHSFµÄgetCustomIp·½·¨£¬È¡²»µ½Consumer IP, beanName="
+				log.debug("æ¥å£æ²¡æœ‰å®ç°HSFçš„getCustomIpæ–¹æ³•ï¼Œå–ä¸åˆ°Consumer IP, beanName="
 						+ beanName);
 		}
 
@@ -105,14 +105,14 @@ public class CacheManagerRoundAdvice implements MethodInterceptor, Advice {
 			// 3. do nothing
 			return invocation.proceed();
 		} catch (Exception e) {
-			// log.error("CacheManager:³ö´í:" + beanName + "#"
+			// log.error("CacheManager:å‡ºé”™:" + beanName + "#"
 			// + invocation.getMethod().getName(), e);
 			throw e;
 		}
 	}
 
 	/**
-	 * »º´æ´¦Àí
+	 * ç¼“å­˜å¤„ç†
 	 * 
 	 * @param cacheAdapter
 	 * @param cacheCode
@@ -135,12 +135,12 @@ public class CacheManagerRoundAdvice implements MethodInterceptor, Advice {
 			response = invocation.proceed();
 
 			long end = System.currentTimeMillis();
-			// »º´æÎ´ÃüÖĞ£¬×ßÔ­Éú·½·¨£¬Í¨Öªlistener
+			// ç¼“å­˜æœªå‘½ä¸­ï¼Œèµ°åŸç”Ÿæ–¹æ³•ï¼Œé€šçŸ¥listener
 			cacheAdapter.notifyListeners(GET, new CacheOprateInfo(cacheCode,
 					end - start, false, cacheAdapter.getBeanName(),
 					cacheAdapter.getMethodConfig(), null, ip));
 
-			if (response == null)// Èç¹ûÔ­Éú·½·¨½á¹ûÎªnull£¬²»putµ½»º´æÁË
+			if (response == null)// å¦‚æœåŸç”Ÿæ–¹æ³•ç»“æœä¸ºnullï¼Œä¸putåˆ°ç¼“å­˜äº†
 				return response;
 
 			if (expireTime == null) {
@@ -155,7 +155,7 @@ public class CacheManagerRoundAdvice implements MethodInterceptor, Advice {
 	}
 
 	/**
-	 * Çå³ı»º´æ´¦Àí
+	 * æ¸…é™¤ç¼“å­˜å¤„ç†
 	 * 
 	 * @param cacheCleanBean
 	 * @param invocation
@@ -178,7 +178,7 @@ public class CacheManagerRoundAdvice implements MethodInterceptor, Advice {
 
 			if (cacheAdapter != null) {
 				String cacheCode = CacheCodeUtil.getCacheCode(storeRegion,
-						beanName, methodConfig, invocation.getArguments());// ÕâÀïµÄinvocationÖ±½ÓÓÃÖ÷beanµÄ£¬ÒòÎªÇåÀíµÄbeanµÄ²ÎÊı±ØĞëºÍÖ÷bean±£³ÖÒ»ÖÂ
+						beanName, methodConfig, invocation.getArguments());// è¿™é‡Œçš„invocationç›´æ¥ç”¨ä¸»beançš„ï¼Œå› ä¸ºæ¸…ç†çš„beançš„å‚æ•°å¿…é¡»å’Œä¸»beanä¿æŒä¸€è‡´
 				cacheAdapter.remove(cacheCode, ip);
 			}
 		}

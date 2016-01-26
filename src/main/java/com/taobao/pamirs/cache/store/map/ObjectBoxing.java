@@ -3,7 +3,7 @@ package com.taobao.pamirs.cache.store.map;
 import java.io.Serializable;
 
 /**
- * »º´æ¶ÔÏó°ü×°Àà£¬Ö§³ÖexpireTime
+ * ç¼“å­˜å¯¹è±¡åŒ…è£…ç±»ï¼Œæ”¯æŒexpireTime
  * 
  * @author xuanyu
  * @author xiaocheng 2012-10-30
@@ -15,8 +15,8 @@ public class ObjectBoxing<V extends Serializable> implements Serializable {
 	private Long timestamp = new Long(System.currentTimeMillis() / 1000);
 
 	/**
-	 * Ê§Ğ§Ê±¼ä£¨¾ø¶ÔÊ±¼ä£©£¬µ¥Î»ºÁÃë<br>
-	 * Null±íÊ¾ÓÀ²»Ê§Ğ§
+	 * å¤±æ•ˆæ—¶é—´ï¼ˆç»å¯¹æ—¶é—´ï¼‰ï¼Œå•ä½æ¯«ç§’<br>
+	 * Nullè¡¨ç¤ºæ°¸ä¸å¤±æ•ˆ
 	 */
 	private Integer expireTime;
 
@@ -32,14 +32,14 @@ public class ObjectBoxing<V extends Serializable> implements Serializable {
 	}
 
 	public V getObject() {
-		// ÒÑ¾­Ê§Ğ§
+		// å·²ç»å¤±æ•ˆ
 		if (expireTime != null && expireTime != 0) {
 			long now = System.currentTimeMillis() / 1000;
 
-			if (timestamp.longValue() > expireTime.longValue()) {// Ïà¶ÔÊ±¼ä
+			if (timestamp.longValue() > expireTime.longValue()) {// ç›¸å¯¹æ—¶é—´
 				if (now >= (expireTime.longValue() + timestamp.longValue()))
 					return null;
-			} else {// ¾ø¶ÔÊ±¼ä
+			} else {// ç»å¯¹æ—¶é—´
 				if (now >= expireTime.longValue())
 					return null;
 			}

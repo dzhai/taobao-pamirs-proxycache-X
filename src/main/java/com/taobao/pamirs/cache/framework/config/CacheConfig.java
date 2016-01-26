@@ -4,7 +4,7 @@ import com.taobao.pamirs.cache.load.verify.Verfication;
 import com.taobao.pamirs.cache.store.StoreType;
 
 /**
- * »º´æ×ÜÅäÖÃ
+ * ç¼“å­˜æ€»é…ç½®
  * 
  * @author xiaocheng 2012-11-2
  */
@@ -14,31 +14,31 @@ public class CacheConfig extends CacheModule {
 	private static final long serialVersionUID = 8164876688008497503L;
 
 	/**
-	 * »º´æÀàĞÍ
+	 * ç¼“å­˜ç±»å‹
 	 * 
 	 * @see StoreType
 	 */
-	@Verfication(name = "»º´æÀàĞÍ", notEmpty = true, isStoreType = true)
+	@Verfication(name = "ç¼“å­˜ç±»å‹", notEmpty = true, isStoreType = true)
 	private String storeType;
 
 	/**
-	 * Map×Ô¶¯ÇåÀí±í´ïÊ½£¨¿ÉÑ¡£©(just for map£©
+	 * Mapè‡ªåŠ¨æ¸…ç†è¡¨è¾¾å¼ï¼ˆå¯é€‰ï¼‰(just for mapï¼‰
 	 * 
 	 * @see StoreType.MAP
 	 */
 	private String storeMapCleanTime;
 
 	/**
-	 * »º´æ·ÖÇø£¨¿ÉÑ¡£©
+	 * ç¼“å­˜åˆ†åŒºï¼ˆå¯é€‰ï¼‰
 	 */
 	private String storeRegion;
 
 	/**
-	 * TairÃüÃû¿Õ¼ä£¨just for tair£©
+	 * Tairå‘½åç©ºé—´ï¼ˆjust for tairï¼‰
 	 * 
 	 * @see StoreType.TAIR
 	 */
-	@Verfication(name = "TairÃüÃû¿Õ¼ä", notNull = true, when = { StoreType.TAIR })
+	@Verfication(name = "Tairå‘½åç©ºé—´", notNull = true, when = { StoreType.TAIR })
 	private Integer storeTairNameSpace;
 
 	public String getStoreType() {

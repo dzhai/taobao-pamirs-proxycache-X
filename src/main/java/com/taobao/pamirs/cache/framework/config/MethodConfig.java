@@ -6,7 +6,7 @@ import java.util.List;
 import com.taobao.pamirs.cache.load.verify.Verfication;
 
 /**
- * »ù±¾beanÅäÖÃ
+ * åŸºæœ¬beané…ç½®
  * 
  * @author xiaocheng 2012-11-2
  */
@@ -15,17 +15,17 @@ public class MethodConfig implements Serializable {
 	//
 	private static final long serialVersionUID = 1L;
 
-	@Verfication(name = "·½·¨Ãû³Æ", notEmpty = true)
+	@Verfication(name = "æ–¹æ³•åç§°", notEmpty = true)
 	private String methodName;
 	/**
-	 * ²ÎÊıÀàĞÍ
+	 * å‚æ•°ç±»å‹
 	 */
 	private List<Class<?>> parameterTypes;
 
 	/**
-	 * Ê§Ğ§Ê±¼ä£¬µ¥Î»£ºÃë¡£<br>
-	 * ¿ÉÒÔÊÇÏà¶ÔÊ±¼ä£¬Ò²¿ÉÒÔÊÇ¾ø¶ÔÊ±¼ä(´óÓÚµ±Ç°Ê±¼ä´ÁÊÇ¾ø¶ÔÊ±¼ä¹ıÆÚ)¡£²»´«»ò0¶¼ÊÇ²»¹ıÆÚ <br>
-	 * ¡¾¿ÉÑ¡Ïî¡¿
+	 * å¤±æ•ˆæ—¶é—´ï¼Œå•ä½ï¼šç§’ã€‚<br>
+	 * å¯ä»¥æ˜¯ç›¸å¯¹æ—¶é—´ï¼Œä¹Ÿå¯ä»¥æ˜¯ç»å¯¹æ—¶é—´(å¤§äºå½“å‰æ—¶é—´æˆ³æ˜¯ç»å¯¹æ—¶é—´è¿‡æœŸ)ã€‚ä¸ä¼ æˆ–0éƒ½æ˜¯ä¸è¿‡æœŸ <br>
+	 * ã€å¯é€‰é¡¹ã€‘
 	 */
 	private Integer expiredTime;
 
@@ -38,8 +38,8 @@ public class MethodConfig implements Serializable {
 	}
 
 	/**
-	 * null: ´ú±íÃ»ÓĞset,×°ÔØÅäÖÃÊ±ĞèÒªÖØĞÂ¸³Öµ <br>
-	 * ¿Õ: ´ú±íÎŞ²Î·½·¨
+	 * null: ä»£è¡¨æ²¡æœ‰set,è£…è½½é…ç½®æ—¶éœ€è¦é‡æ–°èµ‹å€¼ <br>
+	 * ç©º: ä»£è¡¨æ— å‚æ–¹æ³•
 	 * 
 	 * @return
 	 */

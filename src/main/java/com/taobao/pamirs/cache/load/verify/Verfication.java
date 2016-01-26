@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 import com.taobao.pamirs.cache.store.StoreType;
 
 /**
- * Ğ£Ñé×¢½â
+ * æ ¡éªŒæ³¨è§£
  * 
  * @author xiaocheng 2012-11-29
  */
@@ -17,70 +17,70 @@ import com.taobao.pamirs.cache.store.StoreType;
 public @interface Verfication {
 
 	/**
-	 * Ğ£Ñé×Ö¶ÎÃû³Æ,ÓÃÓÚ´íÎóÌáÊ¾
+	 * æ ¡éªŒå­—æ®µåç§°,ç”¨äºé”™è¯¯æç¤º
 	 * 
 	 * @return
 	 */
 	String name();
 
 	/**
-	 * ÅĞ¶ÏÊÇ·ñ¿ÉÒÔÎªnull
+	 * åˆ¤æ–­æ˜¯å¦å¯ä»¥ä¸ºnull
 	 * 
 	 * @return
 	 */
 	boolean notNull() default false;
 
 	/**
-	 * ÅĞ¶ÏStringÊÇ·ñ¿ÉÒÔÎªnull»ò¿Õ×Ö·û´® <br>
-	 * £¨only for String Type£©
+	 * åˆ¤æ–­Stringæ˜¯å¦å¯ä»¥ä¸ºnullæˆ–ç©ºå­—ç¬¦ä¸² <br>
+	 * ï¼ˆonly for String Typeï¼‰
 	 * 
 	 * @return
 	 */
 	boolean notEmpty() default false;
 
 	/**
-	 * ÕıÔò±í´ïÊ½¼ìÑé<br>
-	 * ÓÃ·¨£º{"regx", "ÌáÊ¾ĞÅÏ¢"} <br>
-	 * £¨only for String Type£©
+	 * æ­£åˆ™è¡¨è¾¾å¼æ£€éªŒ<br>
+	 * ç”¨æ³•ï¼š{"regx", "æç¤ºä¿¡æ¯"} <br>
+	 * ï¼ˆonly for String Typeï¼‰
 	 * 
 	 * @return
 	 */
 	String[] regx() default {};
 
 	/**
-	 * ×Ö·û´®×î´ó³¤¶È£¬ÖĞÎÄËãÁ½¸ö×Ö·û£¬È«½ÇÓ¢ÎÄËãÁ½¸ö×Ö·û <br>
-	 * £¨only for String£©
+	 * å­—ç¬¦ä¸²æœ€å¤§é•¿åº¦ï¼Œä¸­æ–‡ç®—ä¸¤ä¸ªå­—ç¬¦ï¼Œå…¨è§’è‹±æ–‡ç®—ä¸¤ä¸ªå­—ç¬¦ <br>
+	 * ï¼ˆonly for Stringï¼‰
 	 * 
 	 * @return
 	 */
 	int maxlength() default 0;
 
 	/**
-	 * ×Ö·û´®×îĞ¡³¤¶È£¬ÖĞÎÄËãÁ½¸ö×Ö·û£¬È«½ÇÓ¢ÎÄËãÁ½¸ö×Ö·û <br>
-	 * £¨only for String£©
+	 * å­—ç¬¦ä¸²æœ€å°é•¿åº¦ï¼Œä¸­æ–‡ç®—ä¸¤ä¸ªå­—ç¬¦ï¼Œå…¨è§’è‹±æ–‡ç®—ä¸¤ä¸ªå­—ç¬¦ <br>
+	 * ï¼ˆonly for Stringï¼‰
 	 * 
 	 * @return
 	 */
 	int minlength() default 0;
 
 	/**
-	 * ÅĞ¶ÏListÊÇ·ñÎª¿Õ
+	 * åˆ¤æ–­Listæ˜¯å¦ä¸ºç©º
 	 * 
 	 * @return
 	 */
 	boolean notEmptyList() default false;
 
-	/* ------ ÒµÎñÏà¹Ø ------- */
+	/* ------ ä¸šåŠ¡ç›¸å…³ ------- */
 
 	/**
-	 * ÅĞ¶ÏÊÇ·ñÔÚÊôÓÚStoreType
+	 * åˆ¤æ–­æ˜¯å¦åœ¨å±äºStoreType
 	 * 
 	 * @return
 	 */
 	boolean isStoreType() default false;
 
 	/**
-	 * µ±TypeÊ±²Å»áĞ£Ñé£¬Ä¬ÈÏ¶¼Ğ£Ñé
+	 * å½“Typeæ—¶æ‰ä¼šæ ¡éªŒï¼Œé»˜è®¤éƒ½æ ¡éªŒ
 	 * 
 	 * @return
 	 */

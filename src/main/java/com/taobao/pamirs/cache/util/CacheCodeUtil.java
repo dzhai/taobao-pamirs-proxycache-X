@@ -8,46 +8,46 @@ import org.springframework.util.Assert;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
 
 /**
- * »º´æCode¸¨ÖúÀà
+ * ç¼“å­˜Codeè¾…åŠ©ç±»
  * 
  * @author xiaocheng 2012-11-2
  */
 public class CacheCodeUtil {
 
 	/**
-	 * KeyµÄÖ÷·Ö¸ô·û<br>
-	 * ¸ñÊ½£ºregionbeanName#methodName#{String}
+	 * Keyçš„ä¸»åˆ†éš”ç¬¦<br>
+	 * æ ¼å¼ï¼šregionbeanName#methodName#{String}
 	 */
 	public static final String KEY_SPLITE_SIGN = "#";
 	/**
-	 * keyÖĞ·½·¨²ÎÊıµÄ·Ö¸ô·û<br>
-	 * ¸ñÊ½£º{String|Long}
+	 * keyä¸­æ–¹æ³•å‚æ•°çš„åˆ†éš”ç¬¦<br>
+	 * æ ¼å¼ï¼š{String|Long}
 	 */
 	public static final String KEY_PARAMS_SPLITE_SIGN = "|";
 
-	/** region·Ö¸ô·û */
+	/** regionåˆ†éš”ç¬¦ */
 	public static final String REGION_SPLITE_SIGN = "@";
 
 	/**
-	 * È¡µÃ×îÖÕµÄ»º´æCodeÖĞ²ÎÊıÖµ·Ö¸ô·û<br>
-	 * ¸ñÊ½£ºregionbeanName#methodName#{String,Long}abc@@123
+	 * å–å¾—æœ€ç»ˆçš„ç¼“å­˜Codeä¸­å‚æ•°å€¼åˆ†éš”ç¬¦<br>
+	 * æ ¼å¼ï¼šregionbeanName#methodName#{String,Long}abc@@123
 	 */
 	public static final String CODE_PARAM_VALUES_SPLITE_SIGN = "@@";
 
 	/**
-	 * È¡µÃ×îÖÕµÄ»º´æCode<br>
-	 * ¸ñÊ½£ºregion@beanName#methodName#{String|Long}abc@@123
+	 * å–å¾—æœ€ç»ˆçš„ç¼“å­˜Code<br>
+	 * æ ¼å¼ï¼šregion@beanName#methodName#{String|Long}abc@@123
 	 * 
 	 * @param region
 	 * @param beanName
 	 * @param methodConfig
 	 * @param parameters
-	 *            Êı×é³¤¶È»áÒÔmethodConfig.getParameterTypes()ÓÅÏÈ£¬¶àÓàµÄ»á¶ªÊ§
+	 *            æ•°ç»„é•¿åº¦ä¼šä»¥methodConfig.getParameterTypes()ä¼˜å…ˆï¼Œå¤šä½™çš„ä¼šä¸¢å¤±
 	 * @return
 	 */
 	public static String getCacheCode(String region, String beanName,
 			MethodConfig methodConfig, Object[] parameters) {
-		// ×îÖÕµÄ»º´æcode
+		// æœ€ç»ˆçš„ç¼“å­˜code
 		StringBuilder code = new StringBuilder();
 
 		// 1. region
@@ -73,8 +73,8 @@ public class CacheCodeUtil {
 	}
 
 	/**
-	 * »º´æÊÊÅäÆ÷µÄkey<br>
-	 * ¸ñÊ½£ºregion@beanName#methodName#{String|Long}
+	 * ç¼“å­˜é€‚é…å™¨çš„key<br>
+	 * æ ¼å¼ï¼šregion@beanName#methodName#{String|Long}
 	 * 
 	 * @param region
 	 * @param beanName
@@ -85,7 +85,7 @@ public class CacheCodeUtil {
 			MethodConfig methodConfig) {
 		Assert.notNull(methodConfig);
 
-		// ×îÖÕµÄkey
+		// æœ€ç»ˆçš„key
 		StringBuilder key = new StringBuilder();
 
 		// 1. region
@@ -105,7 +105,7 @@ public class CacheCodeUtil {
 	}
 
 	/**
-	 * ²ÎÊıtoString£¬¸ñÊ½{String|int}
+	 * å‚æ•°toStringï¼Œæ ¼å¼{String|int}
 	 * 
 	 * @param parameterTypes
 	 * @return

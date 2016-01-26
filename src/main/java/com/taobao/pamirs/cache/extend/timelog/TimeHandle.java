@@ -16,7 +16,7 @@ import com.taobao.pamirs.cache.extend.jmx.annotation.JmxMethod;
 import com.taobao.pamirs.cache.extend.timelog.annotation.TimeLog;
 
 /**
- * ·½·¨Ê±¼äÈÕÖ¾´òÓ¡´¦ÀíÀà auto proxy
+ * æ–¹æ³•æ—¶é—´æ—¥å¿—æ‰“å°å¤„ç†ç±» auto proxy
  * 
  * @author xiaocheng 2012-8-24
  */
@@ -30,14 +30,14 @@ public class TimeHandle extends AbstractAutoProxyCreator implements
 	/**  */
 	private static final long serialVersionUID = 1L;
 
-	/** ÈÕÖ¾´òÓ¡¿ª¹Ø£¬Ä¬ÈÏ¹Ø±ÕÈÕÖ¾´òÓ¡£¬ÌáÉıĞÔÄÜ */
+	/** æ—¥å¿—æ‰“å°å¼€å…³ï¼Œé»˜è®¤å…³é—­æ—¥å¿—æ‰“å°ï¼Œæå‡æ€§èƒ½ */
 	private boolean openPrint = false;
 
-	/** ÊÇ·ñ´òÓ¡·½·¨²ÎÊı£¬Ä¬ÈÏ¹Ø±Õ */
+	/** æ˜¯å¦æ‰“å°æ–¹æ³•å‚æ•°ï¼Œé»˜è®¤å…³é—­ */
 	private boolean printParams = false;
 
 	/**
-	 * °×Ãûµ¥--×¢½âµÄÁíÒ»ÖÖÑ¡Ôñ·½Ê½
+	 * ç™½åå•--æ³¨è§£çš„å¦ä¸€ç§é€‰æ‹©æ–¹å¼
 	 */
 	private List<String> beanList;
 
@@ -59,7 +59,7 @@ public class TimeHandle extends AbstractAutoProxyCreator implements
 				|| (this.beanList != null && this.beanList.contains(beanName))) {
 
 			if (log.isDebugEnabled())
-				log.debug("·½·¨ÈÕÖ¾´úÀí" + beanClass + ":" + beanName);
+				log.debug("æ–¹æ³•æ—¥å¿—ä»£ç†" + beanClass + ":" + beanName);
 
 			return new TimeAdvisor[] { new TimeAdvisor(beanClass, beanName,
 					this) };

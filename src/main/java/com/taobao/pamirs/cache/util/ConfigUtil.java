@@ -20,14 +20,14 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
- * ÅäÖÃ¸¨ÖúÀà
+ * é…ç½®è¾…åŠ©ç±»
  * 
  * @author xiaocheng 2012-11-2
  */
 public class ConfigUtil {
 
 	/**
-	 * ÊÇ·ñbeanÔÚcacheÖĞÅäÖÃ
+	 * æ˜¯å¦beanåœ¨cacheä¸­é…ç½®
 	 * 
 	 * @param cacheConfig
 	 * @param beanName
@@ -59,7 +59,7 @@ public class ConfigUtil {
 	}
 
 	/**
-	 * »ñÈ¡¶ÔÓ¦µÄ»º´æMethodConfigÅäÖÃ
+	 * è·å–å¯¹åº”çš„ç¼“å­˜MethodConfigé…ç½®
 	 * 
 	 * @param cacheConfig
 	 * @param beanName
@@ -104,7 +104,7 @@ public class ConfigUtil {
 	}
 
 	/**
-	 * »ñÈ¡¶ÔÓ¦µÄ»º´æÇåÀíµÄMethodConfigÅäÖÃÁĞ±í
+	 * è·å–å¯¹åº”çš„ç¼“å­˜æ¸…ç†çš„MethodConfigé…ç½®åˆ—è¡¨
 	 * 
 	 * @param cacheConfig
 	 * @param beanName
@@ -133,7 +133,7 @@ public class ConfigUtil {
 	}
 
 	/**
-	 * xml×ª»»³ÉCacheModule
+	 * xmlè½¬æ¢æˆCacheModule
 	 * 
 	 * @param inputStream
 	 * @return
@@ -153,11 +153,11 @@ public class ConfigUtil {
 			return cacheConfig;
 		}
 
-		throw new LoadConfigException("ÊäÈëµÄÅäÖÃĞÅÏ¢ÎªNull");
+		throw new LoadConfigException("è¾“å…¥çš„é…ç½®ä¿¡æ¯ä¸ºNull");
 	}
 
 	/**
-	 * ×Ô¶¯Ìî³äÅäÖÃĞÅÏ¢
+	 * è‡ªåŠ¨å¡«å……é…ç½®ä¿¡æ¯
 	 * 
 	 * @param cacheConfig
 	 * @param applicationContext
@@ -168,10 +168,10 @@ public class ConfigUtil {
 		Assert.notNull(cacheConfig);
 		Assert.isTrue(!CollectionUtils.isEmpty(cacheConfig.getCacheBeans())
 				|| !CollectionUtils.isEmpty(cacheConfig.getCacheBeans()),
-				"ÅäÖÃÖĞ»º´æºÍÇåÀí»º´æ²»ÄÜÍ¬Ê±Îª¿Õ£¡");
+				"é…ç½®ä¸­ç¼“å­˜å’Œæ¸…ç†ç¼“å­˜ä¸èƒ½åŒæ—¶ä¸ºç©ºï¼");
 
-		// 1. ¶Ômethod¶¨Òå£¬Èç¹ûÃ»ÓĞparameterTypes£¬Ôò×Ô¶¯Ñ°ÕÒÅä¶Ô£¨ÓĞÖØÃû·½·¨±¨´í£©
-		// 1.1 °üÀ¨£ºcacheBean.methodConfig
+		// 1. å¯¹methodå®šä¹‰ï¼Œå¦‚æœæ²¡æœ‰parameterTypesï¼Œåˆ™è‡ªåŠ¨å¯»æ‰¾é…å¯¹ï¼ˆæœ‰é‡åæ–¹æ³•æŠ¥é”™ï¼‰
+		// 1.1 åŒ…æ‹¬ï¼šcacheBean.methodConfig
 		if (cacheConfig.getCacheBeans() != null) {
 			for (CacheBean cacheBean : cacheConfig.getCacheBeans()) {
 				for (MethodConfig methodConfig : cacheBean.getCacheMethods()) {
@@ -185,7 +185,7 @@ public class ConfigUtil {
 				}
 			}
 		}
-		// 1.2 °üÀ¨£ºcacheCleanBean.cacheCleanMethod
+		// 1.2 åŒ…æ‹¬ï¼šcacheCleanBean.cacheCleanMethod
 		if (cacheConfig.getCacheCleanBeans() != null) {
 			for (CacheCleanBean cleanBean : cacheConfig.getCacheCleanBeans()) {
 				for (CacheCleanMethod method : cleanBean.getMethods()) {
@@ -200,13 +200,13 @@ public class ConfigUtil {
 			}
 		}
 
-		// 2. Ìî³ä»º´æÇåÀí¹ØÁªµÄ·½·¨²ÎÊı£ºcacheCleanBean.methods.cleanMethods.parameterTypes
+		// 2. å¡«å……ç¼“å­˜æ¸…ç†å…³è”çš„æ–¹æ³•å‚æ•°ï¼šcacheCleanBean.methods.cleanMethods.parameterTypes
 		if (cacheConfig.getCacheCleanBeans() != null) {
 			for (CacheCleanBean cleanBean : cacheConfig.getCacheCleanBeans()) {
 				for (CacheCleanMethod method : cleanBean.getMethods()) {
 					for (MethodConfig clearMethod : method.getCleanMethods()) {
 						clearMethod.setParameterTypes(method
-								.getParameterTypes());// ¼Ì³Ğ
+								.getParameterTypes());// ç»§æ‰¿
 					}
 				}
 			}
@@ -218,7 +218,7 @@ public class ConfigUtil {
 			ApplicationContext applicationContext, String methodName) {
 		// fill
 		Object bean = applicationContext.getBean(beanName);
-		Assert.notNull(bean, "ÕÒ²»µ½Bean:" + beanName);
+		Assert.notNull(bean, "æ‰¾ä¸åˆ°Bean:" + beanName);
 		
 		Method[] methods = bean.getClass().getMethods();
 		int num = 0;
@@ -231,7 +231,7 @@ public class ConfigUtil {
 		}
 
 		if (num > 1)
-			throw new LoadConfigException("ÓĞÖØÃû·½·¨µ«Ã»ÓĞÖ¸¶¨²ÎÊı:" + beanName + "#"
+			throw new LoadConfigException("æœ‰é‡åæ–¹æ³•ä½†æ²¡æœ‰æŒ‡å®šå‚æ•°:" + beanName + "#"
 					+ methodName);
 
 		return Arrays.asList(index.getParameterTypes());

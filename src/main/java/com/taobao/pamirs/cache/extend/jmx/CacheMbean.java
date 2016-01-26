@@ -24,7 +24,7 @@ import com.taobao.pamirs.cache.util.IpUtil;
 import com.taobao.pamirs.cache.util.ParameterSupportTypeUtil;
 
 /**
- * »º´æbeanµÄMbean
+ * ç¼“å­˜beançš„Mbean
  * 
  * @author xuanyu
  * @author xiaocheng 2012-11-8
@@ -38,13 +38,13 @@ public class CacheMbean<K extends Serializable, V extends Serializable> extends
 	private CacheMbeanListener listener;
 	private ApplicationContext applicationContext;
 	/**
-	 * Ê§Ğ§Ê±¼ä£¬µ¥Î»£ºÃë¡£
+	 * å¤±æ•ˆæ—¶é—´ï¼Œå•ä½ï¼šç§’ã€‚
 	 * 
 	 * @see CacheBean.expiredTime
 	 */
 	private Integer expiredTime;
 	/**
-	 * Map×Ô¶¯ÇåÀí±í´ïÊ½
+	 * Mapè‡ªåŠ¨æ¸…ç†è¡¨è¾¾å¼
 	 * 
 	 * @see CacheConfig.storeMapCleanTime
 	 */
@@ -147,7 +147,7 @@ public class CacheMbean<K extends Serializable, V extends Serializable> extends
 	}
 
 	/**
-	 * Õâ¸ö·½·¨Í¨¹ı Cache »ñÈ¡ÕæÊµÖµ.
+	 * è¿™ä¸ªæ–¹æ³•é€šè¿‡ Cache è·å–çœŸå®å€¼.
 	 * 
 	 * @param key
 	 * @return
@@ -155,23 +155,23 @@ public class CacheMbean<K extends Serializable, V extends Serializable> extends
 	@SuppressWarnings("unchecked")
 	public V getRealValue(K key) {
 		try {
-			// ÖØÓÃÆäÖĞµÄ·Ç·¨Ğ£Ñé
+			// é‡ç”¨å…¶ä¸­çš„éæ³•æ ¡éªŒ
 			keyToCacheCode((String) key);
 
 			MethodConfig methodConfig = cacheProxy.getMethodConfig();
 			Object bean = AopProxyUtil
 					.getPrimitiveProxyTarget(applicationContext
-							.getBean(cacheProxy.getBeanName()));// È¡µÃÔ­Éú¶ÔÏó
+							.getBean(cacheProxy.getBeanName()));// å–å¾—åŸç”Ÿå¯¹è±¡
 			List<Class<?>> parameterTypes = methodConfig.getParameterTypes();
 
-			// ÎŞ²Î
+			// æ— å‚
 			if (parameterTypes == null) {
 				Method method = bean.getClass().getMethod(
 						methodConfig.getMethodName());
 				return (V) method.invoke(bean);
 			}
 
-			// ÓĞ²Î
+			// æœ‰å‚
 			Class<?>[] parameterTypeArray = new Class<?>[parameterTypes.size()];
 			for (int i = 0; i < parameterTypeArray.length; i++) {
 				parameterTypeArray[i] = parameterTypes.get(i);
@@ -220,29 +220,29 @@ public class CacheMbean<K extends Serializable, V extends Serializable> extends
 		boolean illegal = false;
 
 		if (parameterTypes == null || parameterTypes.isEmpty()) {
-			// 1. ÎŞ²Î·½·¨
+			// 1. æ— å‚æ–¹æ³•
 			if (StringUtils.isNotEmpty(key))
 				illegal = true;
 		} else {
-			// 2. ÓĞ²Î·½·¨
+			// 2. æœ‰å‚æ–¹æ³•
 			if (keyItems.length != parameterTypes.size())
 				illegal = true;
 		}
 
 		if (illegal) {
-			String erroMsg = "jmxµÄ²ÎÊıÊıÁ¿ºÍ½Ó¿ÚµÄ²ÎÊıÊıÁ¿²»Ò»ÖÂ,ÇëÇó£º" + key.toString()
-					+ "½Ó¿Ú²ÎÊı:" + parameterTypes;
+			String erroMsg = "jmxçš„å‚æ•°æ•°é‡å’Œæ¥å£çš„å‚æ•°æ•°é‡ä¸ä¸€è‡´,è¯·æ±‚ï¼š" + key.toString()
+					+ "æ¥å£å‚æ•°:" + parameterTypes;
 			throw new RuntimeException(erroMsg);
 		}
 
-		// ÎŞ²Î
+		// æ— å‚
 		if (parameterTypes == null) {
 			return CacheCodeUtil.getCacheCode(cacheProxy.getStoreRegion(),
 					cacheProxy.getBeanName(), cacheProxy.getMethodConfig(),
 					null);
 		}
 
-		// ÓĞ²Î
+		// æœ‰å‚
 		Object[] parameterValues = new Object[parameterTypes.size()];
 		for (int i = 0; i < parameterTypes.size(); i++) {
 			parameterValues[i] = ParameterSupportTypeUtil.valueConvertToType(
@@ -256,62 +256,62 @@ public class CacheMbean<K extends Serializable, V extends Serializable> extends
 
 	protected void buildDynamicMBeanInfo() {
 		MBeanAttributeInfo[] dAttributes = new MBeanAttributeInfo[] {
-				new MBeanAttributeInfo("cacheName", "String", "»º´æÃû³Æ", true,
+				new MBeanAttributeInfo("cacheName", "String", "ç¼“å­˜åç§°", true,
 						false, false),
-				new MBeanAttributeInfo("storeType", "String", "»º´æÀàĞÍ", true,
+				new MBeanAttributeInfo("storeType", "String", "ç¼“å­˜ç±»å‹", true,
 						false, false),
-				new MBeanAttributeInfo("storeCount", "String", "»º´æÊı¾İÁ¿", true,
+				new MBeanAttributeInfo("storeCount", "String", "ç¼“å­˜æ•°æ®é‡", true,
 						false, false),
-				new MBeanAttributeInfo("isUseCache", "boolean", "ÊÇ·ñÊ¹ÓÃ»º´æ", true,
+				new MBeanAttributeInfo("isUseCache", "boolean", "æ˜¯å¦ä½¿ç”¨ç¼“å­˜", true,
 						false, false),
-				new MBeanAttributeInfo("readHits", "long", "¶ÁÃüÖĞ´ÎÊı", true,
+				new MBeanAttributeInfo("readHits", "long", "è¯»å‘½ä¸­æ¬¡æ•°", true,
 						false, false),
-				new MBeanAttributeInfo("readUnHits", "long", "¶ÁÎ´ÃüÖĞ´ÎÊı", true,
+				new MBeanAttributeInfo("readUnHits", "long", "è¯»æœªå‘½ä¸­æ¬¡æ•°", true,
 						false, false),
-				new MBeanAttributeInfo("readHitRate", "double", "»º´æÃüÖĞÂÊ", true,
+				new MBeanAttributeInfo("readHitRate", "double", "ç¼“å­˜å‘½ä¸­ç‡", true,
 						false, false),
-				new MBeanAttributeInfo("readAvgTime", "long", "Æ½¾ù»º´æ¶ÁºÄÊ±", true,
+				new MBeanAttributeInfo("readAvgTime", "long", "å¹³å‡ç¼“å­˜è¯»è€—æ—¶", true,
 						false, false),
-				new MBeanAttributeInfo("writeAvgTime", "long", "Æ½¾ù»º´æĞ´ºÄÊ±", true,
+				new MBeanAttributeInfo("writeAvgTime", "long", "å¹³å‡ç¼“å­˜å†™è€—æ—¶", true,
 						false, false),
-				new MBeanAttributeInfo("removeCount", "long", "»º´æÉ¾³ı´ÎÊı", true,
+				new MBeanAttributeInfo("removeCount", "long", "ç¼“å­˜åˆ é™¤æ¬¡æ•°", true,
 						false, false),
-				new MBeanAttributeInfo("expireTime", "long", "»º´æÊı¾İÊ§Ğ§Ê±¼ä", true,
+				new MBeanAttributeInfo("expireTime", "long", "ç¼“å­˜æ•°æ®å¤±æ•ˆæ—¶é—´", true,
 						false, false),
 				new MBeanAttributeInfo("cleanTimeExpression", "String",
-						"»º´æÇåÀíÊ±¼ä", true, false, false) };
+						"ç¼“å­˜æ¸…ç†æ—¶é—´", true, false, false) };
 
-		String info = "¶à²ÎÊıKeyĞèÓÃ@@·Ö¸ô";
+		String info = "å¤šå‚æ•°Keyéœ€ç”¨@@åˆ†éš”";
 
 		MBeanOperationInfo[] dOperations = new MBeanOperationInfo[] {
-				new MBeanOperationInfo("get", "¶ÁÈ¡»º´æ",
+				new MBeanOperationInfo("get", "è¯»å–ç¼“å­˜",
 						new MBeanParameterInfo[] { new MBeanParameterInfo(
-								"CacheGet", "java.lang.String", "ÊäÈë»º´æKey¡£"
+								"CacheGet", "java.lang.String", "è¾“å…¥ç¼“å­˜Keyã€‚"
 										+ info) }, "String",
 						MBeanOperationInfo.ACTION),
-				new MBeanOperationInfo("put", "Ğ´Èë»º´æ", new MBeanParameterInfo[] {
+				new MBeanOperationInfo("put", "å†™å…¥ç¼“å­˜", new MBeanParameterInfo[] {
 						new MBeanParameterInfo("CachePut Key",
-								"java.lang.String", "ÊäÈë»º´æKey¡£" + info),
+								"java.lang.String", "è¾“å…¥ç¼“å­˜Keyã€‚" + info),
 						new MBeanParameterInfo("CachePut Value",
-								"java.lang.String", "ÊäÈë»º´æÖµValue.") }, "String",
+								"java.lang.String", "è¾“å…¥ç¼“å­˜å€¼Value.") }, "String",
 						MBeanOperationInfo.ACTION),
-				new MBeanOperationInfo("remove", "É¾³ı»º´æ",
+				new MBeanOperationInfo("remove", "åˆ é™¤ç¼“å­˜",
 						new MBeanParameterInfo[] { new MBeanParameterInfo(
-								"CacheRemove", "java.lang.String", "ÊäÈë»º´æKey¡£"
+								"CacheRemove", "java.lang.String", "è¾“å…¥ç¼“å­˜Keyã€‚"
 										+ info) }, "String",
 						MBeanOperationInfo.ACTION),
-				new MBeanOperationInfo("getRealValue", "¶ÁÈ¡Ô­Éú·½·¨½á¹ûÊı¾İ",
+				new MBeanOperationInfo("getRealValue", "è¯»å–åŸç”Ÿæ–¹æ³•ç»“æœæ•°æ®",
 						new MBeanParameterInfo[] { new MBeanParameterInfo(
-								"DiskGet", "java.lang.String", "ÊäÈë·½·¨²ÎÊıKey¡£"
+								"DiskGet", "java.lang.String", "è¾“å…¥æ–¹æ³•å‚æ•°Keyã€‚"
 										+ info) }, "String",
 						MBeanOperationInfo.ACTION),
-				new MBeanOperationInfo("invalidBeforeCache", "Ê§Ğ§µ±Ç°Ê±¼äÖ®Ç°´æ´¢»º´æ",
+				new MBeanOperationInfo("invalidBeforeCache", "å¤±æ•ˆå½“å‰æ—¶é—´ä¹‹å‰å­˜å‚¨ç¼“å­˜",
 						null, "String", MBeanOperationInfo.ACTION),
 				new MBeanOperationInfo("getRealValueAndPut",
-						"¶ÁÈ¡Ô­Éú·½·¨½á¹ûÊı¾İ£¬²¢ÇÒÖ±½ÓPutµ½»º´æÖĞ",
+						"è¯»å–åŸç”Ÿæ–¹æ³•ç»“æœæ•°æ®ï¼Œå¹¶ä¸”ç›´æ¥Putåˆ°ç¼“å­˜ä¸­",
 						new MBeanParameterInfo[] { new MBeanParameterInfo(
 								"DiskGetAndPut", "java.lang.String",
-								"ÊäÈë·½·¨²ÎÊıKey¡£" + info) }, "boolean",
+								"è¾“å…¥æ–¹æ³•å‚æ•°Keyã€‚" + info) }, "boolean",
 						MBeanOperationInfo.ACTION) };
 		dMBeanInfo = new MBeanInfo(this.getClass().getName(), MBEAN_NAME,
 				dAttributes, null, dOperations, null);

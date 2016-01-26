@@ -3,28 +3,28 @@ package com.taobao.pamirs.cache.load;
 import com.taobao.pamirs.cache.framework.config.CacheConfig;
 
 /**
- * »º´æÅäÖÃ»ñÈ¡½Ó¿Ú
+ * ç¼“å­˜é…ç½®è·å–æ¥å£
  * 
  * @author xiaocheng 2012-11-12
  */
 public interface ICacheConfigService {
 
 	/**
-	 * ¼ÓÔØ»º´æÅäÖÃ
+	 * åŠ è½½ç¼“å­˜é…ç½®
 	 * 
 	 * @return
 	 */
 	CacheConfig loadConfig();
 
 	/**
-	 * ×Ô¶¯ĞŞÕıÄ¬ÈÏÅäÖÃ
+	 * è‡ªåŠ¨ä¿®æ­£é»˜è®¤é…ç½®
 	 * 
 	 * @param cacheConfig
 	 */
 	void autoFillCacheConfig(CacheConfig cacheConfig);
 
 	/**
-	 * Ğ£ÑéÅäÖÃºÏ·¨ĞÔ
+	 * æ ¡éªŒé…ç½®åˆæ³•æ€§
 	 * 
 	 * @param cacheConfig
 	 */

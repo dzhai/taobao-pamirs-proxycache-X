@@ -4,14 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * ¿ò¼ÜÖ§³ÖµÄ²ÎÊıÀàĞÍ
+ * æ¡†æ¶æ”¯æŒçš„å‚æ•°ç±»å‹
  * 
  * @author xiaocheng 2012-11-22
  */
 public class ParameterSupportTypeUtil {
 
 	/**
-	 * µ±Ç°Ö§³ÖµÄ²ÎÊıÀàĞÍ
+	 * å½“å‰æ”¯æŒçš„å‚æ•°ç±»å‹
 	 * 
 	 * @param type
 	 * @return
@@ -33,7 +33,7 @@ public class ParameterSupportTypeUtil {
 	}
 
 	/**
-	 * ²ÎÊı×ª³Éµ±Ç°Ö§³ÖµÄÀàĞÍÖµ
+	 * å‚æ•°è½¬æˆå½“å‰æ”¯æŒçš„ç±»å‹å€¼
 	 * 
 	 * @param value
 	 * @param clz

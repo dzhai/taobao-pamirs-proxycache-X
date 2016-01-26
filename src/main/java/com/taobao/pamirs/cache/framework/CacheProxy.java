@@ -13,7 +13,7 @@ import com.taobao.pamirs.cache.framework.listener.CacheOprateInfo;
 import com.taobao.pamirs.cache.store.StoreType;
 
 /**
- * »º´æ´¦ÀíÊÊÅäÆ÷
+ * ç¼“å­˜å¤„ç†é€‚é…å™¨
  * 
  * @author xiaocheng 2012-10-31
  */
@@ -24,7 +24,7 @@ public class CacheProxy<K extends Serializable, V extends Serializable> extends
 	private String storeRegion;
 	private String key;
 
-	/** ×¢ÈëÕæÕıµÄcacheÊµÏÖ */
+	/** æ³¨å…¥çœŸæ­£çš„cacheå®ç° */
 	private ICache<K, V> cache;
 
 	private String beanName;
@@ -56,7 +56,7 @@ public class CacheProxy<K extends Serializable, V extends Serializable> extends
 
 		long end = System.currentTimeMillis();
 
-		if (v != null) // ÃüÖĞ£¬Í¨Öªlistener
+		if (v != null) // å‘½ä¸­ï¼Œé€šçŸ¥listener
 			notifyListeners(GET, new CacheOprateInfo(key, end - start, true,
 					beanName, methodConfig, cacheException, ip));
 
@@ -125,7 +125,7 @@ public class CacheProxy<K extends Serializable, V extends Serializable> extends
 		cache.invalidBefore();
 	}
 
-	/** µ¥¸ö·½·¨µÄ»º´æ¿ª¹Ø */
+	/** å•ä¸ªæ–¹æ³•çš„ç¼“å­˜å¼€å…³ */
 	private boolean isUseCache = true;
 
 	public boolean isUseCache() {

@@ -5,14 +5,14 @@ import static org.apache.commons.lang.StringUtils.isNotEmpty;
 import com.taobao.tair.ResultCode;
 
 /**
- * ×é×°Key¸¨ÖúÀà
+ * ç»„è£…Keyè¾…åŠ©ç±»
  * 
  * @author xiaocheng Sep 29, 2015
  */
 public class LockUtil {
 
 	/**
-	 * ×é×°Éú³Ékey
+	 * ç»„è£…ç”Ÿæˆkey
 	 */
 	public static String combineKey(long objType, String objId, String region) {
 		StringBuilder sb = new StringBuilder();

@@ -9,46 +9,46 @@ import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Ä¬ÈÏµÄ»º´æ¹«¹²Í³¼ÆĞÅÏ¢listener
+ * é»˜è®¤çš„ç¼“å­˜å…¬å…±ç»Ÿè®¡ä¿¡æ¯listener
  * 
  * @author xiaocheng 2012-11-8
  */
 public class DefaultStatisticInfoListener implements CacheOprateListener {
 
 	/**
-	 * Í³¼ÆÊı¾İµÄÊ±¼ä´°¿Ú£¬µ¥Î»£ººÁÃë
+	 * ç»Ÿè®¡æ•°æ®çš„æ—¶é—´çª—å£ï¼Œå•ä½ï¼šæ¯«ç§’
 	 */
-	private long timeWindow = 24 * 60 * 60 * 1000L;// Ä¬ÈÏ1Ìì
+	private long timeWindow = 24 * 60 * 60 * 1000L;// é»˜è®¤1å¤©
 
 	/**
-	 * ×îºóÒ»´ÎÇåÀíµÄÊ±¼ä
+	 * æœ€åä¸€æ¬¡æ¸…ç†çš„æ—¶é—´
 	 */
 	private long lastClearTime = System.currentTimeMillis();
 
 	/**
-	 * GET²Ù×÷ÃüÖĞ´ÎÊı
+	 * GETæ“ä½œå‘½ä¸­æ¬¡æ•°
 	 */
 	private AtomicLong readSuccessCount = new AtomicLong(0);
 	/**
-	 * GET²Ù×÷Î´ÃüÖĞ´ÎÊı
+	 * GETæ“ä½œæœªå‘½ä¸­æ¬¡æ•°
 	 */
 	private AtomicLong readFailCount = new AtomicLong(0);
 	/**
-	 * GET²Ù×÷×ÜÓÃÊ±
+	 * GETæ“ä½œæ€»ç”¨æ—¶
 	 */
 	private AtomicLong readTotalTime = new AtomicLong(0);
 
 	/**
-	 * PUT²Ù×÷´ÎÊı
+	 * PUTæ“ä½œæ¬¡æ•°
 	 */
 	private AtomicLong writeCount = new AtomicLong(0);
 	/**
-	 * PUT²Ù×÷×ÜÓÃÊ±
+	 * PUTæ“ä½œæ€»ç”¨æ—¶
 	 */
 	private AtomicLong writeTotalTime = new AtomicLong(0);
 
 	/**
-	 * REMOVEÇåÀí×Ü´ÎÊı
+	 * REMOVEæ¸…ç†æ€»æ¬¡æ•°
 	 */
 	private AtomicLong removeCount = new AtomicLong(0);
 
@@ -57,7 +57,7 @@ public class DefaultStatisticInfoListener implements CacheOprateListener {
 		if (oprator == null || cacheInfo == null)
 			return;
 
-		// Ë¢ĞÂÍ³¼Æ
+		// åˆ·æ–°ç»Ÿè®¡
 		if (System.currentTimeMillis() > (lastClearTime + timeWindow)) {
 			clear();
 		}
@@ -80,7 +80,7 @@ public class DefaultStatisticInfoListener implements CacheOprateListener {
 	}
 
 	/**
-	 * »º´æ¶ÁÃüÖĞÂÊ
+	 * ç¼“å­˜è¯»å‘½ä¸­ç‡
 	 * 
 	 * @return
 	 */
@@ -97,7 +97,7 @@ public class DefaultStatisticInfoListener implements CacheOprateListener {
 	}
 
 	/**
-	 * »º´æ¶ÁÆ½¾ùÊ±¼ä
+	 * ç¼“å­˜è¯»å¹³å‡æ—¶é—´
 	 * 
 	 * @return
 	 */
@@ -114,7 +114,7 @@ public class DefaultStatisticInfoListener implements CacheOprateListener {
 	}
 
 	/**
-	 * »º´æĞ´Æ½¾ùÊ±¼ä
+	 * ç¼“å­˜å†™å¹³å‡æ—¶é—´
 	 * 
 	 * @return
 	 */
@@ -130,7 +130,7 @@ public class DefaultStatisticInfoListener implements CacheOprateListener {
 	}
 
 	/**
-	 * Çå¿ÕÍ³¼ÆÊı¾İ.
+	 * æ¸…ç©ºç»Ÿè®¡æ•°æ®.
 	 */
 	private void clear() {
 		readSuccessCount.set(0);

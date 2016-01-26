@@ -15,7 +15,7 @@ import com.taobao.tair.ResultCode;
 import com.taobao.tair.TairManager;
 
 /**
- * TairÊµÏÖµÄ·Ö²¼Ê½±¯¹ÛËøËø
+ * Tairå®ç°çš„åˆ†å¸ƒå¼æ‚²è§‚é”é”
  * 
  * @author xiaocheng Aug 17, 2015
  */
@@ -46,15 +46,15 @@ public class TairPessimisticLock implements PessimisticLock {
 		Result<Integer> incr = null;
 
 		try {
-			// ²éÑ¯Ò»´Î£¬±ÜÃâÒ»Ö±put²»ÊÍ·Å
+			// æŸ¥è¯¢ä¸€æ¬¡ï¼Œé¿å…ä¸€ç›´putä¸é‡Šæ”¾
 			Result<DataEntry> data = tairManager.get(namespace, key);
 
 			if (ResultCode.DATANOTEXSITS.equals(data.getRc())) {
-				incr = tairManager.incr(namespace, key, CUR_VALUE, 0, es);// incrÃ»ÓĞkeyÊı¾İÊ±»á´´½¨
-				if (isTairTimeout(incr.getRc()))// ³¬Ê±×Ô¶¯ÖØÊÔÒ»´Î
+				incr = tairManager.incr(namespace, key, CUR_VALUE, 0, es);// incræ²¡æœ‰keyæ•°æ®æ—¶ä¼šåˆ›å»º
+				if (isTairTimeout(incr.getRc()))// è¶…æ—¶è‡ªåŠ¨é‡è¯•ä¸€æ¬¡
 					incr = tairManager.incr(namespace, key, CUR_VALUE, 0, es);
 
-				// »ñÈ¡Ëø
+				// è·å–é”
 				if (ResultCode.SUCCESS.equals(incr.getRc())
 						&& incr.getValue() != null
 						&& incr.getValue().intValue() == CUR_VALUE)
@@ -80,7 +80,7 @@ public class TairPessimisticLock implements PessimisticLock {
 			rc = tairManager.delete(namespace,
 					combineKey(objType, objId, region));
 
-			if (isTairTimeout(rc))// ³¬Ê±×Ô¶¯ÖØÊÔÒ»´Î
+			if (isTairTimeout(rc))// è¶…æ—¶è‡ªåŠ¨é‡è¯•ä¸€æ¬¡
 				rc = tairManager.delete(namespace,
 						combineKey(objType, objId, region));
 

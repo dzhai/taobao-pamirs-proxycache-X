@@ -13,18 +13,18 @@ import org.springframework.util.CollectionUtils;
 import com.taobao.pamirs.cache.store.StoreType;
 
 /**
- * »ùÓÚAnnotation¾²Ì¬Ð£Ñé£¬¼õÉÙÖØ¸´±àÂë
+ * åŸºäºŽAnnotationé™æ€æ ¡éªŒï¼Œå‡å°‘é‡å¤ç¼–ç 
  * 
  * @author xiaocheng 2012-11-29
  */
 public class StaticCheck {
 
 	/**
-	 * Ð£Ñé¶ÔÏóFIELDÖÐµÄVerfication
+	 * æ ¡éªŒå¯¹è±¡FIELDä¸­çš„Verfication
 	 * 
 	 * @param o
 	 * @throws Exception
-	 *             £ºÊ§°Ü»áÅ×Òì³£
+	 *             ï¼šå¤±è´¥ä¼šæŠ›å¼‚å¸¸
 	 */
 	@SuppressWarnings("rawtypes")
 	public static void check(Object o) throws Exception {
@@ -72,52 +72,52 @@ public class StaticCheck {
 				if (m != null) {
 					String storeType = (String) m.invoke(o);
 
-					// ²»ÔÚvWhenTypesÄÚ£¬²»ÑéÖ¤
+					// ä¸åœ¨vWhenTypeså†…ï¼Œä¸éªŒè¯
 					if (!isIn(storeType, vWhen))
 						continue;
 				}
 			}
 
 			if (vNotNull && fieldValue == null)
-				throw new Exception(vName + "²»ÄÜÎª¿Õ£¡");
+				throw new Exception(vName + "ä¸èƒ½ä¸ºç©ºï¼");
 
 			if (f.getType().equals(String.class)) {
 				if (vNotEmpty) {
 					if (fieldValue == null
 							|| "".equals(((String) fieldValue).trim()))
-						throw new Exception(vName + "²»ÄÜÎª¿Õ£¡");
+						throw new Exception(vName + "ä¸èƒ½ä¸ºç©ºï¼");
 				}
 
 				if (vMaxlength > 0) {
 					if (getStringActualLength((String) fieldValue) > vMaxlength)
-						throw new Exception(vName + "²»ÄÜ³¬¹ý" + vMaxlength
-								+ "¸ö×Ö·û(Ò»°ëÊýÄ¿µÄÖÐÎÄ×Ö·û)£¡");
+						throw new Exception(vName + "ä¸èƒ½è¶…è¿‡" + vMaxlength
+								+ "ä¸ªå­—ç¬¦(ä¸€åŠæ•°ç›®çš„ä¸­æ–‡å­—ç¬¦)ï¼");
 				}
 
 				if (vMinlength > 0) {
 					if (getStringActualLength((String) fieldValue) < vMinlength)
-						throw new Exception(vName + "²»ÄÜÐ¡ÓÚ" + vMinlength
-								+ "¸ö×Ö·û£¡");
+						throw new Exception(vName + "ä¸èƒ½å°äºŽ" + vMinlength
+								+ "ä¸ªå­—ç¬¦ï¼");
 				}
 
 				if (vRegx != null && vRegx.length == 2) {
 					if (!Pattern.compile(vRegx[0]).matcher((String) fieldValue)
 							.matches()) {
-						throw new Exception(vName + vRegx[1] + "£¡");
+						throw new Exception(vName + vRegx[1] + "ï¼");
 					}
 				}
 			}
 
 			if (List.class.isAssignableFrom(f.getType())) {
 				if (vNotEmptyList && CollectionUtils.isEmpty((List) fieldValue)) {
-					throw new Exception(vName + "²»ÄÜÎª¿ÕList£¡");
+					throw new Exception(vName + "ä¸èƒ½ä¸ºç©ºListï¼");
 				}
 			}
 			
 			if (vIsStoreType) {
 				if (StoreType.toEnum((String) fieldValue) == null)
 					throw new Exception(vName + "=" + fieldValue
-							+ ",²»ÊÇºÏ·¨µÄStoreType£¡");
+							+ ",ä¸æ˜¯åˆæ³•çš„StoreTypeï¼");
 			}
 
 		}
@@ -133,10 +133,10 @@ public class StaticCheck {
 	}
 
 	/**
-	 * ¼ÆËã×Ö·û´®³¤¶È£¬ÖÐÎÄËãÁ½¸ö×Ö·û£¬È«½ÇÓ¢ÎÄËãÁ½¸ö×Ö·û
+	 * è®¡ç®—å­—ç¬¦ä¸²é•¿åº¦ï¼Œä¸­æ–‡ç®—ä¸¤ä¸ªå­—ç¬¦ï¼Œå…¨è§’è‹±æ–‡ç®—ä¸¤ä¸ªå­—ç¬¦
 	 * 
 	 * @param str
-	 *            Òª¼ÆËãµÄ×Ö·û´®£¬²»¿ÉÒÔÎª¿Õ
+	 *            è¦è®¡ç®—çš„å­—ç¬¦ä¸²ï¼Œä¸å¯ä»¥ä¸ºç©º
 	 * @return
 	 */
 	private static int getStringActualLength(String str) {
@@ -159,7 +159,7 @@ public class StaticCheck {
 	}
 
 	/**
-	 * ÅÐ”à×Ö·û´®ÊÇ·ñžé¿Õ°× str == null true str == "" true str == "    " true
+	 * åˆ¤æ–·å­—ç¬¦ä¸²æ˜¯å¦ç‚ºç©ºç™½ str == null true str == "" true str == "    " true
 	 * 
 	 * @param str
 	 * @return
@@ -177,7 +177,7 @@ public class StaticCheck {
 	}
 
 	/**
-	 * ÅÐ¶ÏÊÇ·ñÎªÈ«½Ç×Ö·û
+	 * åˆ¤æ–­æ˜¯å¦ä¸ºå…¨è§’å­—ç¬¦
 	 * 
 	 * @param ch
 	 * @return
@@ -187,11 +187,11 @@ public class StaticCheck {
 	}
 
 	/**
-	 * ÅÐ¶Ï×Ö·ûÊÇ²»ÊÇÖÐÎÄ×Ö·û
+	 * åˆ¤æ–­å­—ç¬¦æ˜¯ä¸æ˜¯ä¸­æ–‡å­—ç¬¦
 	 * 
 	 * @param str
-	 *            ×Ö·û
-	 * @return true ÊÇÖÐÎÄ×Ö·û£¬false ²»ÊÇÖÐÎÄ×Ö·û
+	 *            å­—ç¬¦
+	 * @return true æ˜¯ä¸­æ–‡å­—ç¬¦ï¼Œfalse ä¸æ˜¯ä¸­æ–‡å­—ç¬¦
 	 */
 	private static boolean isChineseChar(char str) {
 		return (str >= 0x4e00 && str <= 0x9fbb);

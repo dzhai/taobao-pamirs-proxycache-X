@@ -1,14 +1,14 @@
 package com.taobao.pamirs.cache.framework.listener;
 
 /**
- * »º´æ²Ù×÷¼àÌıÆ÷
+ * ç¼“å­˜æ“ä½œç›‘å¬å™¨
  * 
  * @author xiaocheng 2012-10-31
  */
 public interface CacheOprateListener {
 
 	/**
-	 * ²Ù×÷Í¨Öª
+	 * æ“ä½œé€šçŸ¥
 	 * 
 	 * @param oprator
 	 * @param cacheInfo

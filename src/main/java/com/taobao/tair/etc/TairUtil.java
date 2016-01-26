@@ -155,8 +155,8 @@ public class TairUtil {
 	public static int getDuration(int expiretime) {
 		int now = (int)(System.currentTimeMillis() / 1000);
 		if (expiretime > now) {
-			//将绝对时间转成相对时间，即使时间不同步，超时时间也是正确的
-			//因为对于任何使用者而言，不管用时间点 还是时间段，其关心的都是何时超时
+			//灏嗙粷瀵规椂闂磋浆鎴愮浉瀵规椂闂达紝鍗充娇鏃堕棿涓嶅悓姝ワ紝瓒呮椂鏃堕棿涔熸槸姝ｇ‘鐨�
+			//鍥犱负瀵逛簬浠讳綍浣跨敤鑰呰�瑷�紝涓嶇鐢ㄦ椂闂寸偣 杩樻槸鏃堕棿娈碉紝鍏跺叧蹇冪殑閮芥槸浣曟椂瓒呮椂
 			expiretime -= now;
 		}
 		return expiretime;

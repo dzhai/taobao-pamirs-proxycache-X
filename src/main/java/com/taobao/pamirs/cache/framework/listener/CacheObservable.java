@@ -6,7 +6,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * »º´æ¹Û²ìÕß
+ * ç¼“å­˜è§‚å¯Ÿè€…
  * 
  * @author xiaocheng 2012-10-31
  */

@@ -7,18 +7,18 @@ import org.apache.commons.logging.LogFactory;
 import com.taobao.pamirs.cache.util.asynlog.AsynWriter;
 
 /**
- * threadlocal ·½Ê½±£´æÈÕÖ¾¼ÇÂ¼£¬Ö§³Ö·½·¨´®ÁªË³Ğò´òÓ¡<BR>
- * ±¾Éí·ÇÏß³Ì°²È«£¬ÓÉthreadlocal±£Ö¤µ¥Ïß³Ì
+ * threadlocal æ–¹å¼ä¿å­˜æ—¥å¿—è®°å½•ï¼Œæ”¯æŒæ–¹æ³•ä¸²è”é¡ºåºæ‰“å°<BR>
+ * æœ¬èº«éçº¿ç¨‹å®‰å…¨ï¼Œç”±threadlocalä¿è¯å•çº¿ç¨‹
  * 
  * @author xiaocheng 2012-8-24
  */
 public class TimeLogManager {
 
-	// ²ÉÓÃÒì²½log´òÓ¡
+	// é‡‡ç”¨å¼‚æ­¥logæ‰“å°
 	private static final AsynWriter<String> log = new AsynWriter<String>(
 			LogFactory.getLog(TimeHandle.class));
 
-	private int count = 0;// ¼ÆÊıÆ÷
+	private int count = 0;// è®¡æ•°å™¨
 
 	private int max = 0;
 
@@ -68,7 +68,7 @@ public class TimeLogManager {
 	}
 
 	/**
-	 * ¿ªÊ¼´òÓ¡±êÊ¶
+	 * å¼€å§‹æ‰“å°æ ‡è¯†
 	 * 
 	 */
 	public static void addCount() {
@@ -82,7 +82,7 @@ public class TimeLogManager {
 	}
 
 	/**
-	 * ¼ÓÈë·½·¨ÈÕÖ¾£¬»á×öÅĞ¶Ï£ºÖ»ÓĞµ±ËùÓĞ×Ó·½·¨¶¼´òÓ¡Íê³Éºó£¬²ÅÕæÕı´òÓ¡
+	 * åŠ å…¥æ–¹æ³•æ—¥å¿—ï¼Œä¼šåšåˆ¤æ–­ï¼šåªæœ‰å½“æ‰€æœ‰å­æ–¹æ³•éƒ½æ‰“å°å®Œæˆåï¼Œæ‰çœŸæ­£æ‰“å°
 	 * 
 	 * @param logInfo
 	 */
@@ -101,13 +101,13 @@ public class TimeLogManager {
 
 		methods.add(sb.toString());
 
-		// »¹ÓĞ×Ó·½·¨Î´Ö´ĞĞÍê£¬ÔİÇÒ²»´òÓ¡
+		// è¿˜æœ‰å­æ–¹æ³•æœªæ‰§è¡Œå®Œï¼Œæš‚ä¸”ä¸æ‰“å°
 		if (manager.getCount() > 1) {
 			manager.setCount(manager.getCount() - 1);
 			return;
 		}
 
-		// ¿ªÊ¼´òÓ¡
+		// å¼€å§‹æ‰“å°
 		while (methods.size() > 1) {
 			int size = methods.size();
 
@@ -116,12 +116,12 @@ public class TimeLogManager {
 
 			int deleteTimes = 0;
 
-			for (int index = size - 1; index >= 0; index--) {// µ¹Ğò
+			for (int index = size - 1; index >= 0; index--) {// å€’åº
 				String info = methods.get(index);
 				int prefix = Integer.valueOf(info.substring(0,
 						info.indexOf(TABLE_BLANK)));
 
-				// Èç¹û²»ÊÇµ±Ç°Í³¼ÆµÄ
+				// å¦‚æœä¸æ˜¯å½“å‰ç»Ÿè®¡çš„
 				if (prefix != max) {
 
 					if (start != -1) {
@@ -144,7 +144,7 @@ public class TimeLogManager {
 				deleteTimes = mergeInfo(methods, start, end, deleteTimes);
 			}
 
-			// É¾³ı
+			// åˆ é™¤
 			for (int i = 0; i < deleteTimes; i++) {
 				methods.remove(DELETED);
 			}
@@ -167,11 +167,11 @@ public class TimeLogManager {
 	}
 
 	/**
-	 * ºÏ²¢ÏàÁÚµÄÍ¬¼¶Êı¾İ
+	 * åˆå¹¶ç›¸é‚»çš„åŒçº§æ•°æ®
 	 */
 	private static int mergeInfo(LinkedList<String> methods, int start,
 			int end, int deleteTimes) {
-		// ´¦ÀíÖ®Ç°µÄÊı¾İ
+		// å¤„ç†ä¹‹å‰çš„æ•°æ®
 		StringBuilder tmp = new StringBuilder(methods.get(start + 1));
 
 		for (int i = end; i <= start; i++) {

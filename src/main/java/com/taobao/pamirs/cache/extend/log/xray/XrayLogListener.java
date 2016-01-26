@@ -13,7 +13,7 @@ import com.taobao.pamirs.cache.framework.listener.CacheOprator;
 import com.taobao.pamirs.cache.util.asynlog.AsynWriter;
 
 /**
- * ´òÓ¡¸øxrayÍ³¼Æ
+ * æ‰“å°ç»™xrayç»Ÿè®¡
  * 
  * @author xiaocheng 2012-11-13
  */
@@ -26,7 +26,7 @@ public class XrayLogListener implements CacheOprateListener {
 	private String methodName;
 	private List<Class<?>> parameterTypes;
 
-	/** ¹Ø¼ü×Ö */
+	/** å…³é”®å­— */
 	private static final String XRAY_KEYWORD = "PAMIRS_CACHE_XRAY";
 	private static final String SEPARATOR = ",";
 
@@ -45,7 +45,7 @@ public class XrayLogListener implements CacheOprateListener {
 	}
 
 	/**
-	 * XrayÈÕÖ¾¸ñÊ½
+	 * Xrayæ—¥å¿—æ ¼å¼
 	 * 
 	 * @param type
 	 * @param isHit

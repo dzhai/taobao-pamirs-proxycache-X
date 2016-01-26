@@ -4,7 +4,7 @@ import com.taobao.pamirs.cache.CacheManager;
 import com.taobao.pamirs.cache.store.StoreType;
 
 /**
- * 缓存抽象公共
+ * 缂撳瓨鎶借薄鍏叡
  * 
  * @author poxiao.gj
  * @date 2012-11-13
@@ -12,28 +12,28 @@ import com.taobao.pamirs.cache.store.StoreType;
 public abstract class AbstractCacheConfigService extends CacheManager {
 
 	/**
-	 * 缓存存储类型
+	 * 缂撳瓨瀛樺偍绫诲瀷
 	 * 
 	 * @see StoreType
 	 */
 	private String storeType;
 
 	/**
-	 * tair储存空间
+	 * tair鍌ㄥ瓨绌洪棿
 	 * 
 	 * @see StoreType.TAIR
 	 */
 	private Integer tairNameSpace;
 
 	/**
-	 * 本地缓存清理时间
+	 * 鏈湴缂撳瓨娓呯悊鏃堕棿
 	 * 
 	 * @see StoreType.MAP
 	 */
 	private String mapCleanTime;
 
 	/**
-	 * 缓存环境隔离
+	 * 缂撳瓨鐜闅旂
 	 */
 	private String storeRegion;
 

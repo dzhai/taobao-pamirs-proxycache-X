@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 以后jmx的注册，可通过注解自动注入，不需要硬编码
+ * 浠ュ悗jmx鐨勬敞鍐岋紝鍙�氳繃娉ㄨВ鑷姩娉ㄥ叆锛屼笉闇�瑕佺‖缂栫爜
  * 
  * @author xiaocheng 2012-11-8
  */
