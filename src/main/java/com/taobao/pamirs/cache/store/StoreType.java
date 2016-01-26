@@ -7,7 +7,7 @@ package com.taobao.pamirs.cache.store;
  */
 public enum StoreType {
 
-	MAP("map"), TAIR("tair"),REDIS("redis");
+	MAP("map"), TAIR("tair");
 
 	private String name;
 

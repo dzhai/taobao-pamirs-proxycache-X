@@ -39,7 +39,7 @@ import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMap;
 import com.taobao.tair.TairManager;
 
 /**
- * ç¼“å­˜æ¡†æ¶å…¥å£ç±»
+ * »º´æ¿ò¼ÜÈë¿ÚÀà
  * 
  * @author xuanyu
  * @author xiaocheng 2012-11-2
@@ -52,7 +52,7 @@ public abstract class CacheManager implements ApplicationContextAware,
 	private CacheConfig cacheConfig;
 
 	/**
-	 * æ¯ä¸€ä¸ªmethodå¯¹åº”ä¸€ä¸ªadapterå®ä¾‹
+	 * Ã¿Ò»¸ömethod¶ÔÓ¦Ò»¸öadapterÊµÀı
 	 */
 	private final Map<String, CacheProxy<Serializable, Serializable>> cacheProxys = new ConcurrentHashMap<String, CacheProxy<Serializable, Serializable>>();
 
@@ -64,18 +64,18 @@ public abstract class CacheManager implements ApplicationContextAware,
 
 	private boolean useCache = true;
 
-	/** æ‰“å°ç¼“å­˜å‘½ä¸­æ—¥å¿— **/
+	/** ´òÓ¡»º´æÃüÖĞÈÕÖ¾ **/
 	private boolean openCacheLog = false;
 
 	/**
-	 * æŒ‡å®šæœ¬åœ°ç¼“å­˜æ—¶LruMapçš„å¤§å°ï¼Œé»˜è®¤æ˜¯1024
+	 * Ö¸¶¨±¾µØ»º´æÊ±LruMapµÄ´óĞ¡£¬Ä¬ÈÏÊÇ1024
 	 * 
 	 * @see StoreType.MAP
 	 * @see ConcurrentLRUCacheMap
 	 */
 	private int localMapSize = ConcurrentLRUCacheMap.DEFAULT_INITIAL_CAPACITY;
 	/**
-	 * æŒ‡å®šæœ¬åœ°ç¼“å­˜åˆ†æ®µçš„å¤§å°ï¼Œé»˜è®¤æ˜¯16
+	 * Ö¸¶¨±¾µØ»º´æ·Ö¶ÎµÄ´óĞ¡£¬Ä¬ÈÏÊÇ16
 	 * 
 	 * @see StoreType.MAP
 	 * @see ConcurrentLRUCacheMap
@@ -83,24 +83,24 @@ public abstract class CacheManager implements ApplicationContextAware,
 	private int localMapSegmentSize = ConcurrentLRUCacheMap.DEFAULT_CONCURRENCY_LEVEL;;
 
 	public void init() throws Exception {
-		// 1. åŠ è½½/æ ¡éªŒconfig
+		// 1. ¼ÓÔØ/Ğ£Ñéconfig
 		cacheConfig = loadConfig();
 
-		// åé¢ä¸¤ä¸ªï¼Œè§onApplicationEventæ–¹æ³•
+		// ºóÃæÁ½¸ö£¬¼ûonApplicationEvent·½·¨
 	}
 
 	@Override
 	public void onApplicationEvent(ApplicationEvent event) {
-		// æ”¾åœ¨onApplicationEventé‡Œï¼ŒåŸå› æ˜¯è§£å†³CacheManagerHandleé‡Œå…ˆæ‰§è¡Œä»£ç†ï¼Œå†applicationContext.getBeanï¼Œå¦åˆ™ä»£ç†ä¸äº†
+		// ·ÅÔÚonApplicationEventÀï£¬Ô­ÒòÊÇ½â¾öCacheManagerHandleÀïÏÈÖ´ĞĞ´úÀí£¬ÔÙapplicationContext.getBean£¬·ñÔò´úÀí²»ÁË
 
 		if (event instanceof ContextRefreshedEvent) {
-			// 2. è‡ªåŠ¨å¡«å……é»˜è®¤çš„é…ç½®
+			// 2. ×Ô¶¯Ìî³äÄ¬ÈÏµÄÅäÖÃ
 			autoFillCacheConfig(cacheConfig);
 
-			// 3. ç¼“å­˜é…ç½®åˆæ³•æ€§æ ¡éªŒ
+			// 3. »º´æÅäÖÃºÏ·¨ĞÔĞ£Ñé
 			verifyCacheConfig(cacheConfig);
 
-			// 4. åˆå§‹åŒ–ç¼“å­˜
+			// 4. ³õÊ¼»¯»º´æ
 			initCache();
 		}
 	}
@@ -119,12 +119,12 @@ public abstract class CacheManager implements ApplicationContextAware,
 	}
 
 	/**
-	 * åˆå§‹åŒ–ç¼“å­˜
+	 * ³õÊ¼»¯»º´æ
 	 */
 	private void initCache() {
 		List<CacheBean> cacheBeans = cacheConfig.getCacheBeans();
 		if (cacheBeans != null) {
-			// åªéœ€æ³¨å†ŒcacheBean,ç›®å‰cacheCleanBeanså¿…é¡»æ˜¯å®ƒçš„å­é›†
+			// Ö»Ğè×¢²ácacheBean,Ä¿Ç°cacheCleanBeans±ØĞëÊÇËüµÄ×Ó¼¯
 			for (CacheBean bean : cacheBeans) {
 
 				List<MethodConfig> cacheMethods = bean.getCacheMethods();
@@ -138,11 +138,11 @@ public abstract class CacheManager implements ApplicationContextAware,
 	}
 
 	/**
-	 * åˆå§‹åŒ–Bean/Methodå¯¹åº”çš„ç¼“å­˜ï¼ŒåŒ…æ‹¬ï¼š <br>
+	 * ³õÊ¼»¯Bean/Method¶ÔÓ¦µÄ»º´æ£¬°üÀ¨£º <br>
 	 * 1. CacheProxy <br>
-	 * 2. å®šæ—¶æ¸…ç†ä»»åŠ¡ï¼šstoreMapCleanTime <br>
-	 * 3. æ³¨å†ŒJMX <br>
-	 * 4. æ³¨å†ŒXray log <br>
+	 * 2. ¶¨Ê±ÇåÀíÈÎÎñ£ºstoreMapCleanTime <br>
+	 * 3. ×¢²áJMX <br>
+	 * 4. ×¢²áXray log <br>
 	 * 
 	 * @param region
 	 * @param cacheBean
@@ -171,21 +171,21 @@ public abstract class CacheManager implements ApplicationContextAware,
 
 			cacheProxys.put(key, cacheProxy);
 
-			// 2. å®šæ—¶æ¸…ç†ä»»åŠ¡ï¼šstoreMapCleanTime
+			// 2. ¶¨Ê±ÇåÀíÈÎÎñ£ºstoreMapCleanTime
 			if (StoreType.MAP == storeType
 					&& StringUtils.isNotBlank(storeMapCleanTime)) {
 				try {
 					timeTask.createCleanCacheTask(cacheProxy, storeMapCleanTime);
 				} catch (Exception e) {
-					log.error("[ä¸¥é‡]è®¾ç½®Mapå®šæ—¶æ¸…ç†ä»»åŠ¡å¤±è´¥!", e);
+					log.error("[ÑÏÖØ]ÉèÖÃMap¶¨Ê±ÇåÀíÈÎÎñÊ§°Ü!", e);
 				}
 			}
 
-			// 3. æ³¨å†ŒJMX
+			// 3. ×¢²áJMX
 			registerCacheMbean(key, cacheProxy, storeMapCleanTime,
 					cacheMethod.getExpiredTime());
 
-			// 4. æ³¨å†ŒXray log
+			// 4. ×¢²áXray log
 			if (openCacheLog)
 				cacheProxy.addListener(new XrayLogListener(beanName,
 						cacheMethod.getMethodName(), cacheMethod
@@ -194,7 +194,7 @@ public abstract class CacheManager implements ApplicationContextAware,
 	}
 
 	/**
-	 * æ³¨å†ŒJMX
+	 * ×¢²áJMX
 	 * 
 	 * @param key
 	 * @param cacheProxy
@@ -211,9 +211,9 @@ public abstract class CacheManager implements ApplicationContextAware,
 					storeMapCleanTime, expiredTime);
 			MBeanManagerFactory.registerMBean(mbeanName, cacheMbean);
 		} catch (InstanceAlreadyExistsException e) {
-			log.debug("é‡å¤æ³¨å†ŒJMX", e);
+			log.debug("ÖØ¸´×¢²áJMX", e);
 		} catch (Exception e) {
-			log.warn("æ³¨å†ŒJMXå¤±è´¥", e);
+			log.warn("×¢²áJMXÊ§°Ü", e);
 		}
 	}
 
