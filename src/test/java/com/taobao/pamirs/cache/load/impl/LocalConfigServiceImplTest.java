@@ -7,6 +7,8 @@ import static org.junit.Assert.assertThat;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.unitils.UnitilsJUnit4;
 import org.unitils.spring.annotation.SpringApplicationContext;
@@ -19,7 +21,7 @@ import com.taobao.pamirs.cache.util.CacheCodeUtil;
 @SpringApplicationContext({ "/store/tair-store.xml", "/load/cache-spring.xml" })
 public class LocalConfigServiceImplTest extends UnitilsJUnit4 {
 
-	@SpringBeanByName
+	@Resource
 	private LocalConfigCacheManager cacheManager;
 
 	@Test

@@ -23,6 +23,20 @@ public class MethodConfig implements Serializable {
 	private List<Class<?>> parameterTypes;
 
 	/**
+	 * 缓存前缀
+	 */
+	private String prefix;
+	
+	
+	/**
+	 * 参数配置
+	 */
+	private List<ParameterIndex> parameterIndexs;
+	
+	private String customKey;
+
+	
+	/**
 	 * 失效时间，单位：秒。<br>
 	 * 可以是相对时间，也可以是绝对时间(大于当前时间戳是绝对时间过期)。不传或0都是不过期 <br>
 	 * 【可选项】
