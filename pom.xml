@@ -10,18 +10,6 @@
 	<name>taobao-pamirs-proxycache</name>
 	<url>http://maven.apache.org</url>
 
-	<!-- 打包jar到nexus服务器 -->
-	<distributionManagement>
-		<repository>
-			<id>Releases</id>
-			<url>http://nexus.maxtp.net/nexus/content/repositories/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>Snapshots</id>
-			<url>http://nexus.maxtp.net/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
-
 	<properties>
 		<java.version>1.7</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,12 +35,12 @@
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils-core</artifactId>
-			<version>1.7.0</version>
+			<version>1.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.2.1</version>
+			<version>3.2</version>
 		</dependency>
 			<dependency>
 			<groupId>commons-io</groupId>
@@ -116,7 +104,7 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
+			<version>1.2.14</version>
 			<scope>provided</scope>
 		</dependency>
 
