@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.junit.Test;
-import org.unitils.UnitilsJUnit4;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.unitils.spring.annotation.SpringApplicationContext;
 import org.unitils.spring.annotation.SpringBeanByName;
 
@@ -18,8 +20,10 @@ import com.taobao.pamirs.cache.framework.CacheProxy;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
 import com.taobao.pamirs.cache.util.CacheCodeUtil;
 
-@SpringApplicationContext({ "/store/tair-store.xml", "/load/cache-spring.xml" })
-public class LocalConfigServiceImplTest extends UnitilsJUnit4 {
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:/store/map-store.xml", "classpath:/load/cache-spring.xml" })
+public class LocalConfigServiceImplTest {
 
 	@Resource
 	private LocalConfigCacheManager cacheManager;

@@ -14,7 +14,7 @@ import org.unitils.spring.annotation.SpringBeanByName;
 import com.taobao.tair.TairManager;
 
 /**
- * tair storeµ¥Ôª²âÊÔ
+ * tair storeå•å…ƒæµ‹è¯•
  * 
  * @author xiaocheng 2012-11-19
  */
@@ -41,7 +41,7 @@ public class TairStoreTest extends UnitilsJUnit4 {
 		store.put(key, value);
 		assertThat(store.get(key), is(value));
 
-		// ÇåÀí²âÊÔÊı¾İ
+		// æ¸…ç†æµ‹è¯•æ•°æ®
 		store.remove(key);
 	}
 
@@ -56,7 +56,7 @@ public class TairStoreTest extends UnitilsJUnit4 {
 		Thread.sleep(5000);
 		assertThat(store.get(key), equalTo(null));
 
-		// ÇåÀí²âÊÔÊı¾İ
+		// æ¸…ç†æµ‹è¯•æ•°æ®
 		store.remove(key);
 	}
 
@@ -76,7 +76,7 @@ public class TairStoreTest extends UnitilsJUnit4 {
 	public void testClear() {
 		try {
 			store.clear();
-			assertThat("²»Ó¦¸ÃÔËĞĞµ½´Ë", true, is(false));
+			assertThat("ä¸åº”è¯¥è¿è¡Œåˆ°æ­¤", true, is(false));
 		} catch (Exception e) {
 			assertThat(e instanceof RuntimeException, is(true));
 		}
@@ -86,7 +86,7 @@ public class TairStoreTest extends UnitilsJUnit4 {
 	public void testSize() {
 		try {
 			store.size();
-			assertThat("²»Ó¦¸ÃÔËĞĞµ½´Ë", true, is(false));
+			assertThat("ä¸åº”è¯¥è¿è¡Œåˆ°æ­¤", true, is(false));
 		} catch (Exception e) {
 			assertThat(e instanceof RuntimeException, is(true));
 		}

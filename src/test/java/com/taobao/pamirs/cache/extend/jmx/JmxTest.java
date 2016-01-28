@@ -11,7 +11,7 @@ import org.unitils.spring.annotation.SpringBeanByName;
 import com.taobao.pamirs.cache.load.impl.LocalConfigCacheManager;
 
 /**
- * 验证JMX
+ * 楠岃瘉JMX
  * 
  * @author xiaocheng 2012-11-20
  */
@@ -26,9 +26,9 @@ public class JmxTest extends UnitilsJUnit4 {
 	public void testJMX() throws InterruptedException {
 		assertThat(cacheManager, notNullValue());
 
-		// JMX验证时，打开下面的注释，人工验证：http://localhost:5168
+		// JMX楠岃瘉鏃讹紝鎵撳紑涓嬮潰鐨勬敞閲婏紝浜哄伐楠岃瘉锛歨ttp://localhost:5168
 
-		// Thread.sleep(1000 * 60 * 60L);// 1小时
+		// Thread.sleep(1000 * 60 * 60L);// 1灏忔椂
 	}
 
 }

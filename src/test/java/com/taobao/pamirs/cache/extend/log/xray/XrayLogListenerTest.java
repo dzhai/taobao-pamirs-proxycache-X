@@ -13,7 +13,7 @@ import com.taobao.pamirs.cache.framework.listener.CacheOprator;
 import com.taobao.pamirs.cache.util.IpUtil;
 
 /**
- * xray∏Ò Ω
+ * xrayÊ†ºÂºè
  * 
  * @author xiaocheng 2012-11-19
  */

@@ -13,7 +13,7 @@ import com.taobao.pamirs.cache.store.StoreType;
 import com.taobao.pamirs.cache.store.map.MapStore;
 
 /**
- * ÇåÀíTimerÈÎÎñ²âÊÔ
+ * æ¸…ç†Timerä»»åŠ¡æµ‹è¯•
  * 
  * @author xiaocheng 2012-11-20
  */
@@ -32,7 +32,7 @@ public class CleanCacheTimerManagerTest {
 			mapStore.put("k-" + i, "v-" + i);
 		}
 
-		// Ã¿5ÃëÖ´ĞĞÒ»´Î
+		// æ¯5ç§’æ‰§è¡Œä¸€æ¬¡
 		String aCronTabExpress = "0,5,10,15,20,25,30,35,40,45,50,55 * * * * ? *";
 
 		CleanCacheTimerManager timeTask = new CleanCacheTimerManager();
@@ -40,7 +40,7 @@ public class CleanCacheTimerManagerTest {
 				new CacheProxy<Serializable, Serializable>(StoreType.MAP, null,
 						null, mapStore, null, null), aCronTabExpress);
 
-		// µÈ5Ãë
+		// ç­‰5ç§’
 		Thread.sleep(5000);
 
 		for (int i = 0; i < 10; i++) {

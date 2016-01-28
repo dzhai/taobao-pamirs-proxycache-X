@@ -8,7 +8,7 @@ import java.util.Iterator;
 import org.junit.Test;
 
 /**
- * LRUµ¥Ôª²âÊÔ
+ * LRUå•å…ƒæµ‹è¯•
  * 
  * @author xiaocheng 2012-11-16
  */
@@ -22,7 +22,7 @@ public class LRUMapTest {
 		map.put("3", "value-3");
 		map.put("4", "value-4");
 
-		// É¾³ıeldest
+		// åˆ é™¤eldest
 		assertThat(map.keySet().size(), is(3));
 		Iterator<String> it = map.keySet().iterator();
 		while (it.hasNext()) {
@@ -34,7 +34,7 @@ public class LRUMapTest {
 		map.get("2");
 		map.put("1", "must exit");
 
-		// É¾³ıeldest,´ËÊ±eldest keyÓ¦¸ÃÊÇ3
+		// åˆ é™¤eldest,æ­¤æ—¶eldest keyåº”è¯¥æ˜¯3
 		assertThat(map.keySet().size(), is(3));
 		it = map.keySet().iterator();
 		while (it.hasNext()) {

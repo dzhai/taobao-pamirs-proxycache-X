@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.taobao.pamirs.cache.load.testbean.ASerivce;
 
 /**
- * ´úÀíÏà¹Ø²âÊÔÀà
+ * ä»£ç†ç›¸å…³æµ‹è¯•ç±»
  * 
  * @author xiaocheng 2012-11-22
  */
@@ -28,8 +28,8 @@ public class AopProxyUtilTest {
 		Object target = AopProxyUtil.getPrimitiveProxyTarget(bean);
 		assertThat(target, notNullValue());
 
-		// jdkDynamicProxy Ò²²â¹ıÁË£¬
-		// ĞèÒªĞŞ¸ÄCacheManagerHandle.setProxyTargetClass(false);
+		// jdkDynamicProxy ä¹Ÿæµ‹è¿‡äº†ï¼Œ
+		// éœ€è¦ä¿®æ”¹CacheManagerHandle.setProxyTargetClass(false);
 	}
 
 	@Test
@@ -37,9 +37,9 @@ public class AopProxyUtilTest {
 		ASerivce aSerivce = (ASerivce) context.getBean("aService");
 		assertThat(aSerivce, notNullValue());
 
-		aSerivce.testInner(false);// µÚÒ»´Î²»×ß»º´æ
-		aSerivce.testInner(true);// µÚÒ»´Î²»×ß»º´æ
-		aSerivce.testInner(false);// µÚ¶ş´ÎÒ²²»×ß»º´æ
-		aSerivce.testInner(true);// µÚ¶ş´Î×ß»º´æ£¬ÔŞ£¡
+		aSerivce.testInner(false);// ç¬¬ä¸€æ¬¡ä¸èµ°ç¼“å­˜
+		aSerivce.testInner(true);// ç¬¬ä¸€æ¬¡ä¸èµ°ç¼“å­˜
+		aSerivce.testInner(false);// ç¬¬äºŒæ¬¡ä¹Ÿä¸èµ°ç¼“å­˜
+		aSerivce.testInner(true);// ç¬¬äºŒæ¬¡èµ°ç¼“å­˜ï¼Œèµï¼
 	}
 }

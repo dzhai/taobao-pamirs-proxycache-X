@@ -11,7 +11,7 @@ import org.junit.Test;
 import com.taobao.pamirs.cache.store.StoreType;
 
 /**
- * ¾²Ì¬Ğ£Ñétest
+ * é™æ€æ ¡éªŒtest
  * 
  * @author xiaocheng 2012-11-29
  */
@@ -90,7 +90,7 @@ public class StaticCheckTest {
 		A a = new A();
 		a.setAge(29L);
 		ArrayList<String> list = new ArrayList<String>();
-		list.add("ÓĞÇ®");
+		list.add("æœ‰é’±");
 		a.setMoneys(list);
 		a.setName("jeck");
 		a.setStoreType(StoreType.TAIR.getName());
@@ -101,20 +101,20 @@ public class StaticCheckTest {
 
 	static class A {
 
-		@Verfication(name = "Ãû³Æ", notEmpty = true, minlength = 2, maxlength = 30, regx = {
-				"^[.a-zA-Z0-9_\u4e00-\u9fa5]+$", "Ö»ÄÜÓÉÖĞÎÄ,Ó¢ÎÄ,Êı×Ö,µãºÅ,ÏÂ»®Ïß×é³É" })
+		@Verfication(name = "åç§°", notEmpty = true, minlength = 2, maxlength = 30, regx = {
+				"^[.a-zA-Z0-9_\u4e00-\u9fa5]+$", "åªèƒ½ç”±ä¸­æ–‡,è‹±æ–‡,æ•°å­—,ç‚¹å·,ä¸‹åˆ’çº¿ç»„æˆ" })
 		private String name;
 
-		@Verfication(name = "ÄêÁä", notNull = true)
+		@Verfication(name = "å¹´é¾„", notNull = true)
 		private Long age;
 
-		@Verfication(name = "Ç®", notEmptyList = true)
+		@Verfication(name = "é’±", notEmptyList = true)
 		private List<String> moneys;
 
-		@Verfication(name = "´æ´¢ÀàĞÍ", isStoreType = true)
+		@Verfication(name = "å­˜å‚¨ç±»å‹", isStoreType = true)
 		private String storeType;
 
-		@Verfication(name = "TairÃüÃû¿Õ¼ä", notNull = true, when = { StoreType.TAIR })
+		@Verfication(name = "Tairå‘½åç©ºé—´", notNull = true, when = { StoreType.TAIR })
 		private Integer storeTairNameSpace;
 
 		public String getName() {

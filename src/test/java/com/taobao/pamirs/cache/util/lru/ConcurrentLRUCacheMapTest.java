@@ -18,9 +18,9 @@ import org.junit.Test;
 import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMap.LRUMapLocked;
 
 /**
- * Ïß³Ì°²È«LRUµ¥Ôª²âÊÔ <br>
+ * çº¿ç¨‹å®‰å…¨LRUå•å…ƒæµ‹è¯• <br>
  * 1. put\get\remove\clear\size <br>
- * 2. ²¢·¢²âÊÔ
+ * 2. å¹¶å‘æµ‹è¯•
  * 
  * @author xiaocheng 2012-11-16
  */
@@ -28,7 +28,7 @@ public class ConcurrentLRUCacheMapTest {
 
 	@Test
 	public void testLRU() {
-		ConcurrentLRUCacheMap<String, String> map = new ConcurrentLRUCacheMap<String, String>();// Ä¬ÈÏ¹¹ÔìÆ÷
+		ConcurrentLRUCacheMap<String, String> map = new ConcurrentLRUCacheMap<String, String>();// é»˜è®¤æ„é€ å™¨
 		map = new ConcurrentLRUCacheMap<String, String>(4, 2);
 		// LRU & put
 		map.put("1", "value-1");
@@ -38,7 +38,7 @@ public class ConcurrentLRUCacheMapTest {
 		map.put("5", "value-1");
 
 		// size
-		assertThat(map.size(), is(4));// É¾³ıeldest
+		assertThat(map.size(), is(4));// åˆ é™¤eldest
 
 		// get
 		assertThat(map.get("1"), equalTo("value-1"));
@@ -55,7 +55,7 @@ public class ConcurrentLRUCacheMapTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testConcurrentPutSize() throws Exception {
-		// 1. ¶àÏß³Ìput£¬sizeÖµ
+		// 1. å¤šçº¿ç¨‹putï¼Œsizeå€¼
 		final ConcurrentLRUCacheMap<String, String> map = new ConcurrentLRUCacheMap<String, String>(
 				8, 4);
 		final CountDownLatch countLatch = new CountDownLatch(10);
@@ -86,10 +86,10 @@ public class ConcurrentLRUCacheMapTest {
 		System.out.println(map.size());
 		assertThat(map.size() <= 8, is(true));
 
-		// 2. ²¢·¢£¬ÑéÖ¤ÖµÓĞÃ»´®µô
+		// 2. å¹¶å‘ï¼ŒéªŒè¯å€¼æœ‰æ²¡ä¸²æ‰
 		Field field = map.getClass().getDeclaredField("segments");
 
-		// È¥³ıfinal/static
+		// å»é™¤final/static
 		if (!Modifier.isFinal(field.getModifiers())
 				&& !Modifier.isStatic(field.getModifiers())) {
 

@@ -25,7 +25,7 @@ import com.taobao.pamirs.cache.framework.config.CacheModule;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
 
 /**
- * ÅäÖÃ¸¨ÖúÀàµ¥Ôª²âÊÔ
+ * é…ç½®è¾…åŠ©ç±»å•å…ƒæµ‹è¯•
  * 
  * @author xiaocheng 2012-11-19
  */
@@ -107,7 +107,7 @@ public class ConfigUtilTest extends UnitilsJUnit4 {
 				assertThat(cacheBean.getCacheMethods().size(), equalTo(4));
 
 				for (MethodConfig methodConfig : cacheBean.getCacheMethods()) {
-					if (methodConfig.getMethodName().equals("md5Name")) {// Á½¸ö
+					if (methodConfig.getMethodName().equals("md5Name")) {// ä¸¤ä¸ª
 
 						if (methodConfig.getParameterTypes().size() == 1) {
 							assertThat(methodConfig.getParameterTypes().get(0)

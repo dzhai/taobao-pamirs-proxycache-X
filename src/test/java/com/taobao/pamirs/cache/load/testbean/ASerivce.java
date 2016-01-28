@@ -1,7 +1,7 @@
 package com.taobao.pamirs.cache.load.testbean;
 
 /**
- * ²âÊÔBeanA£¨²âÊÔÖØÔØ·½·¨¡¢clear²Ù×÷¡¢expire²Ù×÷£©
+ * æµ‹è¯•BeanAï¼ˆæµ‹è¯•é‡è½½æ–¹æ³•ã€clearæ“ä½œã€expireæ“ä½œï¼‰
  * 
  * @author xiaocheng
  */
@@ -14,7 +14,7 @@ public interface ASerivce {
 	String clearNames(String name, String key);
 
 	/**
-	 * µÚÒ»´Î·µ»ØÖµ£¬µÚ¶ş´Îµ÷ÓÃ¾Í»á·µ»ØnullÁË
+	 * ç¬¬ä¸€æ¬¡è¿”å›å€¼ï¼Œç¬¬äºŒæ¬¡è°ƒç”¨å°±ä¼šè¿”å›nulläº†
 	 * 
 	 * @param key
 	 * @return
@@ -22,7 +22,7 @@ public interface ASerivce {
 	String firstHaveValue(String key);
 	
 	/**
-	 * ÑéÖ¤Ã»ÓĞÖØÃû·½·¨Ê±£¬ÅäÖÃ²»ĞèÒªĞ´²ÎÊı
+	 * éªŒè¯æ²¡æœ‰é‡åæ–¹æ³•æ—¶ï¼Œé…ç½®ä¸éœ€è¦å†™å‚æ•°
 	 * 
 	 * @param arg
 	 * @return
@@ -30,7 +30,7 @@ public interface ASerivce {
 	String noRewirteMethod(String arg);
 	
 	/**
-	 * ²âÊÔÄÚ²¿µ÷ÓÃinner·½·¨½â¾ö·½°¸
+	 * æµ‹è¯•å†…éƒ¨è°ƒç”¨inneræ–¹æ³•è§£å†³æ–¹æ¡ˆ
 	 * @return
 	 */
 	String testInner(boolean aopInner);

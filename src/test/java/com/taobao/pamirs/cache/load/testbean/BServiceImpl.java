@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 /**
- * ²âÊÔBean-B£¨²âÊÔÖ§³ÖµÄ¸÷ÖÖ²ÎÊı£©
+ * æµ‹è¯•Bean-Bï¼ˆæµ‹è¯•æ”¯æŒçš„å„ç§å‚æ•°ï¼‰
  * 
  * @author xiaocheng 2012-11-19
  */

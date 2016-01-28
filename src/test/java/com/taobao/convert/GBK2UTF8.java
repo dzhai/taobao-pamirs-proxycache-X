@@ -10,9 +10,9 @@ public class GBK2UTF8 {
 
 	public static void main(String[] args) throws IOException {
 		// GBK
-		String srcDirPath = "D:\\gitproject\\taobao-pamirs-proxycache\\src\\main\\java\\com\\taobao";
+		String srcDirPath = "E:\\ProjectHome\\gitwork\\taobao-pamirs-proxycache\\src\\test\\java";
 		// utf-8
-		String utf8DirPath = "D:\\gitproject\\taobao-pamirs-proxycache\\src\\main\\java\\com\\taobao";
+		String utf8DirPath = "E:\\ProjectHome\\gitwork\\taobao-pamirs-proxycache\\src\\test\\java";
 
 		@SuppressWarnings("unchecked")
 		Collection<File> javaGbkFileCol = FileUtils.listFiles(new File(srcDirPath), new String[] { "java" }, true);

@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMapTest;
 
 /**
- * MapStoreºÚµ•≤‚ ‘<br>
+ * MapStoretest<br>
  * 
  * @see ConcurrentLRUCacheMapTest
  * @author xiaocheng 2012-11-19

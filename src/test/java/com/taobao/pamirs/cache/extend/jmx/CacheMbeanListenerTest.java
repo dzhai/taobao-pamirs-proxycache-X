@@ -10,7 +10,7 @@ import com.taobao.pamirs.cache.framework.listener.CacheOprator;
 import com.taobao.pamirs.cache.util.IpUtil;
 
 /**
- * JMX–≈œ¢
+ * JMX‰ø°ÊÅØ
  * 
  * @author xiaocheng 2012-11-20
  */

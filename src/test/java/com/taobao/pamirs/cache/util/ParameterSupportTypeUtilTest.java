@@ -10,7 +10,7 @@ import java.util.Date;
 import org.junit.Test;
 
 /**
- * ¿ò¼ÜÖ§³ÖµÄ²ÎÊıÀàĞÍ--²âÊÔÀà
+ * æ¡†æ¶æ”¯æŒçš„å‚æ•°ç±»å‹--æµ‹è¯•ç±»
  * 
  * @author xiaocheng 2012-11-22
  */
@@ -18,7 +18,7 @@ public class ParameterSupportTypeUtilTest {
 
 	@Test
 	public void testIsSupportParameterTypes() throws Exception {
-		// 18ÖÖ
+		// 18ç§
 		assertThat(isSupportParameterTypes(boolean.class), is(true));
 		assertThat(isSupportParameterTypes(Boolean.class), is(true));
 		assertThat(isSupportParameterTypes(char.class), is(true));

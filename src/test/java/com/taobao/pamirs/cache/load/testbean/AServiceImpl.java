@@ -15,7 +15,7 @@ import com.taobao.pamirs.cache.extend.jmx.annotation.JmxClass;
 import com.taobao.pamirs.cache.extend.jmx.annotation.JmxMethod;
 
 /**
- * ²âÊÔBeanA£¨²âÊÔÖØÔØ·½·¨¡¢clear²Ù×÷£©
+ * æµ‹è¯•BeanAï¼ˆæµ‹è¯•é‡è½½æ–¹æ³•ã€clearæ“ä½œï¼‰
  * 
  * @author xiaocheng 2012-11-19
  */
@@ -73,7 +73,7 @@ public class AServiceImpl implements ASerivce {
 	@Override
 	public String testInner(boolean aopInner) {
 		if (aopInner) {
-			// È¡±¾classµÄproxy£¬½â¾öinnerµ÷ÓÃ²»×ßAOP»º´æÎÊÌâ
+			// å–æœ¬classçš„proxyï¼Œè§£å†³innerè°ƒç”¨ä¸èµ°AOPç¼“å­˜é—®é¢˜
 			ASerivce selfAopProxy = (ASerivce) AopContext.currentProxy();
 			return selfAopProxy.inner();
 		} else

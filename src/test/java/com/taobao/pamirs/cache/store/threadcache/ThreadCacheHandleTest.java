@@ -20,7 +20,7 @@ import com.taobao.pamirs.cache.store.threadcache.beans.Ibean;
 import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMap;
 
 /**
- * threadcache测试
+ * threadcache娴嬭瘯
  * 
  * @author xiaocheng 2012-9-6
  */
@@ -78,11 +78,11 @@ public class ThreadCacheHandleTest {
 		assertThat(logDetailInfo.get("beanFinal#getName{..}").longValue(), equalTo(9L));
 		assertThat(logDetailInfo.get("beanVarietyArgs#sayHelloPrimitive{..}true@@a@@1@@2@@3@@4@@5.01@@6.02").longValue(), equalTo(9L));
 		assertThat(logDetailInfo.get("beanVarietyArgs#sayHelloBox{..}true@@a@@1@@2@@3@@4@@5.01@@6.02@@" + date.toString()).longValue(), equalTo(9L));
-		// 不支持void方法
+		// 涓嶆敮鎸乿oid鏂规硶
 		assertThat(logDetailInfo.get("beanNormal#sayHello{..}"), nullValue());
 		assertThat(logDetailInfo.get("beanHaveInterface#sayHello{..}"), nullValue());
 		assertThat(logDetailInfo.get("beanFinal#sayHello{..}"), nullValue());
-		// 不支持的参数类型
+		// 涓嶆敮鎸佺殑鍙傛暟绫诲瀷
 		assertThat(logDetailInfo.get("beanVarietyArgs#sayHelloObject{..}"), nullValue());
 		
 	}

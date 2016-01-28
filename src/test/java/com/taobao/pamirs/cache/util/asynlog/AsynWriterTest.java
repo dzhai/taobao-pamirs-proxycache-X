@@ -5,7 +5,7 @@ import org.junit.Test;
 import com.taobao.pamirs.cache.util.asynlog.AsynWriter;
 
 /**
- * 异步log单元测试
+ * 寮傛log鍗曞厓娴嬭瘯
  * 
  * @author xiaocheng 2012-11-19
  */
@@ -21,7 +21,7 @@ public class AsynWriterTest {
 
 		Thread.sleep(3000);
 
-		// 没有assert，看日志是否打出即可
+		// 娌℃湁assert锛岀湅鏃ュ織鏄惁鎵撳嚭鍗冲彲
 	}
 
 }

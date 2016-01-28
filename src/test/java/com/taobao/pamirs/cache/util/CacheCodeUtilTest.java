@@ -13,7 +13,7 @@ import org.junit.Test;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
 
 /**
- * »º´æCode¸¨ÖúÀàµ¥Ôª²âÊÔ
+ * ç¼“å­˜Codeè¾…åŠ©ç±»å•å…ƒæµ‹è¯•
  * 
  * @author xiaocheng 2012-11-19
  */
@@ -62,9 +62,9 @@ public class CacheCodeUtilTest {
 	}
 	
 	/**
-	 * Éú³ÉµÄ»º´æCodeÖ§³Ö¹ØÁªµÄÇåÀí·½·¨²ÎÊı±ÈÔ­·½·¨²ÎÊıÉÙ<br>
-	 * Èç£º<br>
-	 * cleanCache(1,2,3)ÓĞÈı¸ö²ÎÊı£¬¶ø±»¹ØÁªµÄ·½·¨²ÎÊıÉÙÓÚÈı¸öµÄ
+	 * ç”Ÿæˆçš„ç¼“å­˜Codeæ”¯æŒå…³è”çš„æ¸…ç†æ–¹æ³•å‚æ•°æ¯”åŸæ–¹æ³•å‚æ•°å°‘<br>
+	 * å¦‚ï¼š<br>
+	 * cleanCache(1,2,3)æœ‰ä¸‰ä¸ªå‚æ•°ï¼Œè€Œè¢«å…³è”çš„æ–¹æ³•å‚æ•°å°‘äºä¸‰ä¸ªçš„
 	 * 
 	 */
 	@Test

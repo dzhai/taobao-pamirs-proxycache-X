@@ -3,7 +3,7 @@ package com.taobao.pamirs.cache.load.testbean;
 import java.util.Date;
 
 /**
- * ²âÊÔBean-B£¨²âÊÔÖ§³ÖµÄ¸÷ÖÖ²ÎÊı£©
+ * æµ‹è¯•Bean-Bï¼ˆæµ‹è¯•æ”¯æŒçš„å„ç§å‚æ•°ï¼‰
  * 
  * @author xiaocheng 2012-11-19
  */
