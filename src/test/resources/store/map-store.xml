@@ -24,21 +24,16 @@
 		     http://www.springframework.org/schema/task/spring-task-3.2.xsd
 		 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd"
 	default-autowire="byName">	
-	
+
+	<!-- 注解自动注入 -->
 	<context:annotation-config />
 
-	<context:component-scan base-package="com.taobao" />
+	<context:component-scan base-package="com.taobao.pamirs.cache.store.threadcache" />
 
-	<bean id="cacheManager"
-		class="com.taobao.pamirs.cache.load.impl.LocalConfigCacheManager"
-		init-method="init">
+	<bean id="cacheManager" class="com.taobao.pamirs.cache.load.impl.LocalConfigCacheManager" init-method="init">
 		<property name="storeType" value="map" />
-		<property name="openCacheLog" value="true"/>
-		<property name="configFilePaths">
-			<list>
-				<value>load/cache-config.xml</value>
-			</list>
-		</property>
-	</bean>
 
+
+
+	</bean>
 </beans>

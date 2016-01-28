@@ -18,15 +18,18 @@ import org.unitils.spring.annotation.SpringBeanByName;
 
 import com.taobao.pamirs.cache.framework.CacheProxy;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
+import com.taobao.pamirs.cache.load.testbean.ASerivce;
 import com.taobao.pamirs.cache.util.CacheCodeUtil;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:/store/map-store.xml", "classpath:/load/cache-spring.xml" })
+@ContextConfiguration(locations = {"classpath:/load/cache-spring.xml" })
 public class LocalConfigServiceImplTest {
 
 	@Resource
 	private LocalConfigCacheManager cacheManager;
+	@Resource
+	private ASerivce aService;
 
 	@Test
 	public void testGetCacheProxy() {
@@ -42,9 +45,12 @@ public class LocalConfigServiceImplTest {
 
 		CacheProxy<Serializable, Serializable> cacheProxys = cacheManager
 				.getCacheProxy(key);
-
+		
 		assertThat(cacheProxys, notNullValue());
 		assertThat(cacheProxys.getKey(), equalTo(key));
+		System.out.println(aService.firstHaveValue("name"));
+		System.out.println(aService.firstHaveValue("name"));
+		System.out.println(aService.firstHaveValue("name"));
 	}
 
 }

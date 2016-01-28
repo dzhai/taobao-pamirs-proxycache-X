@@ -61,6 +61,7 @@ public class AServiceImpl implements ASerivce {
 			return null;
 
 		firstHaveValueKeys.add(key);
+		System.out.println("-----");
 		return key;
 	}
 

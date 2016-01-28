@@ -23,19 +23,19 @@
 <!-- 	</logger> -->
 
 	<!-- cache-xray -->
-<!-- 	<appender name="cache-xray" class="org.apache.log4j.DailyRollingFileAppender"> -->
-<!-- 		<param name="file" value="${secret.loggingRoot}/cache-xray.log" /> -->
-<!-- 		<param name="append" value="true" /> -->
-<!-- 		<param name="encoding" value="GBK" /> -->
-<!-- 		<layout class="org.apache.log4j.PatternLayout"> -->
-<!-- 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%m%n" /> -->
-<!-- 		</layout> -->
-<!-- 	</appender> -->
-<!-- 	<logger name="com.taobao.pamirs.cache.extend.log.xray.XrayLogListener" -->
-<!-- 		additivity="false"> -->
-<!-- 		<level value="WARN" /> -->
-<!-- 		<appender-ref ref="cache-xray" /> -->
-<!-- 	</logger> -->
+	<appender name="cache-xray" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${secret.loggingRoot}/cache-xray.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="GBK" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss},%m%n" />
+		</layout>
+	</appender>
+	<logger name="com.taobao.pamirs.cache.extend.log.xray.XrayLogListener"
+		additivity="false">
+		<level value="WARN" />
+		<appender-ref ref="cache-xray" />
+	</logger>
 
 	<root>
 		<level value="WARN" />
