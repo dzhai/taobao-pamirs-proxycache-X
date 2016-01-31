@@ -96,6 +96,7 @@ public class CacheConfigVerify {
 			}
 		}
 
+		/** 清除缓存的时候 不验证bean是否存在，分布式环境中 修改的bean和查询的bean可能不在一个项目中
 		if (cacheConfig.getCacheCleanBeans() != null) {
 			for (CacheCleanBean cleanBean : cacheConfig.getCacheCleanBeans()) {
 				for (CacheCleanMethod method : cleanBean.getMethods()) {
@@ -112,6 +113,7 @@ public class CacheConfigVerify {
 				}
 			}
 		}
+		**/
 
 		// 3. 配置重复校验
 		checkRepeatMethod(cacheConfig);
@@ -176,7 +178,7 @@ public class CacheConfigVerify {
 		if (cacheConfig.getCacheBeans() != null) {
 			for (CacheBean cacheBean : cacheConfig.getCacheBeans()) {
 				for (MethodConfig methodConfig : cacheBean.getCacheMethods()) {
-					String cacheAdapterKey = CacheCodeUtil.getCacheAdapterKey(
+					String cacheAdapterKey = CacheCodeUtil.getCacheAdapterKeyForVerify(
 							cacheConfig.getStoreRegion(),
 							cacheBean.getBeanName(), methodConfig);
 

@@ -7,7 +7,7 @@ package com.taobao.pamirs.cache.load.testbean;
  */
 public interface ASerivce {
 
-	String md5Name(String name);
+	String md5Name(User user);
 
 	String md5Name(String name, String key);
 	

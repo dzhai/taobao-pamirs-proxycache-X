@@ -19,6 +19,7 @@ import org.unitils.spring.annotation.SpringBeanByName;
 import com.taobao.pamirs.cache.framework.CacheProxy;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
 import com.taobao.pamirs.cache.load.testbean.ASerivce;
+import com.taobao.pamirs.cache.load.testbean.User;
 import com.taobao.pamirs.cache.util.CacheCodeUtil;
 
 
@@ -33,24 +34,26 @@ public class LocalConfigServiceImplTest {
 
 	@Test
 	public void testGetCacheProxy() {
-		MethodConfig methodConfig = new MethodConfig();
-		methodConfig.setMethodName("firstHaveValue");
-
-		ArrayList<Class<?>> parameterTypes = new ArrayList<Class<?>>();
-		parameterTypes.add(String.class);
-		methodConfig.setParameterTypes(parameterTypes);
-
-		String key = CacheCodeUtil.getCacheAdapterKey(
-				cacheManager.getStoreRegion(), "aService", methodConfig);
-
-		CacheProxy<Serializable, Serializable> cacheProxys = cacheManager
-				.getCacheProxy(key);
-		
-		assertThat(cacheProxys, notNullValue());
-		assertThat(cacheProxys.getKey(), equalTo(key));
-		System.out.println(aService.firstHaveValue("name"));
-		System.out.println(aService.firstHaveValue("name"));
-		System.out.println(aService.firstHaveValue("name"));
+//		MethodConfig methodConfig = new MethodConfig();
+//		methodConfig.setMethodName("firstHaveValue");
+//
+//		ArrayList<Class<?>> parameterTypes = new ArrayList<Class<?>>();
+//		parameterTypes.add(String.class);
+//		methodConfig.setParameterTypes(parameterTypes);
+//
+//		String key = CacheCodeUtil.getCacheAdapterKey(
+//				cacheManager.getStoreRegion(), "aService", methodConfig);
+//
+//		CacheProxy<Serializable, Serializable> cacheProxys = cacheManager
+//				.getCacheProxy(key);
+//		
+//		assertThat(cacheProxys, notNullValue());
+//		assertThat(cacheProxys.getKey(), equalTo(key));
+		User user=new User();
+		user.setName("zhangsan");
+		System.out.println(aService.md5Name(user));
+		System.out.println(aService.md5Name(user));
+		System.out.println(aService.md5Name(user));
 	}
 
 }

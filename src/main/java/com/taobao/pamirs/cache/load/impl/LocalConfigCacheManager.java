@@ -48,7 +48,6 @@ public class LocalConfigCacheManager extends AbstractCacheConfigService {
 			cacheConfig.getCacheCleanBeans().addAll(
 					cacheModule.getCacheCleanBeans());
 		}
-
 		return cacheConfig;
 	}
 

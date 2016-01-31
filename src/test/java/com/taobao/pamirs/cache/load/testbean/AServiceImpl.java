@@ -26,7 +26,8 @@ public class AServiceImpl implements ASerivce {
 	Set<String> names = new HashSet<String>();
 	List<String> firstHaveValueKeys = new ArrayList<String>();
 
-	public String md5Name(String name) {
+	public String md5Name(User user) {
+		String name=user.getName();
 		if (name == null)
 			return null;
 
@@ -44,7 +45,9 @@ public class AServiceImpl implements ASerivce {
 
 	@Override
 	public String md5Name(String name, String key) {
-		return key + md5Name(name);
+		User user=new User();
+		user.setName(name);
+		return key + md5Name(user);
 	}
 
 	@Override

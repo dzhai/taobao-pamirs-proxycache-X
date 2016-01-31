@@ -7,8 +7,9 @@
 				<methodConfig>
 					<methodName>md5Name</methodName>
 					<parameterTypes>
-						<java-class>java.lang.String</java-class>
+						<java-class>com.taobao.pamirs.cache.load.testbean.User</java-class>
 					</parameterTypes>
+					<parameter index="0" name="name"/>
 				</methodConfig>
 				<methodConfig>
 					<methodName>md5Name</methodName>

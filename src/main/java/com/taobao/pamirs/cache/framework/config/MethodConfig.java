@@ -1,6 +1,9 @@
 package com.taobao.pamirs.cache.framework.config;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.taobao.pamirs.cache.load.verify.Verfication;
@@ -21,19 +24,21 @@ public class MethodConfig implements Serializable {
 	 * 参数类型
 	 */
 	private List<Class<?>> parameterTypes;
-
+	
 	/**
 	 * 缓存前缀
 	 */
-	private String prefix;
-	
+	private String prefix;	
 	
 	/**
 	 * 参数配置
 	 */
-	private List<ParameterIndex> parameterIndexs;
+	private List<Parameter> parameters;
 	
-	private String customKey;
+	/**
+	 * 参数配置
+	 */
+	private Parameter parameter;
 
 	
 	/**
@@ -96,6 +101,56 @@ public class MethodConfig implements Serializable {
 		}
 
 		return true;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public List<Parameter> getParameters() {
+		if(parameter!=null && parameters==null){
+			parameters=new ArrayList<Parameter>();
+			parameters.add(parameter);
+		}
+		return parameters;
+	}
+
+	public Parameter getParameter() {
+		return parameter;
+	}
+
+	public void setParameter(Parameter parameter) {
+		this.parameter = parameter;
+	}
+
+	public void setParameters(List<Parameter> parameters) {
+		if(parameters!=null && parameters.size()>0){
+			Collections.sort(parameters, new Comparator<Parameter>(){
+				@Override
+				public int compare(Parameter o1, Parameter o2) {
+					if(o1.getIndex()>o2.getIndex()){
+						return 1;
+					}else if(o1.getIndex()<o2.getIndex()){
+						return -1;
+					}
+					return 0;
+				}
+				
+			});
+			
+			int lindex=parameters.get(parameters.size()-1).getIndex();
+			
+			for(int i=0;i<=lindex;i++){
+				if(parameters.get(i).getIndex()!=i){
+					parameters.add(i, null);					
+				}
+			}
+		}
+		this.parameters = parameters;
 	}
 
 }

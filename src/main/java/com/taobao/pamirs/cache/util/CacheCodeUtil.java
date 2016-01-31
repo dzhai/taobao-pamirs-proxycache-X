@@ -1,11 +1,14 @@
 package com.taobao.pamirs.cache.util;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.Assert;
 
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
+import com.taobao.pamirs.cache.framework.config.Parameter;
 
 /**
  * 缓存Code辅助类
@@ -49,10 +52,12 @@ public class CacheCodeUtil {
 			MethodConfig methodConfig, Object[] parameters) {
 		// 最终的缓存code
 		StringBuilder code = new StringBuilder();
-
 		// 1. region
 		// 2. bean + method + parameter
 		code.append(getCacheAdapterKey(region, beanName, methodConfig));
+		
+		//反射对象中的属性
+		List<Parameter> parameterIndexs=methodConfig.getParameters();
 
 		// 3. value
 		List<Class<?>> parameterTypes = methodConfig.getParameterTypes();
@@ -62,9 +67,17 @@ public class CacheCodeUtil {
 				if (valus.length() != 0) {
 					valus.append(CODE_PARAM_VALUES_SPLITE_SIGN);
 				}
-
-				valus.append(parameters[i] == null ? "null" : parameters[i]
-						.toString());
+				Object value=parameters[i];
+				if(parameterIndexs!=null && parameterIndexs.size()>0){
+					Parameter parameterIndex=parameterIndexs.get(i);
+					if(parameterIndex==null){
+						continue;
+					}
+					if(StringUtils.isNotBlank(parameterIndex.getName()) && value != null){
+						value=ReflectionUtil.invokeGetterMethod(value, parameterIndex.getName());
+					}
+				}
+				valus.append(value == null ? "null" : value.toString());
 			}
 			code.append(valus.toString());
 		}
@@ -72,6 +85,38 @@ public class CacheCodeUtil {
 		return code.toString();
 	}
 
+	/**
+	 * 缓存适配器的key<br>
+	 * 格式：region@beanName#methodName#{String|Long}
+	 * 
+	 * @param region
+	 * @param beanName
+	 * @param methodConfig
+	 * @return
+	 */
+	public static String getCacheAdapterKeyForVerify(String region, String beanName,
+			MethodConfig methodConfig) {
+		Assert.notNull(methodConfig);
+
+		// 最终的key
+		StringBuilder key = new StringBuilder();
+
+		// 1. region
+		if (StringUtils.isNotBlank(region))
+			key.append(region).append(REGION_SPLITE_SIGN);
+
+		// 2. bean + method + parameter
+		String methodName = methodConfig.getMethodName();
+		List<Class<?>> parameterTypes = methodConfig.getParameterTypes();
+
+		key.append(beanName).append(KEY_SPLITE_SIGN);
+		key.append(methodName).append(KEY_SPLITE_SIGN);
+		key.append(parameterTypesToString(parameterTypes));
+
+		return key.toString();
+
+	}
+	
 	/**
 	 * 缓存适配器的key<br>
 	 * 格式：region@beanName#methodName#{String|Long}
@@ -98,7 +143,7 @@ public class CacheCodeUtil {
 
 		key.append(beanName).append(KEY_SPLITE_SIGN);
 		key.append(methodName).append(KEY_SPLITE_SIGN);
-		key.append(parameterTypesToString(parameterTypes));
+		//key.append(parameterTypesToString(parameterTypes));
 
 		return key.toString();
 
