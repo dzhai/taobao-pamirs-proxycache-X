@@ -41,4 +41,8 @@
 		</property>
 	</bean>
 
+	<bean class="com.taobao.pamirs.cache.framework.aop.handle.CacheManagerHandle">
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+
 </beans>
