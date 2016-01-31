@@ -2,8 +2,6 @@ package com.taobao.pamirs.cache.extend.lock.util;
 
 import static org.apache.commons.lang.StringUtils.isNotEmpty;
 
-import com.taobao.tair.ResultCode;
-
 /**
  * 组装Key辅助类
  * 
@@ -21,14 +19,6 @@ public class LockUtil {
 
 		sb.append(objType).append("$").append(objId);
 		return sb.toString();
-	}
-
-	/**
-	 * Tair timeout judge
-	 */
-	public static boolean isTairTimeout(ResultCode rc) {
-		return ResultCode.CONNERROR.equals(rc) || ResultCode.TIMEOUT.equals(rc)
-				|| ResultCode.UNKNOW.equals(rc);
 	}
 
 }

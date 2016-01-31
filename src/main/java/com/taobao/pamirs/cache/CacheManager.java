@@ -32,11 +32,9 @@ import com.taobao.pamirs.cache.load.ICacheConfigService;
 import com.taobao.pamirs.cache.load.verify.CacheConfigVerify;
 import com.taobao.pamirs.cache.store.StoreType;
 import com.taobao.pamirs.cache.store.map.MapStore;
-import com.taobao.pamirs.cache.store.tair.TairStore;
 import com.taobao.pamirs.cache.util.CacheCodeUtil;
 import com.taobao.pamirs.cache.util.ConfigUtil;
 import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMap;
-import com.taobao.tair.TairManager;
 
 /**
  * 缓存框架入口类
@@ -55,8 +53,6 @@ public abstract class CacheManager implements ApplicationContextAware,
 	 * 每一个method对应一个adapter实例
 	 */
 	private final Map<String, CacheProxy<Serializable, Serializable>> cacheProxys = new ConcurrentHashMap<String, CacheProxy<Serializable, Serializable>>();
-
-	private TairManager tairManager;
 
 	protected ApplicationContext applicationContext;
 
@@ -155,10 +151,7 @@ public abstract class CacheManager implements ApplicationContextAware,
 		StoreType storeType = StoreType.toEnum(cacheConfig.getStoreType());
 		ICache<Serializable, Serializable> cache = null;
 
-		if (StoreType.TAIR == storeType) {
-			cache = new TairStore<Serializable, Serializable>(tairManager,
-					cacheConfig.getStoreTairNameSpace());
-		} else if (StoreType.MAP == storeType) {
+		if (StoreType.MAP == storeType) {
 			cache = new MapStore<Serializable, Serializable>(localMapSize,
 					localMapSegmentSize);
 		}
@@ -239,10 +232,6 @@ public abstract class CacheManager implements ApplicationContextAware,
 
 	public CacheConfig getCacheConfig() {
 		return cacheConfig;
-	}
-
-	public void setTairManager(TairManager tairManager) {
-		this.tairManager = tairManager;
 	}
 
 	@Override
