@@ -1,6 +1,6 @@
 package com.taobao.pamirs.cache.framework.config;
 
-public class Parameter {
+public class ParameterIndex {
 
 	/**
 	 * 

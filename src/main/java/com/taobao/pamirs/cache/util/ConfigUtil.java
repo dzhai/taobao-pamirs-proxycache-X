@@ -15,7 +15,7 @@ import com.taobao.pamirs.cache.framework.config.CacheCleanMethod;
 import com.taobao.pamirs.cache.framework.config.CacheConfig;
 import com.taobao.pamirs.cache.framework.config.CacheModule;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
-import com.taobao.pamirs.cache.framework.config.Parameter;
+import com.taobao.pamirs.cache.framework.config.ParameterIndex;
 import com.taobao.pamirs.cache.load.LoadConfigException;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -145,9 +145,9 @@ public class ConfigUtil {
 		xStream.alias("cacheModule", CacheModule.class);
 		xStream.alias("cacheBean", CacheBean.class);
 		xStream.alias("methodConfig", MethodConfig.class);
-		xStream.alias("parameter", Parameter.class);
-		xStream.useAttributeFor(Parameter.class, "index");
-		xStream.useAttributeFor(Parameter.class, "name");  
+		xStream.alias("parameter", ParameterIndex.class);
+		xStream.useAttributeFor(ParameterIndex.class, "index");
+		xStream.useAttributeFor(ParameterIndex.class, "name");  
 		xStream.alias("cacheCleanBean", CacheCleanBean.class);
 		xStream.alias("cacheCleanMethod", CacheCleanMethod.class);
 		if (inputStream != null) {

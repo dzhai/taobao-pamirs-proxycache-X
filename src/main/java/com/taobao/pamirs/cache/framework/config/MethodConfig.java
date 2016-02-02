@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.taobao.pamirs.cache.load.verify.Verfication;
 
 /**
@@ -26,20 +28,24 @@ public class MethodConfig implements Serializable {
 	private List<Class<?>> parameterTypes;
 	
 	/**
-	 * 缓存前缀
+	 * 缓存前缀 prefix_value
 	 */
 	private String prefix;	
 	
 	/**
 	 * 参数配置
 	 */
-	private List<Parameter> parameters;
+	private List<ParameterIndex> parameterIndexs;
 	
 	/**
 	 * 参数配置
 	 */
-	private Parameter parameter;
+	private ParameterIndex parameterIndex;
 
+	/**
+	 * 缓存code生成
+	 */
+	private String cacheCodeType;
 	
 	/**
 	 * 失效时间，单位：秒。<br>
@@ -111,27 +117,27 @@ public class MethodConfig implements Serializable {
 		this.prefix = prefix;
 	}
 
-	public List<Parameter> getParameters() {
-		if(parameter!=null && parameters==null){
-			parameters=new ArrayList<Parameter>();
-			parameters.add(parameter);
+	public List<ParameterIndex> getParameterIndexs() {
+		if(parameterIndex!=null && parameterIndexs==null){
+			parameterIndexs=new ArrayList<ParameterIndex>();
+			parameterIndexs.add(parameterIndex);
 		}
-		return parameters;
+		return parameterIndexs;
 	}
 
-	public Parameter getParameter() {
-		return parameter;
+	public ParameterIndex getParameterIndex() {
+		return parameterIndex;
 	}
 
-	public void setParameter(Parameter parameter) {
-		this.parameter = parameter;
+	public void setParameterIndex(ParameterIndex parameterIndex) {
+		this.parameterIndex = parameterIndex;
 	}
 
-	public void setParameters(List<Parameter> parameters) {
-		if(parameters!=null && parameters.size()>0){
-			Collections.sort(parameters, new Comparator<Parameter>(){
+	public void setParameterIndexs(List<ParameterIndex> parameterIndexs) {
+		if(parameterIndexs!=null && parameterIndexs.size()>0){
+			Collections.sort(parameterIndexs, new Comparator<ParameterIndex>(){
 				@Override
-				public int compare(Parameter o1, Parameter o2) {
+				public int compare(ParameterIndex o1, ParameterIndex o2) {
 					if(o1.getIndex()>o2.getIndex()){
 						return 1;
 					}else if(o1.getIndex()<o2.getIndex()){
@@ -142,15 +148,26 @@ public class MethodConfig implements Serializable {
 				
 			});
 			
-			int lindex=parameters.get(parameters.size()-1).getIndex();
+			int lindex=parameterIndexs.get(parameterIndexs.size()-1).getIndex();
 			
 			for(int i=0;i<=lindex;i++){
-				if(parameters.get(i).getIndex()!=i){
-					parameters.add(i, null);					
+				if(parameterIndexs.get(i).getIndex()!=i){
+					parameterIndexs.add(i, null);					
 				}
 			}
 		}
-		this.parameters = parameters;
+		this.parameterIndexs = parameterIndexs;
+	}
+
+	public String getCacheCodeType() {
+		if(StringUtils.isBlank(cacheCodeType)){
+			cacheCodeType="prefix_value";
+		}
+		return cacheCodeType;
+	}
+
+	public void setCacheCodeType(String cacheCodeType) {
+		this.cacheCodeType = cacheCodeType;
 	}
 
 }

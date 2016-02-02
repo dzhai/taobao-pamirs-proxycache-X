@@ -27,6 +27,7 @@ public class AServiceImpl implements ASerivce {
 	List<String> firstHaveValueKeys = new ArrayList<String>();
 
 	public String md5Name(User user) {
+		System.out.println("--------------");
 		String name=user.getName();
 		if (name == null)
 			return null;

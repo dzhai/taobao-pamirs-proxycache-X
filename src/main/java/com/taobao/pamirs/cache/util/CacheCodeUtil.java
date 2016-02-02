@@ -2,13 +2,11 @@ package com.taobao.pamirs.cache.util;
 
 import java.lang.reflect.Method;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.Assert;
-
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
-import com.taobao.pamirs.cache.framework.config.Parameter;
+import com.taobao.pamirs.cache.framework.config.ParameterIndex;
 
 /**
  * 缓存Code辅助类
@@ -53,11 +51,12 @@ public class CacheCodeUtil {
 		// 最终的缓存code
 		StringBuilder code = new StringBuilder();
 		// 1. region
-		// 2. bean + method + parameter
+		// 2. prefix
+		// 3. bean + method + parameter
 		code.append(getCacheAdapterKey(region, beanName, methodConfig));
 		
 		//反射对象中的属性
-		List<Parameter> parameterIndexs=methodConfig.getParameters();
+		List<ParameterIndex> parameterIndexs=methodConfig.getParameterIndexs();
 
 		// 3. value
 		List<Class<?>> parameterTypes = methodConfig.getParameterTypes();
@@ -69,7 +68,7 @@ public class CacheCodeUtil {
 				}
 				Object value=parameters[i];
 				if(parameterIndexs!=null && parameterIndexs.size()>0){
-					Parameter parameterIndex=parameterIndexs.get(i);
+					ParameterIndex parameterIndex=parameterIndexs.get(i);
 					if(parameterIndex==null){
 						continue;
 					}
@@ -86,7 +85,7 @@ public class CacheCodeUtil {
 	}
 
 	/**
-	 * 缓存适配器的key<br>
+	 * 缓存适配器的key<br> 为了做数据验证
 	 * 格式：region@beanName#methodName#{String|Long}
 	 * 
 	 * @param region
@@ -119,7 +118,7 @@ public class CacheCodeUtil {
 	
 	/**
 	 * 缓存适配器的key<br>
-	 * 格式：region@beanName#methodName#{String|Long}
+	 * 格式：region@prefix@beanName#methodName#
 	 * 
 	 * @param region
 	 * @param beanName
@@ -137,14 +136,19 @@ public class CacheCodeUtil {
 		if (StringUtils.isNotBlank(region))
 			key.append(region).append(REGION_SPLITE_SIGN);
 
-		// 2. bean + method + parameter
-		String methodName = methodConfig.getMethodName();
-		List<Class<?>> parameterTypes = methodConfig.getParameterTypes();
-
-		key.append(beanName).append(KEY_SPLITE_SIGN);
-		key.append(methodName).append(KEY_SPLITE_SIGN);
-		//key.append(parameterTypesToString(parameterTypes));
-
+		//2 prefix
+		
+		if(CacheCodeType.PREFIX_VALUE_TYPE.equals(CacheCodeType.toEnum(methodConfig.getCacheCodeType()))){
+			key.append(methodConfig.getPrefix()).append(REGION_SPLITE_SIGN);
+		}		
+		// 3. bean + method + parameter
+		if(CacheCodeType.DEFAULT_TYPE.equals(CacheCodeType.toEnum(methodConfig.getCacheCodeType()))){
+			String methodName = methodConfig.getMethodName();
+			key.append(beanName).append(KEY_SPLITE_SIGN);
+			key.append(methodName).append(KEY_SPLITE_SIGN);		
+			List<Class<?>> parameterTypes = methodConfig.getParameterTypes();
+			key.append(parameterTypesToString(parameterTypes));
+		}
 		return key.toString();
 
 	}
