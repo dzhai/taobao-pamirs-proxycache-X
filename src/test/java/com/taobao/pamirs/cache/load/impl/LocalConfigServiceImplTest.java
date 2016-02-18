@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.annotation.Resource;
 
@@ -34,6 +35,7 @@ public class LocalConfigServiceImplTest {
 
 	@Test
 	public void testGetCacheProxy() {
+
 //		MethodConfig methodConfig = new MethodConfig();
 //		methodConfig.setMethodName("firstHaveValue");
 //
@@ -53,6 +55,8 @@ public class LocalConfigServiceImplTest {
 		user.setName("zhangsan");
 		System.out.println(aService.md5Name(user));
 		System.out.println(aService.md5Name(user));
+		aService.clearNames("1", "1");
+		
 		System.out.println(aService.md5Name(user));
 	}
 

@@ -6,20 +6,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.aop.framework.AopContext;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
-
-import com.taobao.pamirs.cache.extend.jmx.annotation.JmxClass;
-import com.taobao.pamirs.cache.extend.jmx.annotation.JmxMethod;
 
 /**
  * 测试BeanA（测试重载方法、clear操作）
  * 
  * @author xiaocheng 2012-11-19
  */
-@JmxClass
 @Component("aService")
 public class AServiceImpl implements ASerivce {
 
@@ -69,7 +64,6 @@ public class AServiceImpl implements ASerivce {
 		return key;
 	}
 
-	@JmxMethod
 	@Override
 	public String noRewirteMethod(String arg) {
 		return arg;

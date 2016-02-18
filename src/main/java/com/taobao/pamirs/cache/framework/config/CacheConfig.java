@@ -33,14 +33,6 @@ public class CacheConfig extends CacheModule {
 	 */
 	private String storeRegion;
 
-	/**
-	 * Tair命名空间（just for tair）
-	 * 
-	 * @see StoreType.TAIR
-	 */
-	@Verfication(name = "Tair命名空间", notNull = true, when = { StoreType.TAIR })
-	private Integer storeTairNameSpace;
-
 	public String getStoreType() {
 		return storeType;
 	}
@@ -65,12 +57,5 @@ public class CacheConfig extends CacheModule {
 		this.storeRegion = storeRegion;
 	}
 
-	public Integer getStoreTairNameSpace() {
-		return storeTairNameSpace;
-	}
-
-	public void setStoreTairNameSpace(Integer storeTairNameSpace) {
-		this.storeTairNameSpace = storeTairNameSpace;
-	}
 
 }

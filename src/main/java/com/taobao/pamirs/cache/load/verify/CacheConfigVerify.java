@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
@@ -72,15 +73,18 @@ public class CacheConfigVerify {
 						for (CacheCleanMethod method : bean.getMethods()) {
 							StaticCheck.check(method);
 
-							for (MethodConfig subMethod : method
-									.getCleanMethods()) {
-								StaticCheck.check(subMethod);
+							for (MethodConfig subMethod : method.getCleanBeans()) {	
+								if(subMethod.getCleanBean()==null || StringUtils.isBlank(subMethod.getCleanBean().getPrefix())){
+									 throw new Exception("cleanBean和Prefix不能为空！");
+								}
+								//StaticCheck.check(subMethod);
 							}
 						}
 					}
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new LoadConfigException(e.getMessage());
 		}
 
@@ -216,7 +220,7 @@ public class CacheConfigVerify {
 		if (cacheConfig.getCacheCleanBeans() != null) {
 			for (CacheCleanBean cleanBean : cacheConfig.getCacheCleanBeans()) {
 				for (CacheCleanMethod method : cleanBean.getMethods()) {
-					for (MethodConfig clearMethod : method.getCleanMethods()) {
+					for (MethodConfig clearMethod : method.getCleanBeans()) {
 						String cacheAdapterKey = CacheCodeUtil
 								.getCacheAdapterKey(
 										cacheConfig.getStoreRegion(),

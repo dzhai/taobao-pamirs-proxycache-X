@@ -19,13 +19,6 @@ public abstract class AbstractCacheConfigService extends CacheManager {
 	private String storeType;
 
 	/**
-	 * tair储存空间
-	 * 
-	 * @see StoreType.TAIR
-	 */
-	private Integer tairNameSpace;
-
-	/**
 	 * 本地缓存清理时间
 	 * 
 	 * @see StoreType.MAP
@@ -41,10 +34,6 @@ public abstract class AbstractCacheConfigService extends CacheManager {
 		return storeType;
 	}
 
-	public Integer getTairNameSpace() {
-		return tairNameSpace;
-	}
-
 	public String getMapCleanTime() {
 		return mapCleanTime;
 	}
@@ -55,10 +44,6 @@ public abstract class AbstractCacheConfigService extends CacheManager {
 
 	public void setStoreType(String storeType) {
 		this.storeType = storeType;
-	}
-
-	public void setTairNameSpace(Integer tairNameSpace) {
-		this.tairNameSpace = tairNameSpace;
 	}
 
 	public void setMapCleanTime(String mapCleanTime) {

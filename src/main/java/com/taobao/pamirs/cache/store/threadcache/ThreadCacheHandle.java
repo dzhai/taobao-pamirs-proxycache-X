@@ -2,7 +2,6 @@ package com.taobao.pamirs.cache.store.threadcache;
 
 import static com.taobao.pamirs.cache.util.CacheCodeUtil.CODE_PARAM_VALUES_SPLITE_SIGN;
 import static com.taobao.pamirs.cache.util.CacheCodeUtil.KEY_SPLITE_SIGN;
-
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
-
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -22,9 +20,6 @@ import org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.core.PriorityOrdered;
-
-import com.taobao.pamirs.cache.extend.jmx.annotation.JmxClass;
-import com.taobao.pamirs.cache.extend.jmx.annotation.JmxMethod;
 import com.taobao.pamirs.cache.util.ParameterSupportTypeUtil;
 import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMap;
 
@@ -33,7 +28,7 @@ import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMap;
  * 
  * @author xiaocheng 2012-9-3
  */
-@JmxClass
+
 public class ThreadCacheHandle extends AbstractAutoProxyCreator implements
 		BeanFactoryAware, PriorityOrdered {
 
@@ -99,7 +94,6 @@ public class ThreadCacheHandle extends AbstractAutoProxyCreator implements
 		return openThreadCache;
 	}
 
-	@JmxMethod
 	public void setOpenThreadCache(boolean openThreadCache) {
 		this.openThreadCache = openThreadCache;
 	}
@@ -108,7 +102,6 @@ public class ThreadCacheHandle extends AbstractAutoProxyCreator implements
 		return printHitLog;
 	}
 
-	@JmxMethod
 	public void setPrintHitLog(boolean printHitLog) {
 		this.printHitLog = printHitLog;
 	}
@@ -117,7 +110,6 @@ public class ThreadCacheHandle extends AbstractAutoProxyCreator implements
 		return printLogDetail;
 	}
 
-	@JmxMethod
 	public void setPrintLogDetail(boolean printLogDetail) {
 		this.printLogDetail = printLogDetail;
 	}

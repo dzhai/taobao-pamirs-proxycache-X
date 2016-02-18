@@ -40,6 +40,13 @@ public interface ICache<K extends Serializable, V extends Serializable> {
 	public void put(K key, V value, int expireTime);
 
 	/**
+	 * 根据正则删除keys
+	 * 
+	 * @param key
+	 */
+	public void removeByReg(K regKey);
+	
+	/**
 	 * 删除key对应的数据
 	 * 
 	 * @param key

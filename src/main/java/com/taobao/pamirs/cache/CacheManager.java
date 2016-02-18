@@ -17,14 +17,11 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
-import com.taobao.pamirs.cache.extend.jmx.CacheMbean;
-import com.taobao.pamirs.cache.extend.jmx.CacheMbeanListener;
-import com.taobao.pamirs.cache.extend.jmx.annotation.JmxMethod;
-import com.taobao.pamirs.cache.extend.jmx.mbean.MBeanManagerFactory;
-import com.taobao.pamirs.cache.extend.log.xray.XrayLogListener;
 import com.taobao.pamirs.cache.framework.CacheProxy;
 import com.taobao.pamirs.cache.framework.ICache;
 import com.taobao.pamirs.cache.framework.config.CacheBean;
+import com.taobao.pamirs.cache.framework.config.CacheCleanBean;
+import com.taobao.pamirs.cache.framework.config.CacheCleanMethod;
 import com.taobao.pamirs.cache.framework.config.CacheConfig;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
 import com.taobao.pamirs.cache.framework.timer.CleanCacheTimerManager;
@@ -32,6 +29,7 @@ import com.taobao.pamirs.cache.load.ICacheConfigService;
 import com.taobao.pamirs.cache.load.verify.CacheConfigVerify;
 import com.taobao.pamirs.cache.store.StoreType;
 import com.taobao.pamirs.cache.store.map.MapStore;
+import com.taobao.pamirs.cache.store.redis.RedisStore;
 import com.taobao.pamirs.cache.util.CacheCodeUtil;
 import com.taobao.pamirs.cache.util.ConfigUtil;
 import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMap;
@@ -57,6 +55,8 @@ public abstract class CacheManager implements ApplicationContextAware,
 	protected ApplicationContext applicationContext;
 
 	private CleanCacheTimerManager timeTask = new CleanCacheTimerManager();
+		
+	protected ICache<Serializable, Serializable> cache =null;
 
 	private boolean useCache = true;
 
@@ -127,7 +127,20 @@ public abstract class CacheManager implements ApplicationContextAware,
 				for (MethodConfig method : cacheMethods) {
 					initCacheAdapters(cacheConfig.getStoreRegion(),
 							bean.getBeanName(), method,
-							cacheConfig.getStoreMapCleanTime());
+							cacheConfig.getStoreMapCleanTime(),false);
+				}
+			}
+		}
+		List<CacheCleanBean>  cacheCleanBeans=cacheConfig.getCacheCleanBeans();
+		if (cacheCleanBeans != null) {
+			// 只需注册cacheBean,目前cacheCleanBeans必须是它的子集
+			for (CacheCleanBean bean : cacheCleanBeans) {
+
+				List<CacheCleanMethod> cacheMethods = bean.getMethods();
+				for (MethodConfig method : cacheMethods) {
+					initCacheAdapters(cacheConfig.getStoreRegion(),
+							bean.getBeanName(), method,
+							cacheConfig.getStoreMapCleanTime(),true);
 				}
 			}
 		}
@@ -137,23 +150,27 @@ public abstract class CacheManager implements ApplicationContextAware,
 	 * 初始化Bean/Method对应的缓存，包括： <br>
 	 * 1. CacheProxy <br>
 	 * 2. 定时清理任务：storeMapCleanTime <br>
-	 * 3. 注册JMX <br>
-	 * 4. 注册Xray log <br>
 	 * 
 	 * @param region
 	 * @param cacheBean
 	 * @param storeMapCleanTime
 	 */
 	private void initCacheAdapters(String region, String beanName,
-			MethodConfig cacheMethod, String storeMapCleanTime) {
-		String key = CacheCodeUtil.getCacheAdapterKey(region, beanName,
-				cacheMethod);
+			MethodConfig cacheMethod, String storeMapCleanTime,boolean isCleanCache) {
+		String key ="";
+		if(isCleanCache){
+			key = CacheCodeUtil.getCleanCacheAdapterKey(region,beanName,cacheMethod);
+		}else{
+			key = CacheCodeUtil.getCacheAdapterKey(region,beanName,cacheMethod);			
+		}
 		StoreType storeType = StoreType.toEnum(cacheConfig.getStoreType());
-		ICache<Serializable, Serializable> cache = null;
-
-		if (StoreType.MAP == storeType) {
-			cache = new MapStore<Serializable, Serializable>(localMapSize,
-					localMapSegmentSize);
+		
+		if(cache==null){
+			if (StoreType.MAP == storeType) {
+				cache = new MapStore<Serializable, Serializable>(localMapSize,localMapSegmentSize);
+			}else if(StoreType.REDIS==storeType){
+				cache = new RedisStore<Serializable, Serializable>();
+			}		
 		}
 
 		if (cache != null) {
@@ -165,50 +182,16 @@ public abstract class CacheManager implements ApplicationContextAware,
 			cacheProxys.put(key, cacheProxy);
 
 			// 2. 定时清理任务：storeMapCleanTime
-			if (StoreType.MAP == storeType
-					&& StringUtils.isNotBlank(storeMapCleanTime)) {
+			if (StoreType.MAP == storeType && StringUtils.isNotBlank(storeMapCleanTime)) {
 				try {
 					timeTask.createCleanCacheTask(cacheProxy, storeMapCleanTime);
 				} catch (Exception e) {
 					log.error("[严重]设置Map定时清理任务失败!", e);
 				}
 			}
-
-			// 3. 注册JMX
-			registerCacheMbean(key, cacheProxy, storeMapCleanTime,
-					cacheMethod.getExpiredTime());
-
-			// 4. 注册Xray log
-			if (openCacheLog)
-				cacheProxy.addListener(new XrayLogListener(beanName,
-						cacheMethod.getMethodName(), cacheMethod
-								.getParameterTypes()));
 		}
 	}
 
-	/**
-	 * 注册JMX
-	 * 
-	 * @param key
-	 * @param cacheProxy
-	 */
-	private void registerCacheMbean(String key,
-			CacheProxy<Serializable, Serializable> cacheProxy,
-			String storeMapCleanTime, Integer expiredTime) {
-		try {
-			String mbeanName = CacheMbean.MBEAN_NAME + ":name=" + key;
-			CacheMbeanListener listener = new CacheMbeanListener();
-			cacheProxy.addListener(listener);
-			CacheMbean<Serializable, Serializable> cacheMbean = new CacheMbean<Serializable, Serializable>(
-					cacheProxy, listener, applicationContext,
-					storeMapCleanTime, expiredTime);
-			MBeanManagerFactory.registerMBean(mbeanName, cacheMbean);
-		} catch (InstanceAlreadyExistsException e) {
-			log.debug("重复注册JMX", e);
-		} catch (Exception e) {
-			log.warn("注册JMX失败", e);
-		}
-	}
 
 	public CacheProxy<Serializable, Serializable> getCacheProxy(String key) {
 		if (key == null || cacheProxys == null)
@@ -221,7 +204,6 @@ public abstract class CacheManager implements ApplicationContextAware,
 		return useCache;
 	}
 
-	@JmxMethod
 	public void setUseCache(boolean useCache) {
 		this.useCache = useCache;
 	}

@@ -170,16 +170,18 @@ public class CacheManagerRoundAdvice implements MethodInterceptor, Advice {
 			return;
 
 		for (MethodConfig methodConfig : cacheCleanMethods) {
-
-			String adapterKey = CacheCodeUtil.getCacheAdapterKey(storeRegion,
-					beanName, methodConfig);
+			String adapterKey = CacheCodeUtil.getCleanCacheAdapterKey(storeRegion, beanName, methodConfig);
 			CacheProxy<Serializable, Serializable> cacheAdapter = cacheManager
 					.getCacheProxy(adapterKey);
 
 			if (cacheAdapter != null) {
-				String cacheCode = CacheCodeUtil.getCacheCode(storeRegion,
-						beanName, methodConfig, invocation.getArguments());// 这里的invocation直接用主bean的，因为清理的bean的参数必须和主bean保持一致
-				cacheAdapter.remove(cacheCode, ip);
+//				String cacheCode = CacheCodeUtil.getCacheCode(storeRegion,
+//						beanName, methodConfig, invocation.getArguments());// 这里的invocation直接用主bean的，因为清理的bean的参数必须和主bean保持一致
+//				cacheAdapter.remove(cacheCode, ip);
+				
+				String cacheCode=CacheCodeUtil.getCleanCacheCode(storeRegion, beanName, methodConfig, invocation.getArguments());
+				
+				cacheAdapter.removeByReg(cacheCode, ip);
 			}
 		}
 	}

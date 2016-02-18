@@ -34,6 +34,7 @@
 		init-method="init">
 		<property name="storeType" value="map" />
 		<property name="openCacheLog" value="true"/>
+		<property name="storeRegion" value="cachetest"></property>
 		<property name="configFilePaths">
 			<list>
 				<value>load/cache-config.xml</value>

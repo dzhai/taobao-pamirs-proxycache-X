@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
@@ -14,6 +15,7 @@ import com.taobao.pamirs.cache.framework.config.CacheCleanBean;
 import com.taobao.pamirs.cache.framework.config.CacheCleanMethod;
 import com.taobao.pamirs.cache.framework.config.CacheConfig;
 import com.taobao.pamirs.cache.framework.config.CacheModule;
+import com.taobao.pamirs.cache.framework.config.CleanBean;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
 import com.taobao.pamirs.cache.framework.config.ParameterIndex;
 import com.taobao.pamirs.cache.load.LoadConfigException;
@@ -126,10 +128,41 @@ public class ConfigUtil {
 			List<CacheCleanMethod> methods = bean.getMethods();
 			for (CacheCleanMethod cacheCleanMethod : methods) {
 				if (cacheCleanMethod.isMe(methodName, parameterTypes))
-					return cacheCleanMethod.getCleanMethods();
+					
+					//return cacheCleanMethod.getCleanMethods();					
+					return cacheCleanMethod.getCleanBeans();
 			}
 		}
 
+		return null;
+	}
+	
+	
+	/**
+	 * 获取对应的缓存清理的MethodConfig配置列表
+	 * 
+	 * @param cacheConfig
+	 * @param beanName
+	 * @param methodName
+	 * @param parameterTypes
+	 * @return
+	 */
+	public static CacheCleanMethod getCacheCleanMethod(
+			CacheConfig cacheConfig, String beanName, String methodName,
+			List<Class<?>> parameterTypes) {
+
+		List<CacheCleanBean> cacheCleanBeans = cacheConfig.getCacheCleanBeans();
+
+		for (CacheCleanBean bean : cacheCleanBeans) {
+			if (!beanName.equals(bean.getBeanName()))
+				continue;
+
+			List<CacheCleanMethod> methods = bean.getMethods();
+			for (CacheCleanMethod cacheCleanMethod : methods) {
+				if (cacheCleanMethod.isMe(methodName, parameterTypes))
+					return cacheCleanMethod;
+			}
+		}
 		return null;
 	}
 
@@ -145,11 +178,13 @@ public class ConfigUtil {
 		xStream.alias("cacheModule", CacheModule.class);
 		xStream.alias("cacheBean", CacheBean.class);
 		xStream.alias("methodConfig", MethodConfig.class);
-		xStream.alias("parameter", ParameterIndex.class);
+		xStream.alias("parameterIndex", ParameterIndex.class);
 		xStream.useAttributeFor(ParameterIndex.class, "index");
 		xStream.useAttributeFor(ParameterIndex.class, "name");  
 		xStream.alias("cacheCleanBean", CacheCleanBean.class);
 		xStream.alias("cacheCleanMethod", CacheCleanMethod.class);
+		xStream.alias("cleanBean", CleanBean.class);
+		xStream.addImplicitCollection(CacheCleanMethod.class, "cleanBeans", MethodConfig.class);
 		if (inputStream != null) {
 			CacheModule cacheConfig = (CacheModule) xStream
 					.fromXML(inputStream);
@@ -207,7 +242,13 @@ public class ConfigUtil {
 		if (cacheConfig.getCacheCleanBeans() != null) {
 			for (CacheCleanBean cleanBean : cacheConfig.getCacheCleanBeans()) {
 				for (CacheCleanMethod method : cleanBean.getMethods()) {
-					for (MethodConfig clearMethod : method.getCleanMethods()) {
+					if(method.getCleanBeans()==null || method.getCleanBeans().size()==0){
+						continue;
+					}
+					for (MethodConfig clearMethod : method.getCleanBeans()) {
+						if(StringUtils.isBlank(clearMethod.getMethodName())){
+							clearMethod.setMethodName(method.getMethodName());
+						}
 						clearMethod.setParameterTypes(method
 								.getParameterTypes());// 继承
 					}

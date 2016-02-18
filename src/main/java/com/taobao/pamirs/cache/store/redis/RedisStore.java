@@ -47,4 +47,10 @@ public class RedisStore<K extends Serializable, V extends Serializable> implemen
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void removeByReg(K prefixKey) {
+		// TODO Auto-generated method stub
+		
+	}
 }

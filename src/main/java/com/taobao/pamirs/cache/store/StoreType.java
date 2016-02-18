@@ -7,7 +7,7 @@ package com.taobao.pamirs.cache.store;
  */
 public enum StoreType {
 
-	MAP("map"), TAIR("tair");
+	MAP("map"), REDIS("redis");
 
 	private String name;
 
@@ -23,8 +23,8 @@ public enum StoreType {
 		if (MAP.getName().equals(name))
 			return MAP;
 
-		if (TAIR.getName().equals(name))
-			return TAIR;
+		if (REDIS.getName().equals(name))
+			return REDIS;
 
 		return null;
 	}

@@ -90,4 +90,12 @@ public class MapStore<K extends Serializable, V extends Serializable>
 		return datas.size();
 	}
 
+	@Override
+	public void removeByReg(K regKey) {
+		datas.clear();
+		System.out.println(datas.size());
+		// TODO Auto-generated method stub
+		System.out.println("reomveByReg "+regKey);
+	}
+
 }

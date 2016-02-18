@@ -41,6 +41,11 @@ public class MethodConfig implements Serializable {
 	 * 参数配置
 	 */
 	private ParameterIndex parameterIndex;
+	
+	/**
+	 * 使用缓存  配置实体名称
+	 */
+	private String cache;
 
 	/**
 	 * 缓存code生成
@@ -53,6 +58,11 @@ public class MethodConfig implements Serializable {
 	 * 【可选项】
 	 */
 	private Integer expiredTime;
+	
+	/**
+	 * 清除缓存配置
+	 */
+	private CleanBean cleanBean;
 
 	public String getMethodName() {
 		return methodName;
@@ -161,13 +171,29 @@ public class MethodConfig implements Serializable {
 
 	public String getCacheCodeType() {
 		if(StringUtils.isBlank(cacheCodeType)){
-			cacheCodeType="prefix_value";
+			cacheCodeType="default";
 		}
 		return cacheCodeType;
 	}
 
 	public void setCacheCodeType(String cacheCodeType) {
 		this.cacheCodeType = cacheCodeType;
+	}
+
+	public String getCache() {
+		return cache;
+	}
+
+	public void setCache(String cache) {
+		this.cache = cache;
+	}
+
+	public CleanBean getCleanBean() {
+		return cleanBean;
+	}
+
+	public void setCleanBean(CleanBean cleanBean) {
+		this.cleanBean = cleanBean;
 	}
 
 }

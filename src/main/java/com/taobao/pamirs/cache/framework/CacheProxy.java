@@ -113,6 +113,22 @@ public class CacheProxy<K extends Serializable, V extends Serializable> extends
 				beanName, methodConfig, cacheException, ip));
 	}
 
+	public void removeByReg(K key, String ip) {
+		CacheException cacheException = null;
+
+		long start = System.currentTimeMillis();
+		try {
+			cache.removeByReg(key);
+		} catch (CacheException e) {
+			cacheException = e;
+		}
+		long end = System.currentTimeMillis();
+
+		// listener
+		notifyListeners(REMOVE, new CacheOprateInfo(key, end - start, true,
+				beanName, methodConfig, cacheException, ip));
+	}
+	
 	public void clear() {
 		cache.clear();
 	}
