@@ -22,13 +22,6 @@ public class CacheConfig extends CacheModule {
 	private String storeType;
 
 	/**
-	 * Map自动清理表达式（可选）(just for map）
-	 * 
-	 * @see StoreType.MAP
-	 */
-	private String storeMapCleanTime;
-
-	/**
 	 * 缓存分区（可选）
 	 */
 	private String storeRegion;
@@ -41,14 +34,6 @@ public class CacheConfig extends CacheModule {
 		this.storeType = storeType;
 	}
 
-	public String getStoreMapCleanTime() {
-		return storeMapCleanTime;
-	}
-
-	public void setStoreMapCleanTime(String storeMapCleanTime) {
-		this.storeMapCleanTime = storeMapCleanTime;
-	}
-
 	public String getStoreRegion() {
 		return storeRegion;
 	}
@@ -56,6 +41,5 @@ public class CacheConfig extends CacheModule {
 	public void setStoreRegion(String storeRegion) {
 		this.storeRegion = storeRegion;
 	}
-
 
 }

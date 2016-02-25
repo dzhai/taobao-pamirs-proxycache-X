@@ -17,29 +17,15 @@ public class CacheCleanMethod extends MethodConfig {
 	/**
 	 * 需要关联remove缓存的方法列表
 	 */
-	@Verfication(name = "需要关联remove缓存的方法列表", notEmptyList = false)
-	@Deprecated
+	@Verfication(name = "需要关联remove缓存的方法列表", notEmptyList = true)
 	private List<MethodConfig> cleanMethods;
 	
-	@Verfication(name = "需要remove缓存的列表", notEmptyList = true)
-	private List<MethodConfig> cleanBeans;
-	
-	@Deprecated
 	public List<MethodConfig> getCleanMethods() {
 		return cleanMethods;
 	}
 	
-	@Deprecated
 	public void setCleanMethods(List<MethodConfig> cleanMethods) {
 		this.cleanMethods = cleanMethods;
-	}
-
-	public List<MethodConfig> getCleanBeans() {
-		return cleanBeans;
-	}
-
-	public void setCleanBeans(List<MethodConfig> cleanBeans) {
-		this.cleanBeans = cleanBeans;
 	}
 
 }

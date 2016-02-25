@@ -5,57 +5,45 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.taobao.pamirs.proxycache</groupId>
 	<artifactId>taobao-pamirs-proxycache</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>3.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>taobao-pamirs-proxycache</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<java.version>1.7</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.6</java.version>
 		<spring.version>3.2.8.RELEASE</spring.version>
+		<xstream.version>1.4.2</xstream.version>
+		<slf4j.version>1.7.14</slf4j.version>
+		<log4j.version>1.2.14</log4j.version>
+		<commons-lang.version>2.4</commons-lang.version>
+		<commons-beanutils-core.version>1.8.0</commons-beanutils-core.version>
+		<commons-collections.version>3.2</commons-collections.version>
+		<junit.verion>4.11</junit.verion>
 	</properties>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.sun.jdmk</groupId>
-			<artifactId>jmxtools</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
-			<version>1.4.2</version>
+			<version>${xstream.version}</version>
 		</dependency>
+		<!-- commons -->
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.4</version>
+			<version>${commons-lang.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils-core</artifactId>
-			<version>1.8.0</version>
+			<version>${commons-beanutils-core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
-			<version>3.2</version>
-		</dependency>
-			<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.14</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.14</version>
+			<version>${commons-collections.version}</version>
 		</dependency>
 		<!-- provided -->
 		<dependency>
@@ -88,28 +76,22 @@
 			<version>${spring.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- logger -->
 		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>1.6.8</version>
-			<scope>provided</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjtools</artifactId>
-			<version>1.6.12</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>2.2</version>
-			<scope>provided</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.14</version>
+			<version>${log4j.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -117,25 +99,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.6</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.unitils</groupId>
-			<artifactId>unitils</artifactId>
-			<version>2.3</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>2.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymockclassextension</artifactId>
-			<version>2.4</version>
+			<version>${junit.verion}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -155,26 +119,24 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jxr-maven-plugin</artifactId>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<configuration>
-					<targetjdk>1.7</targetjdk>
+					<targetjdk>${java.version}</targetjdk>
 					<rulesets>
 						<ruleset>/rulesets/basic.xml</ruleset>
 						<ruleset>/rulesets/controversial.xml</ruleset>
 					</rulesets>
 					<format>xml</format>
 					<linkXref>true</linkXref>
-					<sourceEncoding>utf-8</sourceEncoding>
+					<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
 
 					<minimumTokens>100</minimumTokens>
 				</configuration>
 			</plugin>
 		</plugins>
 	</reporting>
-
 	<build>
 		<resources>
 			<resource>
@@ -191,12 +153,31 @@
 				<artifactId>maven.compiler.plugin</artifactId>
 				<version>2.1</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 					<verbal>true</verbal>
-					<encoding>UTF-8</encoding>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-javadoc-plugin</artifactId> 
+				<executions> <execution> <id>attach-javadocs</id> <goals> <goal>jar</goal> 
+				</goals> </execution> </executions> <configuration> <aggregate>true</aggregate> 
+				<charset>${project.build.sourceEncoding}</charset> <encoding>${project.build.sourceEncoding}</encoding> 
+				<docencoding>${project.build.sourceEncoding}</docencoding> </configuration> 
+				</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>

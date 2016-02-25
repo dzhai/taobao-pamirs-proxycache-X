@@ -7,10 +7,10 @@ package com.taobao.pamirs.cache.load.testbean;
  */
 public interface ASerivce {
 
-	String md5Name(User user);
+	String md5Name(String name);
 
 	String md5Name(String name, String key);
-	
+
 	String clearNames(String name, String key);
 
 	/**
@@ -20,7 +20,7 @@ public interface ASerivce {
 	 * @return
 	 */
 	String firstHaveValue(String key);
-	
+
 	/**
 	 * 验证没有重名方法时，配置不需要写参数
 	 * 
@@ -28,11 +28,13 @@ public interface ASerivce {
 	 * @return
 	 */
 	String noRewirteMethod(String arg);
-	
+
 	/**
 	 * 测试内部调用inner方法解决方案
+	 * 
 	 * @return
 	 */
 	String testInner(boolean aopInner);
+
 	String inner();
 }
