@@ -30,6 +30,7 @@ public class MethodConfig implements Serializable {
 	/**
 	 * 缓存前缀 prefix_value
 	 */
+	@Verfication(name = "缓存前缀", notEmpty = true)
 	private String prefix;	
 	
 	/**
@@ -58,11 +59,6 @@ public class MethodConfig implements Serializable {
 	 * 【可选项】
 	 */
 	private Integer expiredTime;
-	
-	/**
-	 * 清除缓存配置
-	 */
-	private CleanBean cleanBean;
 
 	public String getMethodName() {
 		return methodName;
@@ -130,7 +126,9 @@ public class MethodConfig implements Serializable {
 	public List<ParameterIndex> getParameterIndexs() {
 		if(parameterIndex!=null && parameterIndexs==null){
 			parameterIndexs=new ArrayList<ParameterIndex>();
-			parameterIndexs.add(parameterIndex);
+			if(parameterIndex!=null){
+				parameterIndexs.add(parameterIndex);				
+			}
 		}
 		return parameterIndexs;
 	}
@@ -186,14 +184,6 @@ public class MethodConfig implements Serializable {
 
 	public void setCache(String cache) {
 		this.cache = cache;
-	}
-
-	public CleanBean getCleanBean() {
-		return cleanBean;
-	}
-
-	public void setCleanBean(CleanBean cleanBean) {
-		this.cleanBean = cleanBean;
 	}
 
 }

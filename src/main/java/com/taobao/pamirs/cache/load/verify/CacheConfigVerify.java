@@ -71,11 +71,13 @@ public class CacheConfigVerify {
 
 					if (bean.getMethods() != null) {
 						for (CacheCleanMethod method : bean.getMethods()) {
-							StaticCheck.check(method);
-
-							for (MethodConfig subMethod : method.getCleanBeans()) {	
-								if(subMethod.getCleanBean()==null || StringUtils.isBlank(subMethod.getCleanBean().getPrefix())){
-									 throw new Exception("cleanBean和Prefix不能为空！");
+							//StaticCheck.check(method);
+							if(StringUtils.isBlank(method.getMethodName())){
+								 throw new Exception("MethodName不能为空！");
+							}
+							for (MethodConfig subMethod : method.getCleanMethods()) {	
+								if(StringUtils.isBlank(subMethod.getPrefix())){
+									 throw new Exception("Prefix不能为空！");
 								}
 								//StaticCheck.check(subMethod);
 							}
@@ -220,7 +222,7 @@ public class CacheConfigVerify {
 		if (cacheConfig.getCacheCleanBeans() != null) {
 			for (CacheCleanBean cleanBean : cacheConfig.getCacheCleanBeans()) {
 				for (CacheCleanMethod method : cleanBean.getMethods()) {
-					for (MethodConfig clearMethod : method.getCleanBeans()) {
+					for (MethodConfig clearMethod : method.getCleanMethods()) {
 						String cacheAdapterKey = CacheCodeUtil
 								.getCacheAdapterKey(
 										cacheConfig.getStoreRegion(),

@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.management.InstanceAlreadyExistsException;
-
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
@@ -17,6 +14,7 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
+import com.taobao.pamirs.cache.extend.log.LoggerListener;
 import com.taobao.pamirs.cache.framework.CacheProxy;
 import com.taobao.pamirs.cache.framework.ICache;
 import com.taobao.pamirs.cache.framework.config.CacheBean;
@@ -24,15 +22,11 @@ import com.taobao.pamirs.cache.framework.config.CacheCleanBean;
 import com.taobao.pamirs.cache.framework.config.CacheCleanMethod;
 import com.taobao.pamirs.cache.framework.config.CacheConfig;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
-import com.taobao.pamirs.cache.framework.timer.CleanCacheTimerManager;
 import com.taobao.pamirs.cache.load.ICacheConfigService;
 import com.taobao.pamirs.cache.load.verify.CacheConfigVerify;
 import com.taobao.pamirs.cache.store.StoreType;
-import com.taobao.pamirs.cache.store.map.MapStore;
-import com.taobao.pamirs.cache.store.redis.RedisStore;
 import com.taobao.pamirs.cache.util.CacheCodeUtil;
 import com.taobao.pamirs.cache.util.ConfigUtil;
-import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMap;
 
 /**
  * 缓存框架入口类
@@ -40,6 +34,7 @@ import com.taobao.pamirs.cache.util.lru.ConcurrentLRUCacheMap;
  * @author xuanyu
  * @author xiaocheng 2012-11-2
  */
+@SuppressWarnings("rawtypes")
 public abstract class CacheManager implements ApplicationContextAware,
 		ApplicationListener, ICacheConfigService {
 
@@ -53,30 +48,13 @@ public abstract class CacheManager implements ApplicationContextAware,
 	private final Map<String, CacheProxy<Serializable, Serializable>> cacheProxys = new ConcurrentHashMap<String, CacheProxy<Serializable, Serializable>>();
 
 	protected ApplicationContext applicationContext;
-
-	private CleanCacheTimerManager timeTask = new CleanCacheTimerManager();
 		
 	protected ICache<Serializable, Serializable> cache =null;
 
 	private boolean useCache = true;
-
+	
 	/** 打印缓存命中日志 **/
 	private boolean openCacheLog = false;
-
-	/**
-	 * 指定本地缓存时LruMap的大小，默认是1024
-	 * 
-	 * @see StoreType.MAP
-	 * @see ConcurrentLRUCacheMap
-	 */
-	private int localMapSize = ConcurrentLRUCacheMap.DEFAULT_INITIAL_CAPACITY;
-	/**
-	 * 指定本地缓存分段的大小，默认是16
-	 * 
-	 * @see StoreType.MAP
-	 * @see ConcurrentLRUCacheMap
-	 */
-	private int localMapSegmentSize = ConcurrentLRUCacheMap.DEFAULT_CONCURRENCY_LEVEL;;
 
 	public void init() throws Exception {
 		// 1. 加载/校验config
@@ -120,27 +98,23 @@ public abstract class CacheManager implements ApplicationContextAware,
 	private void initCache() {
 		List<CacheBean> cacheBeans = cacheConfig.getCacheBeans();
 		if (cacheBeans != null) {
-			// 只需注册cacheBean,目前cacheCleanBeans必须是它的子集
+			// 注册cacheBean
 			for (CacheBean bean : cacheBeans) {
 
 				List<MethodConfig> cacheMethods = bean.getCacheMethods();
 				for (MethodConfig method : cacheMethods) {
-					initCacheAdapters(cacheConfig.getStoreRegion(),
-							bean.getBeanName(), method,
-							cacheConfig.getStoreMapCleanTime(),false);
+					initCacheAdapters(cacheConfig.getStoreRegion(),bean.getBeanName(), method);
 				}
 			}
 		}
 		List<CacheCleanBean>  cacheCleanBeans=cacheConfig.getCacheCleanBeans();
 		if (cacheCleanBeans != null) {
-			// 只需注册cacheBean,目前cacheCleanBeans必须是它的子集
+			// 注册cacheCleanBeans
 			for (CacheCleanBean bean : cacheCleanBeans) {
 
 				List<CacheCleanMethod> cacheMethods = bean.getMethods();
 				for (MethodConfig method : cacheMethods) {
-					initCacheAdapters(cacheConfig.getStoreRegion(),
-							bean.getBeanName(), method,
-							cacheConfig.getStoreMapCleanTime(),true);
+					initCacheAdapters(cacheConfig.getStoreRegion(),bean.getBeanName(), method);
 				}
 			}
 		}
@@ -153,26 +127,12 @@ public abstract class CacheManager implements ApplicationContextAware,
 	 * 
 	 * @param region
 	 * @param cacheBean
-	 * @param storeMapCleanTime
 	 */
-	private void initCacheAdapters(String region, String beanName,
-			MethodConfig cacheMethod, String storeMapCleanTime,boolean isCleanCache) {
-		String key ="";
-		if(isCleanCache){
-			key = CacheCodeUtil.getCleanCacheAdapterKey(region,beanName,cacheMethod);
-		}else{
-			key = CacheCodeUtil.getCacheAdapterKey(region,beanName,cacheMethod);			
-		}
+	private void initCacheAdapters(String region, String beanName,MethodConfig cacheMethod) {
+		String key =CacheCodeUtil.getCacheAdapterKey(region,beanName,cacheMethod);		
+		
 		StoreType storeType = StoreType.toEnum(cacheConfig.getStoreType());
 		
-		if(cache==null){
-			if (StoreType.MAP == storeType) {
-				cache = new MapStore<Serializable, Serializable>(localMapSize,localMapSegmentSize);
-			}else if(StoreType.REDIS==storeType){
-				cache = new RedisStore<Serializable, Serializable>();
-			}		
-		}
-
 		if (cache != null) {
 			// 1. CacheProxy
 			CacheProxy<Serializable, Serializable> cacheProxy = new CacheProxy<Serializable, Serializable>(
@@ -180,15 +140,14 @@ public abstract class CacheManager implements ApplicationContextAware,
 					beanName, cacheMethod);
 
 			cacheProxys.put(key, cacheProxy);
-
-			// 2. 定时清理任务：storeMapCleanTime
-			if (StoreType.MAP == storeType && StringUtils.isNotBlank(storeMapCleanTime)) {
-				try {
-					timeTask.createCleanCacheTask(cacheProxy, storeMapCleanTime);
-				} catch (Exception e) {
-					log.error("[严重]设置Map定时清理任务失败!", e);
-				}
+			
+			
+			// 4. 注册Xray log
+			if (openCacheLog){
+				cacheProxy.addListener(new LoggerListener(beanName,cacheMethod.getMethodName(), cacheMethod.getParameterTypes()));				
 			}
+		}else{
+			throw new RuntimeException("缓存存储方式cache没有注入");
 		}
 	}
 
@@ -216,6 +175,14 @@ public abstract class CacheManager implements ApplicationContextAware,
 		return cacheConfig;
 	}
 
+	public void setCache(ICache<Serializable, Serializable> cache) {
+		this.cache = cache;
+	}
+
+	public void setOpenCacheLog(boolean openCacheLog) {
+		this.openCacheLog = openCacheLog;
+	}
+
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException {
@@ -224,18 +191,6 @@ public abstract class CacheManager implements ApplicationContextAware,
 
 	public ApplicationContext getApplicationContext() {
 		return applicationContext;
-	}
-
-	public void setLocalMapSize(int localMapSize) {
-		this.localMapSize = localMapSize;
-	}
-
-	public void setLocalMapSegmentSize(int localMapSegmentSize) {
-		this.localMapSegmentSize = localMapSegmentSize;
-	}
-
-	public void setOpenCacheLog(boolean openCacheLog) {
-		this.openCacheLog = openCacheLog;
 	}
 
 }

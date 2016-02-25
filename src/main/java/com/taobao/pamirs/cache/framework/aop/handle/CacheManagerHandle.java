@@ -17,8 +17,7 @@ import com.taobao.pamirs.cache.util.ConfigUtil;
  * @author xuannan
  */
 @SuppressWarnings("serial")
-public class CacheManagerHandle extends AbstractAutoProxyCreator implements
-		PriorityOrdered {
+public class CacheManagerHandle extends AbstractAutoProxyCreator implements PriorityOrdered {
 
 	private static final Log log = LogFactory.getLog(CacheManagerHandle.class);
 
@@ -37,17 +36,16 @@ public class CacheManagerHandle extends AbstractAutoProxyCreator implements
 	@SuppressWarnings("rawtypes")
 	protected Object[] getAdvicesAndAdvisorsForBean(Class beanClass,
 			String beanName, TargetSource targetSource) throws BeansException {
-
-		log.debug("CacheManagerHandle in:" + beanName);
-
-		if (ConfigUtil.isBeanHaveCache(cacheManager.getCacheConfig(), beanName)) {
-
-			log.warn("CacheManager start... ProxyBean:" + beanName);
-
-			return new CacheManagerAdvisor[] { new CacheManagerAdvisor(
-					cacheManager, beanName) };
+		if(cacheManager.isUseCache()){
+			log.debug("CacheManagerHandle in:" + beanName);
+			
+			if (ConfigUtil.isBeanHaveCache(cacheManager.getCacheConfig(), beanName)) {
+				
+				log.warn("CacheManager start... ProxyBean:" + beanName);
+				
+				return new CacheManagerAdvisor[] { new CacheManagerAdvisor(cacheManager, beanName) };
+			}			
 		}
-
 		return DO_NOT_PROXY;
 	}
 

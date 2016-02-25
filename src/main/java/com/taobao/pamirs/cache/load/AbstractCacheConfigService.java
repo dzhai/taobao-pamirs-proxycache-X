@@ -19,23 +19,22 @@ public abstract class AbstractCacheConfigService extends CacheManager {
 	private String storeType;
 
 	/**
-	 * 本地缓存清理时间
-	 * 
-	 * @see StoreType.MAP
+	 * 缓存空间
 	 */
-	private String mapCleanTime;
+	private Integer nameSpace;
 
 	/**
 	 * 缓存环境隔离
 	 */
 	private String storeRegion;
+	
+	/**
+	 * 失效时间，单位：秒 （可选）
+	 */
+	private Integer expiredTime;
 
 	public String getStoreType() {
 		return storeType;
-	}
-
-	public String getMapCleanTime() {
-		return mapCleanTime;
 	}
 
 	public String getStoreRegion() {
@@ -46,12 +45,24 @@ public abstract class AbstractCacheConfigService extends CacheManager {
 		this.storeType = storeType;
 	}
 
-	public void setMapCleanTime(String mapCleanTime) {
-		this.mapCleanTime = mapCleanTime;
-	}
-
 	public void setStoreRegion(String storeRegion) {
 		this.storeRegion = storeRegion;
+	}
+
+	public Integer getNameSpace() {
+		return nameSpace;
+	}
+
+	public void setNameSpace(Integer nameSpace) {
+		this.nameSpace = nameSpace;
+	}
+
+	public Integer getExpiredTime() {
+		return expiredTime;
+	}
+
+	public void setExpiredTime(Integer expiredTime) {
+		this.expiredTime = expiredTime;
 	}
 
 }

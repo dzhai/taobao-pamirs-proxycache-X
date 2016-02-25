@@ -15,7 +15,6 @@ import com.taobao.pamirs.cache.framework.config.CacheCleanBean;
 import com.taobao.pamirs.cache.framework.config.CacheCleanMethod;
 import com.taobao.pamirs.cache.framework.config.CacheConfig;
 import com.taobao.pamirs.cache.framework.config.CacheModule;
-import com.taobao.pamirs.cache.framework.config.CleanBean;
 import com.taobao.pamirs.cache.framework.config.MethodConfig;
 import com.taobao.pamirs.cache.framework.config.ParameterIndex;
 import com.taobao.pamirs.cache.load.LoadConfigException;
@@ -128,9 +127,8 @@ public class ConfigUtil {
 			List<CacheCleanMethod> methods = bean.getMethods();
 			for (CacheCleanMethod cacheCleanMethod : methods) {
 				if (cacheCleanMethod.isMe(methodName, parameterTypes))
-					
-					//return cacheCleanMethod.getCleanMethods();					
-					return cacheCleanMethod.getCleanBeans();
+									
+					return cacheCleanMethod.getCleanMethods();
 			}
 		}
 
@@ -139,7 +137,7 @@ public class ConfigUtil {
 	
 	
 	/**
-	 * 获取对应的缓存清理的MethodConfig配置列表
+	 * 获取对应的缓存清理的CacheCleanMethod
 	 * 
 	 * @param cacheConfig
 	 * @param beanName
@@ -183,8 +181,7 @@ public class ConfigUtil {
 		xStream.useAttributeFor(ParameterIndex.class, "name");  
 		xStream.alias("cacheCleanBean", CacheCleanBean.class);
 		xStream.alias("cacheCleanMethod", CacheCleanMethod.class);
-		xStream.alias("cleanBean", CleanBean.class);
-		xStream.addImplicitCollection(CacheCleanMethod.class, "cleanBeans", MethodConfig.class);
+		//xStream.addImplicitCollection(CacheBean.class, "cacheMethods", MethodConfig.class);
 		if (inputStream != null) {
 			CacheModule cacheConfig = (CacheModule) xStream
 					.fromXML(inputStream);
@@ -242,15 +239,14 @@ public class ConfigUtil {
 		if (cacheConfig.getCacheCleanBeans() != null) {
 			for (CacheCleanBean cleanBean : cacheConfig.getCacheCleanBeans()) {
 				for (CacheCleanMethod method : cleanBean.getMethods()) {
-					if(method.getCleanBeans()==null || method.getCleanBeans().size()==0){
+					if(method.getCleanMethods()==null || method.getCleanMethods().size()==0){
 						continue;
 					}
-					for (MethodConfig clearMethod : method.getCleanBeans()) {
+					for (MethodConfig clearMethod : method.getCleanMethods()) {
 						if(StringUtils.isBlank(clearMethod.getMethodName())){
-							clearMethod.setMethodName(method.getMethodName());
+							//clearMethod.setMethodName(method.getMethodName());
 						}
-						clearMethod.setParameterTypes(method
-								.getParameterTypes());// 继承
+						clearMethod.setParameterTypes(method.getParameterTypes());// 继承
 					}
 				}
 			}

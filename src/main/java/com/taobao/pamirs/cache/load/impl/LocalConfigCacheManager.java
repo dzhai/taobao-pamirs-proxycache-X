@@ -1,9 +1,15 @@
 package com.taobao.pamirs.cache.load.impl;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.taobao.pamirs.cache.framework.config.CacheConfig;
 import com.taobao.pamirs.cache.framework.config.CacheModule;
 import com.taobao.pamirs.cache.load.AbstractCacheConfigService;
@@ -20,10 +26,17 @@ import com.taobao.pamirs.cache.util.ConfigUtil;
 public class LocalConfigCacheManager extends AbstractCacheConfigService {
 
 	private List<String> configFilePaths;
+	
+	private String configFilePathDirectory;
+	
+	public void setConfigFilePathDirectory(String configFilePathDirectory) {
+		this.configFilePathDirectory = configFilePathDirectory;
+	}
 
 	public void setConfigFilePaths(List<String> configFilePaths) {
 		this.configFilePaths = configFilePaths;
 	}
+	
 
 	/**
 	 * 加载加载缓存配置
@@ -38,7 +51,6 @@ public class LocalConfigCacheManager extends AbstractCacheConfigService {
 
 		CacheConfig cacheConfig = new CacheConfig();
 		cacheConfig.setStoreType(getStoreType());
-		cacheConfig.setStoreMapCleanTime(getMapCleanTime());
 		cacheConfig.setStoreRegion(getStoreRegion());
 		for (CacheModule cacheModule : cacheModules) {
 			cacheConfig.getCacheBeans().addAll(cacheModule.getCacheBeans());
@@ -53,14 +65,29 @@ public class LocalConfigCacheManager extends AbstractCacheConfigService {
 	 * @return
 	 * @throws Exception
 	 */
+	@SuppressWarnings("deprecation")
 	private List<CacheModule> getCacheModules() {
+		
+		ClassLoader classLoader = Thread.class.getClassLoader();			
+		
+		if(StringUtils.isNotBlank(configFilePathDirectory) && (configFilePaths == null || configFilePaths.size() <= 0)){
+			String directory=getClass().getResource("/").getPath()+configFilePathDirectory;
+			directory=URLDecoder.decode(directory);
+			String[] fileNames=new File(directory).list();			
+			if(fileNames!=null && fileNames.length>0){
+				configFilePaths=new ArrayList<String>();
+				for(String fileName:fileNames){
+					configFilePaths.add(configFilePathDirectory+File.separatorChar+fileName);
+				}
+			}
+		}
+
 		if (configFilePaths == null || configFilePaths.size() <= 0) {
 			throw new IllegalArgumentException("非法配置文件路径的参数，配置文件列表不能为空");
 		}
 
 		InputStream input = null;
 		try {
-			ClassLoader classLoader = Thread.class.getClassLoader();
 			if (classLoader == null) {
 				classLoader = LocalConfigCacheManager.class.getClassLoader();
 			}
