@@ -10,17 +10,25 @@
 
 
 	<bean id="cacheManager" class="com.taobao.pamirs.cache.load.impl.LocalConfigCacheManager" init-method="init">
-		<property name="storeType" value="map" />
+		<property name="storeType" value="redis" />
 		<property name="storeRegion" value="_proxycache"/>
 		<property name="openCacheLog" value="true"/>
 		<property name="configFilePathDirectory" value="proxycache"/>
-		<property name="cache" ref="mapStore"/>
+		<property name="cache" ref="redisStore"/>
 	</bean>
 
 	<bean class="com.taobao.pamirs.cache.framework.aop.handle.CacheManagerHandle">
 		<property name="cacheManager" ref="cacheManager" />
 	</bean>
+	
+	<bean id="mapStore" class="com.taobao.pamirs.cache.store.map.MapStore">
 
-	<bean id="mapStore" class="com.taobao.pamirs.cache.store.map.MapStore" />
+	</bean>
+	
+	<bean id="redisStore" class="com.taobao.pamirs.cache.store.redis.RedisStore">
+		<property name="redis" ref="redis" />
+		<property name="nameSpace" value="15" />
+		<property name="storeRegion" value="_proxycache"/>
+	</bean>
 
 </beans>

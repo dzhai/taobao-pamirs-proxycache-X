@@ -24,7 +24,7 @@ public class LocalConfigServiceImplTest {
 
 //		System.out.println(aService.md5Name("md5Name"));
 //		System.out.println(aService.md5Name("md5Name"));
-		
+		System.out.println(aService.md5Name("md5Name"));
 		System.out.println(aService.md5Name("zhangsanfeng","lisi"));
 //		System.out.println(aService.md5Name("md5Name","2"));
 //		
@@ -39,7 +39,7 @@ public class LocalConfigServiceImplTest {
 //		
 		aService.clearNames("zhangsanfeng", "lisi");
 //		
-//		System.out.println(aService.md5Name("md5Name"));
+		System.out.println(aService.md5Name("md5Name"));
 //		System.out.println(aService.md5Name("md5Name","2"));
 //		System.out.println(aService.firstHaveValue("firstHaveValue"));
 //		System.out.println(aService.noRewirteMethod("noRewirteMethod"));

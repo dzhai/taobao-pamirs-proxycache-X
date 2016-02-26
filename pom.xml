@@ -21,6 +21,7 @@
 		<commons-beanutils-core.version>1.8.0</commons-beanutils-core.version>
 		<commons-collections.version>3.2</commons-collections.version>
 		<junit.verion>4.11</junit.verion>
+		<jedis.version>2.1.0</jedis.version>
 	</properties>
 
 	<dependencies>
@@ -107,6 +108,12 @@
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		    <version>${jedis.version}</version>
+		    <scope>provided</scope>
 		</dependency>
 	</dependencies>
 
