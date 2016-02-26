@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName">
+
+<!-- 	<bean id="tairManager" class="com.taobao.tair.impl.DefaultTairManager" init-method="init"> -->
+<!-- 		<property name="configServerList"> -->
+<!-- 			<list> -->
+<!-- 				<value>${tair.config.server1}</value> -->
+<!-- 				<value>${tair.config.server2}</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="groupName"> -->
+<!-- 			<value>${tair.group.name}</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+	
+	<!-- 升级到mc-tair -->
+	<bean id="tairManager" class="com.taobao.tair.impl.mc.MultiClusterTairManager"
+		init-method="init">
+		<property name="configID">
+			<value>ldbcommon-daily</value>
+		</property>
+		<property name="dynamicConfig">
+			<value type="java.lang.Boolean">true</value>
+		</property>
+	</bean>
+
+	<bean id="cacheManager" class="com.taobao.pamirs.cache.load.impl.LocalConfigCacheManager" init-method="init"
+		depends-on="tairManager">
+		<property name="storeType" value="tair/map" />
+		<property name="tairNameSpace" value="318" />					<!-- just for tair store -->
+		<property name="storeMapCleanTime" value="0 * * * * ? *" />		<!-- just for map store，可选 -->
+		<property name="localMapSize" value="1024" />					<!-- just for map store，可选，默认1024 -->
+		<property name="localMapSegmentSize" value="8" />				<!-- just for map store，可选，默认16 -->
+		<property name="storeRegion" value="${store.tair.region}" />	<!-- 环境分区，可选 -->
+		<property name="configFilePaths">
+			<list>
+				<value>bean/cache/cache-config-article.xml</value>
+				<value>bean/cache/cache-config-item.xml</value>
+				<value>bean/cache/cache-config-pack.xml</value>
+				<value>bean/cache/cache-config-activity.xml</value>
+				<value>bean/cache/cache-config-promotion.xml</value>
+			</list>
+		</property>
+		<property name="tairManager" ref="tairManager" />				<!-- just for tair store -->
+	</bean>
+
+	<bean class="com.taobao.pamirs.cache.framework.aop.handle.CacheManagerHandle">
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+
+</beans>

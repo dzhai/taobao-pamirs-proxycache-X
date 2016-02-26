@@ -16,14 +16,6 @@
 						<java-class>java.lang.String</java-class>
 					</parameterTypes>
 					<expiredTime></expiredTime>						<!-- 失效时间，单位：秒。 可以是相对时间，也可以是绝对时间(大于当前时间戳是绝对时间过期)。不传或0都是不过期，可选 -->
-					
-					<prefix>junit</prefix>
-					<cache>getPromotionByCode</cache>
-					<parameterIndex index="0" name="XXX"/>  <!-- index 表示参数位置，如果参数是对象形式，name表示对象里面的属性 -->
-					<parameterIndexs>                       <!-- 多个参数配置，如果配置parameterIndexs 忽略parameterIndex配置 -->
-						<parameterIndex index="0" name="XXX"/>
-						<parameterIndex index="2" name="XXX"/>
-					</parameterIndexs>
 				</methodConfig>
 				<methodConfig>
 					...
@@ -44,13 +36,9 @@
 					</parameterTypes>
 					<cleanMethods>
 						<methodConfig>
-							<prefix>junit</prefix>
-							<cache>getPromotionByCode</cache>
-							<parameterIndex index="0" name="XXX"/>  <!-- index 表示参数位置，如果参数是对象形式，name表示对象里面的属性 -->
-							<parameterIndexs>                       <!-- 多个参数配置，如果配置parameterIndexs 忽略parameterIndex配置 -->
-								<parameterIndex index="0" name="XXX"/>
-								<parameterIndex index="2" name="XXX"/>
-							</parameterIndexs>
+							<methodName>getPromotionById</methodName>
+							<beanName />							<!-- 不用配置，会继承上面的beanName -->
+							<parameterTypes />						<!-- 不用配置，会继承，目前只支持参数必须和上面的一致的方法 -->
 						</methodConfig>
 					</cleanMethods>
 				</cacheCleanMethod>
