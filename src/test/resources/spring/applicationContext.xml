@@ -10,10 +10,24 @@
 	 http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 	  http://www.springframework.org/schema/context 
 	 http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+    
+    <aop:aspectj-autoproxy />
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:conf/redis.properties</value>
+			</list>
+		</property>
+	</bean>
       
- 	<context:annotation-config />
-	 
+ 
 	<context:component-scan base-package="com.taobao"/>
+
+	<!--导入jedis配置-->
+	<import resource="applicationContext-jedis.xml" />
+	
 	<!--导入proxycache配置-->
 	<import resource="applicationContext-proxycache.xml" />
+	
 </beans>

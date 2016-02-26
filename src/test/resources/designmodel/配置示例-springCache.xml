@@ -1,38 +1,19 @@
-<?xml version="1.0" encoding="GBK"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
-<beans default-autowire="byName">
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	default-autowire="byName">	
 
-<!-- 	<bean id="tairManager" class="com.taobao.tair.impl.DefaultTairManager" init-method="init"> -->
-<!-- 		<property name="configServerList"> -->
-<!-- 			<list> -->
-<!-- 				<value>${tair.config.server1}</value> -->
-<!-- 				<value>${tair.config.server2}</value> -->
-<!-- 			</list> -->
-<!-- 		</property> -->
-<!-- 		<property name="groupName"> -->
-<!-- 			<value>${tair.group.name}</value> -->
-<!-- 		</property> -->
-<!-- 	</bean> -->
-	
-	<!-- Éý¼¶µ½mc-tair -->
-	<bean id="tairManager" class="com.taobao.tair.impl.mc.MultiClusterTairManager"
-		init-method="init">
-		<property name="configID">
-			<value>ldbcommon-daily</value>
-		</property>
-		<property name="dynamicConfig">
-			<value type="java.lang.Boolean">true</value>
-		</property>
-	</bean>
 
-	<bean id="cacheManager" class="com.taobao.pamirs.cache.load.impl.LocalConfigCacheManager" init-method="init"
-		depends-on="tairManager">
-		<property name="storeType" value="tair/map" />
-		<property name="tairNameSpace" value="318" />					<!-- just for tair store -->
-		<property name="storeMapCleanTime" value="0 * * * * ? *" />		<!-- just for map store£¬¿ÉÑ¡ -->
-		<property name="localMapSize" value="1024" />					<!-- just for map store£¬¿ÉÑ¡£¬Ä¬ÈÏ1024 -->
-		<property name="localMapSegmentSize" value="8" />				<!-- just for map store£¬¿ÉÑ¡£¬Ä¬ÈÏ16 -->
-		<property name="storeRegion" value="${store.tair.region}" />	<!-- »·¾³·ÖÇø£¬¿ÉÑ¡ -->
+	<bean id="cacheManager" class="com.taobao.pamirs.cache.load.impl.LocalConfigCacheManager" init-method="init">
+		<property name="storeType" value="redis" /> <!-- å­˜å‚¨ç±»åž‹ -->
+		<property name="storeRegion" value="_proxycache"/>  <!-- çŽ¯å¢ƒåˆ†åŒºï¼Œå¯é€‰ -->
+		<property name="openCacheLog" value="false"/> <!-- æ˜¯å¦æ‰“å°å‘½ä¸­æ—¥å¿— -->
+		<property name="configFilePathDirectory" value="proxycache"/> <!-- å¯ä»¥é…ç½®ç¼“å­˜æ–‡ä»¶æ‰€åœ¨ç›®å½• å¦‚æžœé…ç½®äº†configFilePaths è¿™ä¸ªé…ç½®è¢«å¿½ç•¥ -->
 		<property name="configFilePaths">
 			<list>
 				<value>bean/cache/cache-config-article.xml</value>
@@ -42,11 +23,23 @@
 				<value>bean/cache/cache-config-promotion.xml</value>
 			</list>
 		</property>
-		<property name="tairManager" ref="tairManager" />				<!-- just for tair store -->
+		<property name="cache" ref="redisStore"/>  <!-- æ³¨å…¥å­˜å‚¨ç±»åž‹ æ‰€ç”¨çš„å­˜å‚¨ç±» -->
 	</bean>
 
 	<bean class="com.taobao.pamirs.cache.framework.aop.handle.CacheManagerHandle">
 		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+	
+	<!-- MAP -->
+	<bean id="mapStore" class="com.taobao.pamirs.cache.store.map.MapStore">
+
+	</bean>
+	
+	<!-- redis -->
+	<bean id="redisStore" class="com.taobao.pamirs.cache.store.redis.RedisStore">
+		<property name="redis" ref="redis" />
+		<property name="nameSpace" value="15" />
+		<property name="storeRegion" value="_proxycache"/>
 	</bean>
 
 </beans>
