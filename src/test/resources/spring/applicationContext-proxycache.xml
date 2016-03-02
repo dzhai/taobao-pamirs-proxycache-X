@@ -27,6 +27,7 @@
 	
 	<bean id="redisStore" class="com.taobao.pamirs.cache.store.redis.RedisStore">
 		<property name="redis" ref="redis" />
+		<property name="expireTime" value="600" />
 		<property name="nameSpace" value="15" />
 		<property name="storeRegion" value="_proxycache"/>
 	</bean>
