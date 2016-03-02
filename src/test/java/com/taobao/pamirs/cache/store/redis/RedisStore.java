@@ -14,6 +14,8 @@ public class RedisStore<K extends Serializable, V extends Serializable> implemen
 	private String storeRegion;
 	
 	private IRedisUtils redis;
+		
+	private Integer expireTime;
 	
 	public RedisStore(){
 
@@ -42,7 +44,11 @@ public class RedisStore<K extends Serializable, V extends Serializable> implemen
 
 	@Override
 	public void put(K key, V value) {
-		redis.set(convertKey(key).getBytes(), SerializeUtil.serialize(value), 0, nameSpace);
+		if(expireTime==null || expireTime<=0){
+			redis.set(convertKey(key).getBytes(), SerializeUtil.serialize(value), 0, nameSpace);			
+		}else{
+			redis.set(convertKey(key).getBytes(), SerializeUtil.serialize(value), expireTime, nameSpace);
+		}
 	}
 
 	@Override
@@ -121,4 +127,9 @@ public class RedisStore<K extends Serializable, V extends Serializable> implemen
 	public void setRedis(IRedisUtils redis) {
 		this.redis = redis;
 	}
+
+	public void setExpireTime(Integer expireTime) {
+		this.expireTime = expireTime;
+	}
+	
 }
